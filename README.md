@@ -23,13 +23,18 @@ This is the client-side of openai project which is build using NextJS, Typescrip
 
 ## Features
 
-- List the main features of your project.
+- [x] Comming Soon 
 
 ## Getting Started
 
 ### Prerequisites
 
-- List any prerequisites required to run the project (e.g. Node.js, npm, etc.)
+<li>NodeJS</li>
+<li>NPM</li>
+<li>Socket.io</li>
+<li>NextJS</li>
+<li>TailwindCSS</li>
+<li>Typescript</li>
 
 ### Installation
 
