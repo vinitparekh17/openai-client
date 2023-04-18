@@ -38,7 +38,7 @@ Brief description of the project.
 
    ```sh
    git clone https://github.com/vinitparekh17/openai-client.git
-```
+    ```
 
 2. Install NPM packages:
 
@@ -50,7 +50,7 @@ Brief description of the project.
 
    ```sh
    npm start
-```
+    ```
 
 ## Usage
 <!--  -->
