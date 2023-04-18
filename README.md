@@ -6,10 +6,6 @@
 <!-- logo or cover image here -->
 <!-- ![Project Logo](https://link-to-project-logo.png) -->
 
-[![Next.js](https://img.shields.io/badge/Next.js-11.1.2-blue)](https://nextjs.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-2.2.7-blueviolet)](https://tailwindcss.com/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-4.4.4-blue)](https://www.typescriptlang.org/)
-
 # OpenAI Client
 This is the client-side of openai project which is build using NextJS, Typescript and TailwindCSS.
 
@@ -47,11 +43,11 @@ This is the client-side of openai project which is build using NextJS, Typescrip
 
    ```sh
    npm install
-```
+    ```
 
 3. Run the project:
 
-   ```sh
+    ```sh
    npm start
     ```
 
