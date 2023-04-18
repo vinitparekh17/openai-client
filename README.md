@@ -61,5 +61,5 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## Contact
 
 [![Twitter](https://img.shields.io/twitter/follow/your_vinitparekh17?label=Follow%20%40vinitparekh17&style=social)](https://twitter.com/vinitparekh17)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-vinit-parekh-475154221-blue?style=social&logo=linkedin)](https://www.linkedin.com/in/vinit-parekh-475154221/)
-[![GitHub](https://img.shields.io/github/followers/vinitparekh17?label=Follow%20%40your_vinitparekh17&style=social)](https://github.com/vinitparekh17)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-vinit_parekh-blue?style=social&logo=linkedin)](https://www.linkedin.com/in/vinit-parekh-475154221/)
+[![GitHub](https://img.shields.io/github/followers/vinitparekh17?label=Follow%20%40vinitparekh17&style=social)](https://github.com/vinitparekh17)
