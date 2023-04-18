@@ -3,16 +3,9 @@
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/vinitparekh17/openai-client)
 ![GitHub](https://img.shields.io/github/license/vinitparekh17/openai-client)
 
-<!-- logo or cover image here -->
-<!-- ![Project Logo](https://link-to-project-logo.png) -->
-
-# OpenAI Client
-This is the client-side of openai project which is build using NextJS, Typescript and TailwindCSS.
-
 ## Table of Contents
 
 - [OpenAI Client](#openai-client)
-  - [Table of Contents](#table-of-contents)
   - [Features](#features)
   - [Getting Started](#getting-started)
     - [Prerequisites](#prerequisites)
@@ -20,6 +13,12 @@ This is the client-side of openai project which is build using NextJS, Typescrip
   - [Usage](#usage)
   - [License](#license)
   - [Contact](#contact)
+<!-- logo or cover image here -->
+<!-- ![Project Logo](https://link-to-project-logo.png) -->
+
+# OpenAI Client
+This is the client-side of openai project which is build using NextJS, Typescript and TailwindCSS.
+
 
 ## Features
 
@@ -53,7 +52,13 @@ This is the client-side of openai project which is build using NextJS, Typescrip
 3. Run the project:
 
     ```sh
-   npm start
+   npm run dev
+    ```
+
+4. Open the project in your browser:
+
+   ```sh
+   http://localhost:3000
     ```
 
 ## Usage
