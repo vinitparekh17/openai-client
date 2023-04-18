@@ -1,24 +1,16 @@
-<!-- Add badges here -->
-![GitHub last commit](https://img.shields.io/github/last-commit/vinitparekh17/openai-client)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/vinitparekh17/openai-client)
-![GitHub](https://img.shields.io/github/license/vinitparekh17/openai-client)
-
-## Table of Contents
-
-- [OpenAI Client](#openai-client)
-  - [Features](#features)
-  - [Getting Started](#getting-started)
-    - [Prerequisites](#prerequisites)
-    - [Installation](#installation)
-  - [Usage](#usage)
-  - [License](#license)
-  - [Contact](#contact)
 <!-- logo or cover image here -->
 <!-- ![Project Logo](https://link-to-project-logo.png) -->
 
 # OpenAI Client
-This is the client-side of openai project which is build using NextJS, Typescript and TailwindCSS.
 
+![GitHub last commit](https://img.shields.io/github/last-commit/vinitparekh17/openai-client)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/vinitparekh17/openai-client)
+![GitHub](https://img.shields.io/github/license/vinitparekh17/openai-client)
+
+[About](#about) | [Features](#features) | [Getting Started](#getting-started) | [Usage](#usage) | [License](#license) | [Contact](#contact)
+
+# About
+This is the client-side of openai project which is build using NextJS, Typescript and TailwindCSS.
 
 ## Features
 
