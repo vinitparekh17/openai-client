@@ -6,13 +6,16 @@
 <!-- logo or cover image here -->
 <!-- ![Project Logo](https://link-to-project-logo.png) -->
 
-# Project Name
+[![Next.js](https://img.shields.io/badge/Next.js-11.1.2-blue)](https://nextjs.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-2.2.7-blueviolet)](https://tailwindcss.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-4.4.4-blue)](https://www.typescriptlang.org/)
 
-Brief description of the project.
+# OpenAI Client
+This is the client-side of openai project which is build using NextJS, Typescript and TailwindCSS.
 
 ## Table of Contents
 
-- [Project Name](#project-name)
+- [OpenAI Client](#openai-client)
   - [Table of Contents](#table-of-contents)
   - [Features](#features)
   - [Getting Started](#getting-started)
