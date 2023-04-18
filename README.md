@@ -1,33 +1,35 @@
 <!-- logo or cover image here -->
 <!-- ![Project Logo](https://link-to-project-logo.png) -->
 
-# OpenAI Client
+<h1 align="center">
+<br/>
+    <img src="https://raw.githubusercontent.com/vinitparekh17/openai-client/main/public/images/next.svg" alt="OpenAI Client" width="200">
+<br/>
+OpenAI Client</h1>
 
-![GitHub last commit](https://img.shields.io/github/last-commit/vinitparekh17/openai-client)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/vinitparekh17/openai-client)
-![GitHub](https://img.shields.io/github/license/vinitparekh17/openai-client)
+<p align="center">
+<img src="https://img.shields.io/github/last-commit/vinitparekh17/openai-client" alt="GitHub last commit">
+<img src="https://img.shields.io/github/issues-pr/vinitparekh17/openai-client" alt="GitHub pull requests">
+<img src="https://img.shields.io/github/license/vinitparekh17/openai-client" alt="GitHub">
+</p>
 
-[About](#about) | [Features](#features) | [Getting Started](#getting-started) | [Usage](#usage) | [License](#license) | [Contact](#contact)
+<p align="center">
+<a href="#about">About</a> •
+<a href="#features">Features</a> •
+<a href="#setup">Setup</a> •
+<a href="#usage">Usage</a> •
+<a href="#license">License</a> •
+<a href="#contact">Contact</a>
+</p>
 
-# About
+## About
 This is the client-side of openai project which is build using NextJS, Typescript and TailwindCSS.
 
 ## Features
 
 - [x] Comming Soon 
 
-## Getting Started
-
-### Prerequisites
-
-<li>NodeJS</li>
-<li>NPM</li>
-<li>Socket.io</li>
-<li>NextJS</li>
-<li>TailwindCSS</li>
-<li>Typescript</li>
-
-### Installation
+## Setup
 
 1. Clone the repository:
 
