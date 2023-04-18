@@ -3,7 +3,7 @@
 
 <h1 align="center">
 <br/>
-    <img src="https://raw.githubusercontent.com/vinitparekh17/openai-client/main/public/images/next.svg" alt="OpenAI Client" width="200">
+    <!-- <img src="https://raw.githubusercontent.com/vinitparekh17/openai-client/main/public/images/next.svg" alt="OpenAI Client" width="200"> -->
 <br/>
 OpenAI Client</h1>
 
