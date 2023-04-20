@@ -7,24 +7,20 @@ import { FcGoogle } from "react-icons/fc";
 
 const AuthButtons: NextPage = () => {
     return (
-        <div className="mt-4 space-y-3">
+        <div className="mt-4 flex justify-center">
             <button
                 type="button"
                 onClick={() => signIn('google')}
-                className="relative inline-flex w-full items-center justify-center rounded-md border border-gray-500 bg-white px-4 py-4 text-base font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black focus:outline-none dark:text-gray-400">
-                <div className="absolute inset-y-0 left-0 p-4">
-                    <FcGoogle className="h-6 w-6" />
-                </div>
-                Sign in with Google
+                className="flex justify-center items-center mr-2 w-36 rounded-md border border-none bg-gray-200 px-4 py-4 text-base font-semibold text-gray-700 transition-all duration-200 hover:bg-white focus:bg-white focus:text-black focus:outline-none dark:text-black">
+                <FcGoogle className="h-5 w-5 mr-1" />
+                <span>Google</span>
             </button>
             <button
                 type="button"
                 onClick={() => signIn('twitter')}
-                className="relative inline-flex w-full items-center justify-center rounded-md border border-gray-500 bg-white px-4 py-4 text-base font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black focus:outline-none dark:text-gray-400">
-                <div className="absolute inset-y-0 left-0 p-4">
-                    <BsTwitter className="h-6 w-6 text-[#1DA1F2]" />
-                </div>
-                Sign in with Twitter
+                className="flex justify-center items-center ml-2 w-36 rounded-md border border-none bg-sky-400 px-4 py-4 text-base font-semibold text-gray-200 transition-all duration-200 hover:bg-sky-300 focus:bg-sky-300 focus:text-white focus:outline-none dark:text-gray-100">
+                <BsTwitter className="h-5 w-5 mr-1 text-white" />
+                <span>Twitter</span>
             </button>
         </div>
     )

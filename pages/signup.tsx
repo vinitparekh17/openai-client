@@ -7,13 +7,13 @@ export default function Login() {
         <section className="dark:bg-gray-800 max-h-screen">
             <div className="grid grid-cols-1 lg:grid-cols-2">
                 <div
-                    className="flex items-center justify-center h-screen">
+                    className="flex items-center justify-center h-screen px-4 py-2">
                     <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
                         <h2
                             className="text-3xl font-bold leading-tight text-black dark:text-white sm:text-4xl">
-                            Welcome back
+                            Create your account
                         </h2>
-                        <AuthForm formType='login' />
+                        <AuthForm formType='signup' />
                         {/* or line */}
                         <div className='flex items-center justify-center mt-4'>
                             <div className='w-2/3 border-b dark:border-gray-700'></div>
@@ -24,11 +24,11 @@ export default function Login() {
                         <AuthButtons />
                         <div className='flex justify-center'>
                             <p className="text-base mt-5 text-gray-600 dark:text-gray-300">
-                                Don't have an account?
+                                Already have an account?
                                 <Link
-                                    href="/signup"
+                                    href="/login"
                                     className="font-medium text-indigo-600 transition-all duration-200 hover:text-indigo-700 hover:underline focus:text-indigo-700">
-                                    &nbsp; Create a free account
+                                    &nbsp; login
                                 </Link>
                             </p>
                         </div>
