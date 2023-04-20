@@ -1,67 +1,34 @@
-<!-- logo or cover image here -->
-<!-- ![Project Logo](https://link-to-project-logo.png) -->
-
-# OpenAI Client
-
-![GitHub last commit](https://img.shields.io/github/last-commit/vinitparekh17/openai-client)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/vinitparekh17/openai-client)
-![GitHub](https://img.shields.io/github/license/vinitparekh17/openai-client)
-
-[About](#about) | [Features](#features) | [Getting Started](#getting-started) | [Usage](#usage) | [License](#license) | [Contact](#contact)
-
-# About
-This is the client-side of openai project which is build using NextJS, Typescript and TailwindCSS.
-
-## Features
-
-- [x] Comming Soon 
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
-### Prerequisites
+First, run the development server:
 
-<li>NodeJS</li>
-<li>NPM</li>
-<li>Socket.io</li>
-<li>NextJS</li>
-<li>TailwindCSS</li>
-<li>Typescript</li>
+```bash
+npm run dev
+# or
+yarn dev
+```
 
-### Installation
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-1. Clone the repository:
+You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-   ```sh
-   git clone https://github.com/vinitparekh17/openai-client.git
-    ```
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
-2. Install NPM packages:
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-   ```sh
-   npm install
-    ```
+## Learn More
 
-3. Run the project:
+To learn more about Next.js, take a look at the following resources:
 
-    ```sh
-   npm run dev
-    ```
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-4. Open the project in your browser:
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-   ```sh
-   http://localhost:3000
-    ```
+## Deploy on Vercel
 
-## Usage
-<!--  -->
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-## License
-
-Distributed under the MIT License. See `LICENSE` for more information.
-
-## Contact
-
-[![Twitter](https://img.shields.io/twitter/follow/your_vinitparekh17?label=Follow%20%40vinitparekh17&style=social)](https://twitter.com/vinitparekh17)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-vinit_parekh-blue?style=social&logo=linkedin)](https://www.linkedin.com/in/vinit-parekh-475154221/)
-[![GitHub](https://img.shields.io/github/followers/vinitparekh17?label=Follow%20%40vinitparekh17&style=social)](https://github.com/vinitparekh17)
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
