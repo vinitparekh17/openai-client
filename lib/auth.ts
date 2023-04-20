@@ -1,9 +1,10 @@
-import{ NextAuthOptions } from 'next-auth';
-import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
-import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, TWITTER_CLIENT_ID, TWITTER_CLIENT_SECRET } from '../config';
+import { NextAuthOptions } from 'next-auth';
+import {
+    GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET,
+    TWITTER_CLIENT_ID, TWITTER_CLIENT_SECRET
+} from '../config';
 import GoogleProvider from 'next-auth/providers/google';
 import TwitterProvider from 'next-auth/providers/twitter';
-import clientPromise from './mongoClient';
 
 export const AuthOptions: NextAuthOptions = {
     pages: {
@@ -15,18 +16,27 @@ export const AuthOptions: NextAuthOptions = {
     providers: [
         GoogleProvider({
             clientId: GOOGLE_CLIENT_ID || '',
-            clientSecret: GOOGLE_CLIENT_SECRET || ''
+            clientSecret: GOOGLE_CLIENT_SECRET || '',
+            authorization: {
+                params: {
+                  prompt: "consent",
+                  access_type: "offline",
+                  response_type: "code"
+                }
+              }
         }),
         TwitterProvider({
-            clientId: TWITTER_CLIENT_ID ||'',
+            clientId: TWITTER_CLIENT_ID || '',
             clientSecret: TWITTER_CLIENT_SECRET || '',
+            version: '2.0'
         })
     ],
-    adapter: MongoDBAdapter(clientPromise, {
-        databaseName: 'gptbot',
-        collections: {
-            Accounts: 'account',
-            Users: 'auth-user'
-        }
-    }),
+    callbacks: {
+        async signIn({ account, profile }) {
+            if (account?.provider === "google") {
+                console.log(profile);
+            }
+            return true // Do different verification for other providers that don't have `email_verified`
+          },
+    }
 }
