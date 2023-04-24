@@ -1,15 +1,16 @@
 import { NextAuthOptions } from 'next-auth';
 import {
-    GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET,
-    TWITTER_CLIENT_ID, TWITTER_CLIENT_SECRET
+    GOOGLE_CLIENT_ID,
+    GOOGLE_CLIENT_SECRET,
+    JWT_SECRET
 } from '../config';
 import GoogleProvider from 'next-auth/providers/google';
-import TwitterProvider from 'next-auth/providers/twitter';
 
 export const AuthOptions: NextAuthOptions = {
     session: {
         strategy: "jwt",
     },
+    secret: JWT_SECRET,
     pages: {
         signIn: '/login',
     },
@@ -24,11 +25,15 @@ export const AuthOptions: NextAuthOptions = {
                     response_type: "code"
                 }
             }
-        }),
-        TwitterProvider({
-            clientId: TWITTER_CLIENT_ID || '',
-            clientSecret: TWITTER_CLIENT_SECRET || '',
-            version: '2.0'
         })
-    ]
+    ],
+
+    callbacks: {
+        async jwt({ token, account }) {
+            if (account?.access_token) {
+                token.accessToken = account.access_token
+            }
+            return token
+        }
+    }
 }

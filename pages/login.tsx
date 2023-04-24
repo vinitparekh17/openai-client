@@ -1,8 +1,16 @@
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 import AuthButtons from '../components/AuthButtons';
 import AuthForm from '../components/AuthForm';
 
 export default function Login() {
+    const { status } = useSession();
+    const router = useRouter();
+    if (status === 'authenticated') {
+        router.push('/dashboard');
+        return <p>Redirecting...</p>
+    }
     return (
         <section className="dark:bg-gray-800 max-h-screen">
             <div className="grid grid-cols-1 lg:grid-cols-2">
@@ -13,7 +21,7 @@ export default function Login() {
                             className="text-3xl font-bold leading-tight text-black dark:text-white sm:text-4xl">
                             Welcome back
                         </h2>
-                        <AuthForm formType='login' />
+                        <AuthForm formType='signin' />
                         {/* or line */}
                         <div className='flex items-center justify-center mt-4'>
                             <div className='w-2/3 border-b dark:border-gray-700'></div>
