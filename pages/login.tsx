@@ -1,13 +1,27 @@
+'use client';
 import Link from 'next/link';
-import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import AuthButtons from '../components/AuthButtons';
+import { useSession } from 'next-auth/react';
 import AuthForm from '../components/AuthForm';
+import AuthButtons from '../components/AuthButtons';
+import { useSelector, useDispatch } from 'react-redux';
+import { AuthSlice, CurrentAuthState } from '../slices/authSlice'
+import { useEffect } from 'react';
 
 export default function Login() {
+    const {token} = useSelector(CurrentAuthState);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        if (!token && localStorage.getItem('token')) {
+            dispatch(AuthSlice.actions.addToken({
+                token: localStorage.getItem('token')!
+            })
+            )
+        }
+    }, [])
     const { status } = useSession();
     const router = useRouter();
-    if (status === 'authenticated') {
+    if (status === 'authenticated' || token) {
         router.push('/dashboard');
         return <p>Redirecting...</p>
     }

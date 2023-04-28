@@ -1,4 +1,3 @@
-import jwtDecode from 'jwt-decode';
 import type { FormValues } from "../type/auth"
 
 export const authSubmit = async (data: FormValues): Promise<any> => {
@@ -17,9 +16,7 @@ export const authSubmit = async (data: FormValues): Promise<any> => {
             .then(data => {
                 if (data.token) {
                     const { token } = data
-                    const decoded = jwtDecode(token)
                     localStorage.setItem("token", token)
-                    localStorage.setItem("user", JSON.stringify(decoded))
                 }
             })
     } catch (error) {

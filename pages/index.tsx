@@ -1,8 +1,10 @@
 import type { NextPage } from 'next';
+import Navbar from '../components/Navbar';
 
 const Home: NextPage = () => {
   return (
     <div className="bg-white">
+      <Navbar />
       <div className="flex items-center max-h-[100vh] h-screen">
         <div className="px-8 w-1/2">
           <div className="text-7xl text-gray-900 font-semibold">
