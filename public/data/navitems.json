@@ -1,0 +1,25 @@
+[
+    {
+        "title": "Home",
+        "path": "/",
+        "disabled": false
+    },
+
+    {
+        "title": "Conversations",
+        "path": "/conversations",
+        "disabled": true
+    },
+
+    {
+        "title": "About",
+        "path": "/about",
+        "disabled": false
+    },
+    
+    {
+        "title": "Contact",
+        "path": "/contact",
+        "disabled": false
+    }
+]

@@ -7,9 +7,10 @@ import AuthButtons from '../components/AuthButtons';
 import { useSelector, useDispatch } from 'react-redux';
 import { AuthSlice, CurrentAuthState } from '../slices/authSlice'
 import { useEffect } from 'react';
+import Or from '../components/OrDivider';
 
 export default function Login() {
-    const {token} = useSelector(CurrentAuthState);
+    const { token } = useSelector(CurrentAuthState);
     const dispatch = useDispatch();
     useEffect(() => {
         if (!token && localStorage.getItem('token')) {
@@ -22,7 +23,7 @@ export default function Login() {
     const { status } = useSession();
     const router = useRouter();
     if (status === 'authenticated' || token) {
-        router.push('/dashboard');
+        router.push('/conversations');
         return <p>Redirecting...</p>
     }
     return (
@@ -36,13 +37,7 @@ export default function Login() {
                             Welcome back
                         </h2>
                         <AuthForm formType='signin' />
-                        {/* or line */}
-                        <div className='flex items-center justify-center mt-4'>
-                            <div className='w-2/3 border-b dark:border-gray-700'></div>
-                            <div className='mx-2 uppercase text-gray-500 dark:text-gray-400'>or</div>
-                            <div className='w-2/3 border-b dark:border-gray-700'></div>
-                        </div>
-
+                        <Or />
                         <AuthButtons />
                         <div className='flex justify-center'>
                             <p className="text-base mt-5 text-gray-600 dark:text-gray-300">

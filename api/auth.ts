@@ -1,4 +1,4 @@
-import type { FormValues } from "../type/auth"
+import type { FormValues } from "../type/auth";
 
 export const authSubmit = async (data: FormValues): Promise<any> => {
     try {
@@ -8,15 +8,35 @@ export const authSubmit = async (data: FormValues): Promise<any> => {
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
-                "Set-Cookie": "chatplus-token"
             },
             body: JSON.stringify(data),
             credentials: "include",
         }).then(res => res.json())
+        .then(data => {
+            if (data.token) {
+                const { token } = data
+                localStorage.setItem("token", token)
+            }
+            })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const authSignOut = async (): Promise<any> => {
+    try {
+        await fetch("http://localhost:8080/api/user/signout", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+            },
+            credentials: "include",
+        }).then(res => res.json())
             .then(data => {
-                if (data.token) {
-                    const { token } = data
-                    localStorage.setItem("token", token)
+                if (data.message) {
+                    localStorage.removeItem("token")
+                    window.location.href = "/login";
                 }
             })
     } catch (error) {

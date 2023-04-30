@@ -1,14 +1,29 @@
 import Link from 'next/link';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { CurrentAuthState } from '../slices/authSlice';
+import { AuthSlice } from '../slices/authSlice';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import AuthButtons from '../components/AuthButtons';
 import AuthForm from '../components/AuthForm';
+import Or from '../components/OrDivider';
 
 export default function Signup() {
+    const { token } = useSelector(CurrentAuthState);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        if (!token && localStorage.getItem('token')) {
+            dispatch(AuthSlice.actions.addToken({
+                token: localStorage.getItem('token')!
+            })
+            )
+        }
+    }, [])
     const { status } = useSession();
     const router = useRouter();
-    if (status === 'authenticated') {
-        router.push('/dashboard');
+    if (status === 'authenticated' || token) {
+        router.push('/conversations');
         return <p>Redirecting...</p>
     }
     return (
@@ -22,13 +37,7 @@ export default function Signup() {
                             Create your account
                         </h2>
                         <AuthForm formType='signup' />
-                        {/* or line */}
-                        <div className='flex items-center justify-center mt-4'>
-                            <div className='w-2/3 border-b dark:border-gray-700'></div>
-                            <div className='mx-2 uppercase text-gray-500 dark:text-gray-400'>or</div>
-                            <div className='w-2/3 border-b dark:border-gray-700'></div>
-                        </div>
-
+                        <Or />
                         <AuthButtons />
                         <div className='flex justify-center'>
                             <p className="text-base mt-5 text-gray-600 dark:text-gray-300">

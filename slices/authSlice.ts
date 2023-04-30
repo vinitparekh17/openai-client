@@ -35,6 +35,27 @@ export const AuthSlice = createSlice({
             state.token = null;
             state.id = null;
             localStorage.removeItem("token");
+        },
+
+        getData(state) {
+            let token = localStorage.getItem("token");
+            if (token) {
+                state.token = token;
+                let decoded: DecodedToken | null = jwtDecode(token);
+                state.id = decoded ? decoded.data._id : null;
+            }
+        },
+
+        getDataById(state, action: PayloadAction<{ id: string }>) {
+            if (action.payload.id) {
+                fetch(`http://localhost:5000/api/users/${state.id}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                        return data;
+                    })
+                    .catch(err => console.log(err));
+            }
         }
     }
 });
