@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CurrentAuthState } from '../slices/authSlice';
@@ -19,7 +20,7 @@ export default function Signup() {
             })
             )
         }
-    }, [])
+    }, [token, dispatch])
     const { status } = useSession();
     const router = useRouter();
     if (status === 'authenticated' || token) {
@@ -52,8 +53,10 @@ export default function Signup() {
                     </div>
                 </div>
                 <div className="h-full w-full hidden lg:block">
-                    <img
+                    <Image
                         className="mx-auto w-full h-screen object-cover"
+                        height={1080}
+                        width={1920}
                         src="https://images.unsplash.com/photo-1630673245362-f69d2b93880e?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1740&amp;q=80"
                         alt="login image" />
                 </div>

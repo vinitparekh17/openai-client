@@ -1,10 +1,11 @@
 import Link from "next/link";
+import Image from "next/image";
 import { useSelector } from "react-redux";
 import { CurrentAuthState } from "../slices/authSlice";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { authSignOut } from "../api/auth";
+import { authSignOut } from "../myapi/auth";
 import { signOut } from "next-auth/react";
 import type { NavItems, NavItemsList } from "../type/navbar";
 
@@ -55,7 +56,7 @@ export default function Navbar() {
                     </div>
                     <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                         <div className="flex flex-shrink-0 items-center">
-                            <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=200" alt="Your Company" />
+                            {/* <Image className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=200" width={40} height={40} alt="Your Company" /> */}
                         </div>
                         <div className="hidden sm:ml-6 sm:block">
                             <div className="flex space-x-4">
@@ -75,7 +76,7 @@ export default function Navbar() {
                             <div>
                                 {session || token ? <button type="button" onClick={() => setUmOpen(!umOpen)} className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                                     <span className="sr-only">Open user menu</span>
-                                    <img className="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
+                                    {/* <Image className="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="logo" width={40} height={40} dangerouslyAllowSVG /> */}
                                 </button> : <Link
                                     href={'/login'}
                                     className="bg-teal-600 text-white px-3 py-2 rounded-md text-sm font-medium">Login</Link>
@@ -84,10 +85,10 @@ export default function Navbar() {
                             {umOpen &&
                                 <div className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none transform opacity-100 scale-95 transition ease-out duration-100" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabIndex={-1}>
                                 {/* <!-- Active: "bg-gray-100", Not Active: "" --> */}
-                                <a href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-0">Your Profile</a>
-                                <a href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-1">Settings</a>
-                                <a onClick={() => session ? signOut() : authSignOut()
-                                } className="block cursor-pointer px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-2">Sign out</a>
+                                <Link href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-0">Your Profile</Link>
+                                <Link href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-1">Settings</Link>
+                                <button onClick={() => session ? signOut() : authSignOut()
+                                } className="block cursor-pointer px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-2">Sign out</button>
                             </div>
                             }
                         </div>

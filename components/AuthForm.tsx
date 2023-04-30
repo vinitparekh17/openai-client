@@ -1,6 +1,6 @@
 import { NextPage } from "next"
 import { useForm } from "react-hook-form";
-import { authSubmit } from "../api/auth";
+import { authSubmit } from "../myapi/auth";
 import type { FormType, FormValues } from "../type/auth"
 import Link from "next/link"
 
