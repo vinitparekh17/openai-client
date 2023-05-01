@@ -4,9 +4,8 @@ import { CurrentAuthState } from "../../slices/authSlice";
 import { useRouter } from "next/router";
 import Navbar from "../../components/Navbar";
 import Slider from "../../components/Slider";
-import Image from "next/image";
-import ChatContainer from "../../components/ChatContainer";
 import ChatGreet from "../../components/ChatGreet";
+import MyHead from "../../components/Head";
 
 export default function Conversations() {
     const router = useRouter()
@@ -20,6 +19,7 @@ export default function Conversations() {
     } else if (session || token) {
         return (
             <>
+                <MyHead />
                 <Navbar />
                 <Slider>
                     <ChatGreet />

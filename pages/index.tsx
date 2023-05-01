@@ -1,11 +1,15 @@
 import type { NextPage } from 'next';
 import Navbar from '../components/Navbar';
+import MyHead from '../components/Head';
 
 const Home: NextPage = () => {
   return (
-    <div className="bg-white">
+    <>
+      <MyHead />
       <Navbar />
-    </div>
+      <div className="bg-gray-100 dark:bg-gray-900">
+      </div>
+    </>
   )
 }
 

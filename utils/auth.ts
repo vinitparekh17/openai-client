@@ -1,4 +1,4 @@
-import type { FormValues } from "../type/auth";
+import type { FormValues } from "../types/auth";
 
 export const authSubmit = async (data: FormValues): Promise<any> => {
     try {
