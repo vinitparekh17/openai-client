@@ -3,7 +3,7 @@ import type { FormValues } from "../types/auth";
 export const authSubmit = async (data: FormValues): Promise<any> => {
     try {
         const { formType } = data
-        await fetch(`http://localhost:8080/api/user/${formType}`, {
+        await fetch(`http://54.250.183.65:8080/api/user/${formType}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -16,6 +16,9 @@ export const authSubmit = async (data: FormValues): Promise<any> => {
             if (data.token) {
                 const { token } = data
                 localStorage.setItem("token", token)
+                if(localStorage.getItem("token")){
+                    window.location.href = "/conversations";
+                }
             }
             })
     } catch (error) {
@@ -25,7 +28,7 @@ export const authSubmit = async (data: FormValues): Promise<any> => {
 
 export const authSignOut = async (): Promise<any> => {
     try {
-        await fetch("http://localhost:8080/api/user/signout", {
+        await fetch("http://54.250.183.65:8080/api/user/signout", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
