@@ -3,7 +3,7 @@ import type { FormValues } from "../types/auth";
 export const authSubmit = async (data: FormValues): Promise<any> => {
     try {
         const { formType } = data
-        await fetch(`http://54.250.183.65:8080/api/user/${formType}`, {
+        await fetch(`https://api.omnisive.technetic.co.in/api/user/${formType}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
