@@ -1,13 +1,12 @@
 import Link from "next/link";
-import Image from "next/image";
 import { useSelector } from "react-redux";
-import { CurrentAuthState } from "../slices/authSlice";
+import { CurrentAuthState } from "../../slices/authSlice";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { authSignOut } from "../utils/auth";
+import { authSignOut } from "../../utils/auth";
 import { signOut } from "next-auth/react";
-import type { NavItems, NavItemsList } from "../types/navbar";
+import type { NavItems, NavItemsList } from "../../types/navbar";
 
 export default function Navbar() {
     const { data: session } = useSession()

@@ -6,10 +6,10 @@ import { CurrentAuthState } from '../slices/authSlice';
 import { AuthSlice } from '../slices/authSlice';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import AuthButtons from '../components/AuthButtons';
-import AuthForm from '../components/AuthForm';
-import Or from '../components/OrDivider';
-import MyHead from '../components/Head';
+import AuthButtons from '../components/Auth/AuthButtons';
+import AuthForm from '../components/Auth/AuthForm';
+import Or from '../components/Basic/OrDivider';
+import MyHead from '../components/Basic/Head';
 
 export default function Signup() {
     const { token } = useSelector(CurrentAuthState);

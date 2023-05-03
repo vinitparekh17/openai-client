@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { BiPlus } from 'react-icons/bi';
 import { ReactElement } from 'react';
-import BotCard from './BotCard'
-import ChatForm from './ChatForm';
+import BotCard from '../Bot/BotCard'
+import ChatForm from '../Chat/ChatForm';
 
 export default function Slider({ children }: { children: ReactElement}) {
     return (

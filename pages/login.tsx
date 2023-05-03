@@ -3,13 +3,13 @@ import Image from 'next/image';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
-import AuthForm from '../components/AuthForm';
-import AuthButtons from '../components/AuthButtons';
+import AuthForm from '../components/Auth/AuthForm';
+import AuthButtons from '../components/Auth/AuthButtons';
 import { useSelector, useDispatch } from 'react-redux';
 import { AuthSlice, CurrentAuthState } from '../slices/authSlice'
 import { useEffect } from 'react';
-import Or from '../components/OrDivider';
-import MyHead from '../components/Head';
+import Or from '../components/Basic/OrDivider';
+import MyHead from '../components/Basic/Head';
 
 export default function Login() {
     const { token } = useSelector(CurrentAuthState);

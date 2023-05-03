@@ -2,10 +2,11 @@ import { useSession } from "next-auth/react";
 import { useSelector } from "react-redux";
 import { CurrentAuthState } from "../../slices/authSlice";
 import { useRouter } from "next/router";
-import Navbar from "../../components/Navbar";
-import Slider from "../../components/Slider";
-import ChatGreet from "../../components/ChatGreet";
-import MyHead from "../../components/Head";
+import Navbar from "../../components/Basic/Navbar";
+import Slider from "../../components/Basic/Slider";
+import ChatGreet from "../../components/Chat/ChatGreet";
+import MyHead from "../../components/Basic/Head";
+import Loadeing from "../../components/Basic/Loading";
 
 export default function Conversations() {
     const router = useRouter()
@@ -22,7 +23,7 @@ export default function Conversations() {
                 <MyHead />
                 <Navbar />
                 <Slider>
-                    <ChatGreet />
+                    <Loadeing />
                 </Slider>
             </>
         )

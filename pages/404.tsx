@@ -1,4 +1,4 @@
-import MyHead from "../components/Head";
+import MyHead from "../components/Basic/Head";
 
 export default function Custom404() {
   return (

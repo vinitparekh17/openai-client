@@ -1,5 +1,5 @@
 import ChatForm from "./ChatForm";
-import Message from "./Message";
+import Message from "../Message";
 
 export default function ChatContainer() {
   return (
