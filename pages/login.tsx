@@ -31,7 +31,7 @@ export default function Login() {
     return (
         <>
             <MyHead />
-            <main className="dark:bg-gray-800 max-h-screen">
+            <main className="bg-gray-50 dark:bg-gray-900">
                 <div className="grid grid-cols-1 lg:grid-cols-2">
                     <div
                         className="flex items-center justify-center h-screen">

@@ -1,4 +1,4 @@
-import BotForm from "../../components/BotForm";
+import BotForm from "../../components/Bot/BotForm";
 
 export default function Create() {
     return (

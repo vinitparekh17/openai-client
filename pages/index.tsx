@@ -1,5 +1,8 @@
 import type { NextPage } from 'next';
-import Navbar from '../components/Basic/Navbar';
+// lazy load navbar
+import SkeletonNavbar from '../components/Skeleton/SkeletonNav';
+import dynamic from 'next/dynamic';
+const Navbar = dynamic(() => import('../components/Basic/Navbar'), { ssr: false, loading: () => <SkeletonNavbar /> });
 import MyHead from '../components/Basic/Head';
 
 const Home: NextPage = () => {
@@ -7,8 +10,6 @@ const Home: NextPage = () => {
     <>
       <MyHead />
       <Navbar />
-      <div className="bg-gray-100 dark:bg-gray-900">
-      </div>
     </>
   )
 }
