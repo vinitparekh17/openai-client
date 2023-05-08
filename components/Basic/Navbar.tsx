@@ -1,20 +1,23 @@
 'use client';
 import Link from "next/link";
 import Image from "next/image";
+import { Dropdown } from "@nextui-org/react";
 import type { Theme } from "../../types/theme";
 import { useDispatch, useSelector } from "react-redux";
 import { CurrentAuthState } from "../../slices/authSlice";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { HiMoon, HiSun, HiUserCircle, HiCog, HiLogout } from "react-icons/hi"
 import { authSignOut } from "../../utils/auth";
 import { signOut } from "next-auth/react";
 import type { NavItems, NavItemsList } from "../../types/navbar";
-import { ThemeSlice } from "../../slices/themeSlice";
+import { currentTheme, ThemeSlice } from "../../slices/themeSlice";
 
 export default function Navbar() {
     const router = useRouter();
     const dispatch = useDispatch()
+    const { theme } = useSelector(currentTheme)
     const { data: session } = useSession()
     const { token } = useSelector(CurrentAuthState);
     const [navItems, setNavItems] = useState<NavItemsList>([])
@@ -68,31 +71,40 @@ export default function Navbar() {
                     </div>
                     <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                         <div className="mx-2">
-                            <label htmlFor="theme" className="sr-only">Theme</label>
-                            <select name="theme" id="theme" className="bg-teal-500 dark:bg-teal-700 text-white px-3 py-2 rounded-md text-sm font-medium focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                                onChange={e => handleTheme(e.target.value)} defaultValue={localStorage.getItem('theme') || 'light'}>
-                                <option value="light">Light</option>
-                                <option value="dark">Dark</option>
-                            </select>
+                            <div className="relative w-14 h-8">
+                                <label htmlFor="toggle" className="flex items-center cursor-pointer">
+                                    <div className={`w-14 h-8 bg-gray-300 rounded-full shadow-inner`}></div>
+                                    <div className={`absolute left-1 top-1 w-6 h-6 bg-white rounded-full transition-transform duration-300 ${theme === "light" ? 'translate-x-full' : ''}`}>
+                                        {theme === "light" ? <HiSun className="text-yellow-500 m-1" /> : <HiMoon className="text-gray-500 m-1" />}
+                                    </div>
+                                    <input type="checkbox" id="toggle" name="toggle" className="hidden" onChange={() => handleTheme(theme === 'dark' ? 'light' : 'dark')} />
+                                </label>
+                            </div>
                         </div>
                         <div className="relative ml-3">
                             {session || token ?
-                                <button type="button" onClick={() => setUmOpen(!umOpen)} className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
-                                    <span className="sr-only">Open user menu</span>
-                                    <Image className="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="logo" width={40} height={40} />
-                                </button> : <Link
+                                <Dropdown placement="bottom-left">
+                                    <Dropdown.Trigger>
+                                        <button type="button" onClick={() => setUmOpen(!umOpen)} className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                                            <span className="sr-only">Open user menu</span>
+                                            <Image className="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="logo" width={40} height={40} />
+                                        </button>
+                                    </Dropdown.Trigger>
+                                    <Dropdown.Menu>
+                                        <Dropdown.Item icon={<HiUserCircle className="mr-2" />}>
+                                            <Link href="/profile">Your Profile</Link>
+                                        </Dropdown.Item>
+                                        <Dropdown.Item icon={<HiCog className="mr-2" />}>
+                                            <Link href="/settings">Settings</Link>
+                                        </Dropdown.Item>
+                                        <Dropdown.Item withDivider color="error" icon={<HiLogout className="mr-2" />}>
+                                            <button onClick={() => session ? signOut() : authSignOut()}>Sign out</button>
+                                        </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                                : <Link
                                     href={'/login'}
                                     className="bg-teal-600 text-white px-3 py-2 rounded-md text-sm font-medium">Login</Link>
-                            }
-                            {umOpen &&
-                                <div className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none transform opacity-100 scale-95 transition ease-out duration-100" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabIndex={-1}>
-                                    <Link href="/profile"
-                                        className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-0">Your Profile</Link>
-                                    <Link href="/settings"
-                                        className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-1">Settings</Link>
-                                    <button onClick={() => session ? signOut() : authSignOut()}
-                                        className="block cursor-pointer px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-2">Sign out</button>
-                                </div>
                             }
                         </div>
                     </div>
@@ -110,6 +122,5 @@ export default function Navbar() {
                 </div>
             }
         </nav>
-
     )
 }
