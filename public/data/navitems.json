@@ -8,7 +8,7 @@
     {
         "title": "Conversations",
         "path": "/conversations",
-        "disabled": true
+        "disabled": false
     },
 
     {

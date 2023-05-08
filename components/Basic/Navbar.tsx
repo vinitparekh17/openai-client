@@ -1,3 +1,4 @@
+'use client';
 import Link from "next/link";
 import Image from "next/image";
 import type { Theme } from "../../types/theme";
@@ -12,7 +13,7 @@ import type { NavItems, NavItemsList } from "../../types/navbar";
 import { ThemeSlice } from "../../slices/themeSlice";
 
 export default function Navbar() {
-    const router = useRouter()
+    const router = useRouter();
     const dispatch = useDispatch()
     const { data: session } = useSession()
     const { token } = useSelector(CurrentAuthState);
@@ -21,7 +22,8 @@ export default function Navbar() {
     const [mobileOpen, setMobileOpen] = useState<boolean>(false)
 
     const handleTheme = (theme: Theme | string) => {
-        dispatch(ThemeSlice.actions.changeTheme({theme}))
+        localStorage.setItem('theme', theme)
+        dispatch(ThemeSlice.actions.changeTheme({ theme }))
     }
 
     if (navItems.length === 0) {
@@ -67,7 +69,8 @@ export default function Navbar() {
                     <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                         <div className="mx-2">
                             <label htmlFor="theme" className="sr-only">Theme</label>
-                            <select name="theme" id="theme" className="bg-gray-800 text-white px-3 py-2 rounded-md text-sm font-medium" onChange={e => handleTheme(e.target.value)} defaultValue={localStorage.getItem('theme') || 'light'}>
+                            <select name="theme" id="theme" className="bg-teal-500 dark:bg-teal-700 text-white px-3 py-2 rounded-md text-sm font-medium focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                                onChange={e => handleTheme(e.target.value)} defaultValue={localStorage.getItem('theme') || 'light'}>
                                 <option value="light">Light</option>
                                 <option value="dark">Dark</option>
                             </select>
@@ -83,10 +86,12 @@ export default function Navbar() {
                             }
                             {umOpen &&
                                 <div className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none transform opacity-100 scale-95 transition ease-out duration-100" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabIndex={-1}>
-                                    <Link href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-0">Your Profile</Link>
-                                    <Link href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-1">Settings</Link>
-                                    <button onClick={() => session ? signOut() : authSignOut()
-                                    } className="block cursor-pointer px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-2">Sign out</button>
+                                    <Link href="/profile"
+                                        className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-0">Your Profile</Link>
+                                    <Link href="/settings"
+                                        className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-1">Settings</Link>
+                                    <button onClick={() => session ? signOut() : authSignOut()}
+                                        className="block cursor-pointer px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex={-1} id="user-menu-item-2">Sign out</button>
                                 </div>
                             }
                         </div>
