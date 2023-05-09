@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function AccessDenied() {
     return (
-        <div className="flex flex-col items-center justify-center h-screen">
+        <div className="flex flex-col items-center justify-center h-[100dvh]">
             <div className="flex flex-col items-center justify-center">
                 <FaUserLock className="text-9xl text-gray-500 dark:text-gray-400" />
                 <h1 className="text-4xl text-gray-500 dark:text-gray-400">Access Denied</h1>

@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Slider({open}: OpenProps) {
     return (
-        <div className={`h-[calc(100vh - 4rem)] ${open ?'-translate-x-0' : '-translate-x-full' } transition-transform delay-200 mt-16  py-8 overflow-y-auto bg-teal-300 border-l border-r sm:w-64 w-60 dark:bg-gray-900 dark:border-gray-700`}>
+        <div className={`h-[calc(100dvh - 4rem)] ${open ?'-translate-x-0' : '-translate-x-full' } transition-transform delay-200 mt-16  py-8 overflow-y-auto bg-teal-300 border-l border-r sm:w-64 w-60 dark:bg-gray-900 dark:border-gray-700`}>
             <h2 className="px-5 text-lg font-medium text-teal-800 dark:text-white">Accounts</h2>
             <div className="mt-8 space-y-4">
                 <button className="flex items-center w-full px-5 py-2 transition-colors duration-200 dark:hover:bg-gray-800 gap-x-2 hover:bg-gray-100 focus:outline-none">
