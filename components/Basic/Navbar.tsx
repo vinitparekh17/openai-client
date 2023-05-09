@@ -49,7 +49,7 @@ export default function Navbar({ setOpen, open }: BooleanProps) {
                         <div className="mx-2">
                             <div className="relative w-14 h-8">
                                 <label htmlFor="toggle" className="flex items-center cursor-pointer">
-                                    <div className={`w-14 h-8 bg-teal-300 rounded-full shadow-inner`}></div>
+                                    <div className={`w-14 h-8 bg-teal-300 dark:bg-teal-600 shadow-md rounded-full`}></div>
                                     <div className={`absolute left-1 top-1 w-6 h-6 bg-white rounded-full transition-transform duration-300 ${theme === "light" ? 'translate-x-full' : ''}`}>
                                         {theme === "light" ? <HiSun className="text-yellow-500 m-1" /> : <HiMoon className="text-gray-500 m-1" />}
                                     </div>
@@ -80,7 +80,7 @@ export default function Navbar({ setOpen, open }: BooleanProps) {
                                 </Dropdown>
                                 : <Link
                                     href={'/login'}
-                                    className="bg-teal-600 text-white px-3 py-2 rounded-md text-sm font-medium">Login</Link>
+                                    className="bg-teal-500 dark:bg-teal-600 shadow-md text-white px-3 py-2 rounded-md text-sm font-medium">Login</Link>
                             }
                         </div>
                     </div>
