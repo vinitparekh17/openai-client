@@ -1,7 +1,9 @@
-import Navbar from "../components/Basic/Navbar";
+import Protected from "../components/Basic/Protected";
 
 export default function Contact() {
   return (
-      <Navbar />
+    <Protected>
+      <h1>Contact</h1>
+    </Protected>
   );
 }

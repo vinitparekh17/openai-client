@@ -1,44 +1,21 @@
-import { useState } from 'react';
-import { Modal } from '@nextui-org/react';
-import { BiPlus } from 'react-icons/bi';
-import { ReactElement } from 'react';
-import BotCard from '../Bot/BotCard'
+import type { OpenProps } from "../../types/siderbar";
+import Image from "next/image";
 
-export default function Slider({ children }: { children: ReactElement }) {
-    const [open, setOpen] = useState<boolean>(false)
+export default function Slider({open}: OpenProps) {
     return (
-        <div className='flex'>
-            <div className="flex flex-col-reverse overflow-y-scroll items-center w-24 mt-16 h-[calc(100vh-4rem)] scrollbar-custom bg-teal-200 dark:bg-teal-900 dark:text-teal-300">
-                {/* create / add button */}
-                <div className="fixed h-14 bottom-0 w-12">
-                    <button
-                        onClick={() => setOpen(true)}
-                        className="p-2 h-12 my-1 rounded-full text-teal-600  hover:text-white text-[2rem] flex justify-center items-center shadow-md bg-teal-100 dark:bg-teal-800 dark:text-teal-300 dark:hover:bg-teal-500 dark:hover:text-white">
-                        <BiPlus />
-                    </button>
-                    <Modal
-                        closeButton
-                        blur
-                        area-aria-labelledby="create-bot"
-                        open={open}
-                        onClose={() => setOpen(false)}>
-                        <Modal.Header>Create Bot</Modal.Header>
-                        <Modal.Body>
-                            <p>Bot Name</p>
-                            <input type="text" className="w-full border-2 border-gray-200 dark:border-gray-700 rounded-md p-2" />
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <button className="bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 rounded-md">Create</button>
-                        </Modal.Footer>
-                    </Modal>
-                </div>
-                <div className="h-14"></div>
-                <BotCard />
-                <BotCard />
-            </div>
-            <div className="mt-16 overflow-y-hidden w-full bg-gray-100 dark:bg-gray-700">
-                {children}
+        <div className={`h-[calc(100vh - 4rem)] ${open ?'-translate-x-0' : '-translate-x-full' } transition-transform delay-200 mt-16  py-8 overflow-y-auto bg-teal-300 border-l border-r sm:w-64 w-60 dark:bg-gray-900 dark:border-gray-700`}>
+            <h2 className="px-5 text-lg font-medium text-teal-800 dark:text-white">Accounts</h2>
+            <div className="mt-8 space-y-4">
+                <button className="flex items-center w-full px-5 py-2 transition-colors duration-200 dark:hover:bg-gray-800 gap-x-2 hover:bg-gray-100 focus:outline-none">
+                    <Image className="object-cover w-8 h-8 rounded-full" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=faceare&facepad=3&w=688&h=688&q=100" width={50} height={50} alt="" />
+
+                    <div className="text-left rtl:text-right">
+                        <h1 className="text-sm font-medium text-teal-800 capitalize dark:text-white">Mia John</h1>
+
+                        <p className="text-xs text-teal-600 dark:text-gray-400">11.2 Followers</p>
+                    </div>
+                </button>
             </div>
         </div>
-    )
+    );
 }
