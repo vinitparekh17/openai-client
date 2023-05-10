@@ -1,9 +1,9 @@
-import BotForm from "../../components/Bot/BotForm";
+import Protected from "../../components/Basic/Protected";
 
 export default function Create() {
     return (
-        <div className="flex flex-col items-center justify-center h-full bg-gray-100 dark:bg-gray-800">
-            <BotForm />
-        </div>
+        <Protected>
+            <h1>Pro create</h1>
+        </Protected>
     );
 }
