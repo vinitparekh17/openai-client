@@ -11,6 +11,8 @@ export interface NavbarProps {
     open?: boolean;
 }
 
-export interface OpenProps {
-    open: boolean;
+export interface SidebarItem {
+    name: string;
+    icon: ReactElement;
+    link: string;
 }

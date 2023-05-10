@@ -11,6 +11,7 @@ import { authSignOut } from "../../utils/auth";
 import { signOut } from "next-auth/react";
 import { currentTheme, ThemeSlice } from "../../slices/themeSlice";
 import { NavbarProps } from "../../types/siderbar";
+import { Playfair } from "../fonts";
 
 export default function Navbar({ setOpen, open }: NavbarProps) {
     const dispatch = useDispatch()
@@ -42,7 +43,7 @@ export default function Navbar({ setOpen, open }: NavbarProps) {
                     </div>
                     <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                         <div className="flex flex-shrink-0 items-center">
-                            {/* <Image className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=200" width={40} height={40} alt="Your Company" /> */}
+                            <h1 className={`${Playfair.className} ml-12 text-2xl text-white dark:text-gray-200`}>Omnisive</h1>
                         </div>
                     </div>
                     <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
