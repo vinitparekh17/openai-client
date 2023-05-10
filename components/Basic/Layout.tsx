@@ -23,7 +23,7 @@ export default function Layout({ children }: { children: ReactElement }) {
     }, [token])
     return (
         <div className={theme}>
-            <div className="flex flex-col max-h-[100dvh] overflow-y-scroll bg-gray-200 dark:bg-gray-800">
+            <div className="flex flex-col max-h-[100dvh] overflow-y-hidden bg-gray-200 dark:bg-gray-800">
                 <div className="flex flex-col flex-1">
                     {children}
                 </div>
