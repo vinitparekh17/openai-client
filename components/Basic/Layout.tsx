@@ -12,7 +12,7 @@ export default function Layout({ children }: { children: ReactElement }) {
         if (localStorage.getItem('theme')) {
             dispatch(ThemeSlice.actions.changeTheme({ theme: localStorage.getItem('theme') as string }));
         }
-    }, [theme])
+    }, [theme, dispatch])
 
     useEffect(() => {
         if (!token) {

@@ -10,11 +10,11 @@ export default function ChatContainer() {
 
   return (
     <div className="flex flex-col h-full items-center justify-between w-full py-2">
-      <div className="w-full px-3 overflow-y-scroll scrollbar-custom h-[100dvh]">
+      <div className="w-full px-3 overflow-y-scroll scrollbar-custom">
         <Message />
         <Message />
         <Message />
-      <div className="w-full" ref={scrollToBottom} />
+      <div className="w-full h-1" ref={scrollToBottom} />
       </div>
         <ChatForm />
     </div>
