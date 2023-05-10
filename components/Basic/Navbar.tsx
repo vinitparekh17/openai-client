@@ -48,7 +48,7 @@ export default function Navbar({ setOpen, open }: NavbarProps) {
                     </div>
                     <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                         <div className="mx-2">
-                            <div className="relative w-14 h-8">
+                            <div className="hidden sm:block relative w-14 h-8">
                                 <label htmlFor="toggle" className="flex items-center cursor-pointer">
                                     <div className={`w-14 h-8 bg-teal-300 dark:bg-teal-600 shadow-md rounded-full`}></div>
                                     <div className={`absolute left-1 top-1 w-6 h-6 bg-white rounded-full transition-transform duration-300 ${theme === "light" ? 'translate-x-full' : ''}`}>
