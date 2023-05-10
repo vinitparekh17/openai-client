@@ -6,7 +6,7 @@ import Slider from './Slider';
 
 export default function Sidebar({ open, setOpen, children }: SidebarProps) {
     return (
-        <div className='h-[100dvh]'>
+        <div className='h-[100svh]'>
             <Navbar open={open} setOpen={setOpen} />
             <MainSpace>
                 {children}

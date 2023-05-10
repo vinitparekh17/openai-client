@@ -3,6 +3,7 @@ import { ReactElement, useState } from "react";
 import { useSelector } from "react-redux";
 import { CurrentAuthState } from "../../slices/authSlice";
 import AccessDenied from "./AccessDenied";
+import MyHead from "./Head";
 import Loadeing from "./Loading";
 import Sidebar from "./Sidebar";
 
@@ -14,6 +15,7 @@ export default function Protected({ children }: { children: ReactElement }) {
     if (session || token) {
         return (
             <>
+                <MyHead />
                 <Sidebar setOpen={setOpen} open={open}>
                     {children}
                 </Sidebar>
