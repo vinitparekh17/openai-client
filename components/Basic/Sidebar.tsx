@@ -9,7 +9,7 @@ export default function Sidebar({children, open}: PropWithChildren) {
             <MainSpace>
                 {children}
             </MainSpace>
-            <aside className="flex h-[100dvh]">
+            <aside className="flex h-[100dvh - 4rem]">
                 <div className="mt-16 flex flex-col items-center w-16 z-10 h-[calc(100dvh - 4rem)] py-8 space-y-8 bg-teal-600 dark:bg-gray-900 dark:border-gray-700">
                     <Link href="/" className="p-1.5 text-white focus:outline-nones transition-colors duration-200 rounded-lg dark:text-gray-400 dark:hover:bg-gray-800 hover:text-teal-500 hover:bg-teal-100">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">

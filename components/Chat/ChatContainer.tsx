@@ -9,8 +9,10 @@ export default function ChatContainer() {
   }, []);
 
   return (
-    <div className="flex flex-col h-[calc(100dvh-4rem)] items-center justify-between w-full py-2 bg-gray-200 dark:bg-gray-800">
+    <div className="flex flex-col max-h-[calc(100dvh-4rem)] items-center justify-between w-full py-2">
       <div className="w-full px-3 overflow-y-scroll scrollbar-custom h-[100dvh]">
+        <Message />
+        <Message />
         <Message />
       <div className="w-full" ref={scrollToBottom} />
       </div>
