@@ -36,8 +36,8 @@ export default function Sidebar({ open, setOpen, children }: SidebarProps) {
             </MainSpace>
             <aside className="flex h-full">
                 <div className={`mt-16 z-10 flex flex-col items-center ${open ?'-translate-x-0' : '-translate-x-full' } delay-75 w-16 z-20 py-8 space-y-8 bg-teal-600 dark:bg-gray-900 dark:border-gray-700`}>
-                    {sideItems.map((item: SidebarItem, index: number) => (
-                    <Link href={item.link} className="p-1.5 text-white focus:outline-nones transition-colors duration-200 rounded-lg dark:text-gray-400 dark:hover:bg-gray-800 hover:text-teal-500 hover:bg-teal-100">
+                    {sideItems.map((item: SidebarItem, i: number) => (
+                    <Link key={i} href={item.link} className="p-1.5 text-white focus:outline-nones transition-colors duration-200 rounded-lg dark:text-gray-400 dark:hover:bg-gray-800 hover:text-teal-500 hover:bg-teal-100">
                         <div className='sr-only'>{item.name}</div>
                         {item.icon}
                     </Link>))
