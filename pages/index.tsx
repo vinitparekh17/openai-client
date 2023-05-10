@@ -12,7 +12,6 @@ const Home: NextPage = () => {
     <Protected>
       <div className='flex flex-col justify-center items-center'>
       <h1>Home</h1>
-      <a href='/conversations'>Go to chat!</a>
       </div>
     </Protected>
     </>
