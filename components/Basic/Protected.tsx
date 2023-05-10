@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import { CurrentAuthState } from "../../slices/authSlice";
 import AccessDenied from "./AccessDenied";
 import Loadeing from "./Loading";
-import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 
 export default function Protected({ children }: { children: ReactElement }) {
@@ -15,8 +14,7 @@ export default function Protected({ children }: { children: ReactElement }) {
     if (session || token) {
         return (
             <>
-                <Navbar setOpen={setOpen} open={open} />
-                <Sidebar open={open}>
+                <Sidebar setOpen={setOpen} open={open}>
                     {children}
                 </Sidebar>
             </>

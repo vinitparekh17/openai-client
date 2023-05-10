@@ -10,9 +10,9 @@ import { HiMoon, HiSun, HiUserCircle, HiCog, HiLogout } from "react-icons/hi"
 import { authSignOut } from "../../utils/auth";
 import { signOut } from "next-auth/react";
 import { currentTheme, ThemeSlice } from "../../slices/themeSlice";
-import { BooleanProps } from "../../types/siderbar";
+import { NavbarProps } from "../../types/siderbar";
 
-export default function Navbar({ setOpen, open }: BooleanProps) {
+export default function Navbar({ setOpen, open }: NavbarProps) {
     const dispatch = useDispatch()
     const { theme } = useSelector(currentTheme)
     const { setTheme } = useNextTheme();
