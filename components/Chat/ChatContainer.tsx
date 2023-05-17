@@ -1,12 +1,24 @@
 import { useEffect, useRef } from "react";
+import type { MutableRefObject } from "react";
 import ChatForm from "./ChatForm";
 import Message from "./Message";
+import { SocketIo } from "../../lib/socket";
+import type { Socket } from "socket.io-client";
 
 export default function ChatContainer() {
-  const scrollToBottom = useRef() as React.MutableRefObject<HTMLDivElement>;
+  const socket = useRef() as MutableRefObject<Socket>;
   useEffect(() => {
-    scrollToBottom.current.scrollIntoView({ behavior: "smooth" });
-  }, []);
+    socket.current = SocketIo;
+    if (socket.current.connected) return console.log("already connected");
+    socket.current.connect();
+    socket.current.on("connection", () => {
+      console.log("connected");
+    });
+    console.log(socket.current);
+    return () => {
+      socket.current.disconnect()
+    }
+  }, [socket]);
 
   return (
     <div className="flex flex-col h-full items-center justify-between w-full py-2">
@@ -14,7 +26,6 @@ export default function ChatContainer() {
         <Message />
         <Message />
         <Message />
-      <div className="w-full h-1" ref={scrollToBottom} />
       </div>
         <ChatForm />
     </div>

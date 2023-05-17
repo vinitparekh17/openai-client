@@ -1,20 +1,6 @@
-import jwtDecode from 'jwt-decode';
+import jwtDecode from "jwt-decode";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-type Payload = { token: string | null }
-
-type AuthState = {
-    token: string | null,
-    id: string | null,
-}
-
-type DecodedToken = {
-    data: {
-        _id: string;
-        exp: number;
-        iat: number;
-    }
-}
+import { AuthState, Payload, DecodedToken } from "../types/auth";
 
 const initialState: AuthState = {
     token: null,
