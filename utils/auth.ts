@@ -4,7 +4,7 @@ import { BACKEND_URI } from "../config";
 export const authSubmit = async (data: FormValues): Promise<any> => {
     try {
         const { formType } = data
-        await fetch(`${BACKEND_URI}/user/${formType}`, {
+        await fetch(`${BACKEND_URI}/api/user/${formType}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -29,7 +29,7 @@ export const authSubmit = async (data: FormValues): Promise<any> => {
 
 export const authSignOut = (): void => {
     try {
-        fetch(`${BACKEND_URI}/user/signout`, {
+        fetch(`${BACKEND_URI}/api/user/signout`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

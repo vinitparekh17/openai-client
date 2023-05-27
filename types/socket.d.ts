@@ -1,13 +1,9 @@
-export interface ClientToServerEvents {
-    'connect': () => void;
-    'disconnect': () => void;
-    'send-message': (message: string) => void;
-}
-
 export interface ServerToClientEvents {
-    'receive-message': (message: string) => void;
+    "connect": () => void;
+    "disconnect": (reason: string) => void;
+    "stream": (data: any) => void;
 }
 
-export interface SocketState {
-    socket: React.MutableRefObject<Socket>
+export interface ClientToServerEvents {
+    "stream": (data: any) => void;
 }

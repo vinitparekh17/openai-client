@@ -1,14 +1,22 @@
-import { Input, Button, useTheme } from "@nextui-org/react";
+import { useForm } from "react-hook-form";
+import { MutableRefObject } from "react";
+import { handleChat } from "../../utils/chat";
 
-export default function ChatForm() {
-  const { theme } = useTheme();
+export default function ChatForm({ socket }: { socket: MutableRefObject<any> }) {
+  const { register, handleSubmit, reset } = useForm();
   return (
-    <form className="flex items-center justify-between w-full px-4 py-2 rounded-lg">
-      <Input width="95%" size="md" status="default" bordered shadow
-        placeholder="Type your message here..." />
-      <div className="mx-2 text-white bg-teal-500 rounded-lg dark:bg-teal-500 dark:text-gray-200">
-        <Button auto>Send</Button>
-      </div>
+    <form className="flex items-center justify-between w-full px-4 py-2 rounded-lg"
+      onSubmit={handleSubmit(e => {
+        handleChat({ prompt: e.prompt, socket })
+        reset();
+      })}>
+      <input
+        className="w-full mr-2 text-gray-800 bg-gray-200 rounded-lg dark:bg-gray-700 dark:text-gray-200 py-2 px-4"
+        type="text"
+        {...register("prompt", { required: true })}
+        placeholder="Type a message..." />
+      <input className="py-2 px-4 mx-2 text-white bg-teal-500 rounded-lg dark:bg-teal-500 dark:text-gray-200"
+        type={"submit"} value={"Send"} />
     </form>
   );
 }
