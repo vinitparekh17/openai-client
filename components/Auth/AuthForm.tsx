@@ -33,7 +33,7 @@ const AuthForm: NextPage<FormType> = ({ formType }) => {
                             </label>
                             <div className="mt-2.5">
                                 <input
-                                    className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent py-2 px-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
+                                    className="flex h-10 w-full text-gray-700 rounded-md border border-gray-400 bg-transparent py-2 px-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
                                     type="text"
                                     {...register("firstName", { required: true })}
                                     placeholder="First Name" />
@@ -48,7 +48,7 @@ const AuthForm: NextPage<FormType> = ({ formType }) => {
                             </label>
                             <div className="mt-2.5">
                                 <input
-                                    className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent py-2 px-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
+                                    className="flex h-10 w-full text-gray-700 rounded-md border border-gray-400 bg-transparent py-2 px-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
                                     type="text"
                                     {...register("lastName", { required: true })}
                                     placeholder="Last Name" />
@@ -65,7 +65,7 @@ const AuthForm: NextPage<FormType> = ({ formType }) => {
                     </label>
                     <div className="mt-2.5">
                         <input
-                            className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent py-2 px-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
+                            className="flex h-10 w-full text-gray-700 rounded-md border border-gray-400 bg-transparent py-2 px-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
                             type="email"
                             {...register("email", { required: true })}
                             placeholder="Email" />
@@ -80,7 +80,7 @@ const AuthForm: NextPage<FormType> = ({ formType }) => {
                     </label>
                     <div className="mt-2.5">
                         <input
-                            className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent py-2 px-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
+                            className="flex h-10 w-full text-gray-700 rounded-md border border-gray-400 bg-transparent py-2 px-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
                             type="password"
                             {...register("password", rules.password)}
                             placeholder="Password" />
@@ -100,7 +100,7 @@ const AuthForm: NextPage<FormType> = ({ formType }) => {
                     </label>
                     <div className="mt-2.5">
                         <input
-                            className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent py-2 px-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
+                            className="flex h-10 w-full text-gray-700 rounded-md border border-gray-400 bg-transparent py-2 px-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
                             type="password"
                             {...register("confirmPassword", rules.confirmPassword)}
                             placeholder="Confirm Password" />

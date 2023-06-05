@@ -37,7 +37,7 @@ export default function Signup() {
                         className="flex items-center justify-center h-screen px-4 py-2">
                         <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
                             <h2
-                                className="text-3xl font-bold leading-tight text-black dark:text-white sm:text-4xl">
+                                className="text-3xl font-bold leading-tight text-teal-700 dark:text-white sm:text-4xl">
                                 Create your account
                             </h2>
                             <AuthForm formType='signup' />
