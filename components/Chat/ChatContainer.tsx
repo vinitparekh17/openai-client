@@ -15,18 +15,11 @@ export default function ChatContainer() {
     if (socket.current.connected) {
       console.log("connected");
       socket.current.on("response-stream", data => {
-        var unit8 = new Uint8Array(data);
-        var decoder = new TextDecoder('utf-8');
-        var str = decoder.decode(unit8);
-          try {
-            str = str.replace("[DONE]", "");
-            str = str.replace("data", "\"data\"");
-            var json = JSON.parse(`{${str}}`);
-            console.log(json);
-          } catch (e) {
-            console.log(e);
-            console.log(str);
-          }
+        try {
+        console.log(JSON.parse(data));
+        } catch (e) {
+          console.log(`error: ${e}\n str: ${JSON.stringify(data)}\n data: ${data}`);
+        }
       });
     }
     socket.current.connect();
