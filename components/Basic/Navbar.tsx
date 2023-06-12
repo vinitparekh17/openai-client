@@ -1,10 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
+import { useEffect } from 'react';
 import { Dropdown } from "@nextui-org/react";
 import type { Theme } from "../../types/theme";
 import { useTheme as useNextTheme } from "next-themes";
 import { useDispatch, useSelector } from "react-redux";
-import { CurrentAuthState } from "../../slices/authSlice";
+import { CurrentAuthState, AuthSlice } from "../../slices/authSlice";
 import { useSession } from "next-auth/react";
 import { HiMoon, HiSun, HiUserCircle, HiCog, HiLogout } from "react-icons/hi"
 import { authSignOut } from "../../utils/auth";
@@ -19,7 +20,7 @@ export default function Navbar({ setOpen, open }: NavbarProps) {
     const { setTheme } = useNextTheme();
     const { data: session } = useSession()
     const pfp = session?.user?.image ? session.user.image : `https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80` as string
-    const { token } = useSelector(CurrentAuthState);
+    const { token, user } = useSelector(CurrentAuthState);
 
     const handleTheme = (theme: Theme | string) => {
         localStorage.setItem('theme', theme)
@@ -27,6 +28,12 @@ export default function Navbar({ setOpen, open }: NavbarProps) {
         dispatch(ThemeSlice.actions.changeTheme({ theme }))
     }
 
+    useEffect(() => {
+      if(user.name === '' || user.name === undefined) {
+      dispatch(AuthSlice.actions.getData(token))
+    }
+    }, [dispatch, user])
+    
     return (
         <nav className="z-20 backdrop-filter backdrop-blur-lg bg-gradient-to-r from-teal-600 via-blue-700 to-slate-700
          dark:from-slate-700 dark:to-slate-900 absolute w-full mt-0">
@@ -66,7 +73,7 @@ export default function Navbar({ setOpen, open }: NavbarProps) {
                                     <Dropdown.Trigger>
                                         <button type="button" className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                                             <span className="sr-only">Open user menu</span>
-                                            <Image className="h-8 w-8 rounded-full" src={pfp} alt="logo" width={40} height={40} />
+                                            <Image className="h-8 w-8 rounded-full" src={`/images/m-${user.profile}.webp`} alt="logo" width={300} height={300} />
                                         </button>
                                     </Dropdown.Trigger>
                                     <Dropdown.Menu variant="shadow" css={{ background: '$gray100' }} >

@@ -29,7 +29,10 @@ export interface AuthState {
 
 type DecodedToken = {
     data: {
-        _id: string;
+        id: string;
+        name: string;
+        email: string;
+        profile: number;
         exp: number;
         iat: number;
     }

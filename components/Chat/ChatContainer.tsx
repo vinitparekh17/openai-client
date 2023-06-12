@@ -38,18 +38,20 @@ export default function ChatContainer() {
 
 
   useEffect(() => {
-    if(isFinished) {
-    setMessages(prev => [...prev, { username: "bot", fromself: false, content: resChunks.join(""), timestamp: new Date().toLocaleString() }])
-    setIsFinished(false)
+    if (isFinished) {
+      setTimeout(() => {
+        setMessages(prev => [...prev, { username: "bot", fromself: false, content: resChunks.join(""), timestamp: new Date().toLocaleString() }])
+        setIsFinished(false)
+        setResChunks([])
+      }, 1500)
     }
-  }, [isFinished, setMessages, setIsFinished])
-  
+  }, [isFinished, setMessages, setIsFinished, setResChunks])
+
   return (
     <div className="flex flex-col h-full items-center justify-between container py-2">
       <div className="container px-3 overflow-y-scroll scrollbar-custom">
-        {
-          messages.length > 0 && messages.map((message, i) => <Message key={i} message={message} />) || resChunks.length > 0 && <Message chunks={resChunks} isFinished setResChunks={setResChunks} />
-        }
+        {messages.length > 0 && messages.map((message, i) => <Message key={i} message={message} />)}
+        {resChunks.length > 0 && <Message chunks={resChunks} isFinished setResChunks={setResChunks} />}
       </div>
       <ChatForm socket={socket} setMessages={setMessages} />
     </div>

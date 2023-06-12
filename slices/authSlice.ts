@@ -23,7 +23,7 @@ export const AuthSlice = createSlice({
             let { token } = action.payload;
             state.token = token;
             let decoded: DecodedToken | null = token ? jwtDecode(token) : null;
-            state.id = decoded ? decoded.data._id : null;
+            state.id = decoded ? decoded.data.id : null;
         },
         removeToken(state) {
             state.token = null;
@@ -33,10 +33,13 @@ export const AuthSlice = createSlice({
 
         getData(state) {
             let token = localStorage.getItem("token");
+            state.token = token;
             if (token) {
-                state.token = token;
                 let decoded: DecodedToken | null = jwtDecode(token);
-                state.id = decoded ? decoded.data._id : null;
+                state.id = decoded ? decoded.data.id : null;
+                state.user.name = decoded ? decoded.data.name : "";
+                state.user.email = decoded ? decoded.data.email : "";
+                state.user.profile = decoded ? decoded.data.profile : 0;
             }
         },
 

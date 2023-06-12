@@ -10,19 +10,19 @@ export default function Message({ chunks, message, setResChunks, isFinished }: {
                 <div className={`${message?.fromself ? `float-right bg-teal-300 dark:bg-teal-700` : `float-left bg-gray-300 dark:bg-gray-700`} rounded-lg shadow-md px-3 py-2 text-gray-700 dark:text-gray-300 w-60 sm:w-96 sm:max-w-2/3`}>
                     <p className="font-bold text-black dark:text-white">{message?.username}</p>
                     <p className="break-words mb-1 px-1 text-justify">
-                        {!message?.fromself ? <Typewriter
-                            words={[chunks && chunks.join("") || message?.content || ""]}
-                            loop={1}
-                            onLoopDone={() => {
-                                isFinished && setResChunks && setResChunks([])
-                                console.log(chunks && chunks);
-                            }}
-                            cursor
-                            cursorStyle='_'
-                            typeSpeed={100}
-                            delaySpeed={1000}
-                            cursorBlinking={false}
-                        /> : message?.content}
+                        {chunks && chunks?.length > 0 ?
+                            <Typewriter
+                                words={[chunks.join("")]}
+                                loop={1}
+                                onLoopDone={() => {
+                                    isFinished && setResChunks && setResChunks([])
+                                    console.log(chunks && chunks);
+                                }}
+                                cursor
+                                cursorStyle='_'
+                                typeSpeed={50}
+                                cursorBlinking={false}
+                            /> : message?.content}
                     </p>
                     <div className="text-xs text-gray-500 dark:text-gray-400 text-right">{message?.timestamp}</div>
                 </div>
