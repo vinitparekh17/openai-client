@@ -7,6 +7,6 @@ interface chatData {
     socket: MutableRefObject<Socket>
 }
 export const handleChat = (data: chatData) => {
-    let { prompt, socket } = data
+    let { prompt, socket } = data;
     socket.current.emit("request-stream", prompt);
 }

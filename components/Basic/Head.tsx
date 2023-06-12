@@ -1,26 +1,20 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Data from "../../data/metas.json";
 import type { MetaDataProps } from "../../types/head";
 
 export default function MyHead() {
+    const data = Data as { [key: string]: MetaDataProps };
     const [metaData, setMetaData] = useState<MetaDataProps>({ title: '', description: '' })
-    const [key, setKey] = useState<string>('')
     const router = useRouter()
-    const path = router.pathname
-    if (key !== path) {
-        fetch('/data/metas.json', {
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
-        })
-            .then(res => res.json()).then(data => {
-                setKey(Object.keys(data).find(k => k === path) || '')
-                setMetaData(data[path])
-            })
-            .catch(err => console.log(err))
+    const path = router.pathname;
+
+    useEffect(() => {
+        if (path in data) {
+            setMetaData(data[path])
         }
+    }, [path, data])
 
     if (metaData.title === '' || metaData.description === '') {
         return null

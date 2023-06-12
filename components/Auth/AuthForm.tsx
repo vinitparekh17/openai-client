@@ -18,7 +18,7 @@ const AuthForm: NextPage<FormType> = ({ formType }) => {
             validate: (value: string | undefined) => value === watch("password") ? undefined : "Passwords do not match"
         }
     };
-    const { register, handleSubmit, formState: { errors }, watch } = useForm<FormValues>();
+    const { register, handleSubmit, formState: { errors, isSubmitted, isValid, isSubmitting }, watch } = useForm<FormValues>();
     return (
         <form className="mt-8" onSubmit={handleSubmit(authSubmit)}>
             <input type="hidden" {...register("formType", { required: true })} value={formType} />
@@ -33,7 +33,7 @@ const AuthForm: NextPage<FormType> = ({ formType }) => {
                             </label>
                             <div className="mt-2.5">
                                 <input
-                                    className="flex h-10 w-full text-gray-700 rounded-md border border-gray-400 bg-transparent py-2 px-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
+                                    className="flex h-10 w-full text-gray-700 bg-teal-50 rounded-md border border-gray-400 bg-transparent py-2 px-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
                                     type="text"
                                     {...register("firstName", { required: true })}
                                     placeholder="First Name" />
@@ -48,7 +48,7 @@ const AuthForm: NextPage<FormType> = ({ formType }) => {
                             </label>
                             <div className="mt-2.5">
                                 <input
-                                    className="flex h-10 w-full text-gray-700 rounded-md border border-gray-400 bg-transparent py-2 px-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
+                                    className="flex h-10 w-full text-gray-700 bg-teal-50 rounded-md border border-gray-400 bg-transparent py-2 px-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
                                     type="text"
                                     {...register("lastName", { required: true })}
                                     placeholder="Last Name" />
@@ -65,7 +65,7 @@ const AuthForm: NextPage<FormType> = ({ formType }) => {
                     </label>
                     <div className="mt-2.5">
                         <input
-                            className="flex h-10 w-full text-gray-700 rounded-md border border-gray-400 bg-transparent py-2 px-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
+                            className="flex h-10 w-full text-gray-700 bg-teal-50 rounded-md border border-gray-400 bg-transparent py-2 px-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
                             type="email"
                             {...register("email", { required: true })}
                             placeholder="Email" />
@@ -80,7 +80,7 @@ const AuthForm: NextPage<FormType> = ({ formType }) => {
                     </label>
                     <div className="mt-2.5">
                         <input
-                            className="flex h-10 w-full text-gray-700 rounded-md border border-gray-400 bg-transparent py-2 px-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
+                            className="flex h-10 w-full text-gray-700 bg-teal-50 rounded-md border border-gray-400 bg-transparent py-2 px-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
                             type="password"
                             {...register("password", rules.password)}
                             placeholder="Password" />
@@ -100,7 +100,7 @@ const AuthForm: NextPage<FormType> = ({ formType }) => {
                     </label>
                     <div className="mt-2.5">
                         <input
-                            className="flex h-10 w-full text-gray-700 rounded-md border border-gray-400 bg-transparent py-2 px-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
+                            className="flex h-10 w-full text-gray-700 bg-teal-50 rounded-md border border-gray-400 bg-transparent py-2 px-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
                             type="password"
                             {...register("confirmPassword", rules.confirmPassword)}
                             placeholder="Confirm Password" />
@@ -115,8 +115,9 @@ const AuthForm: NextPage<FormType> = ({ formType }) => {
                 <div>
                     <button
                         type="submit"
-                        className="inline-flex w-full items-center justify-center rounded-md bg-gradient-to-r from-teal-600 via-blue-600 to-indigo-600 hover:from-teal-500 hover:via-blue-500 hover:to-indigo-500 hover:translate-y-0.5 transform transition-all duration-200
-                                        px-3.5 py-2.5 text-base font-semibold leading-7 text-white">
+                        disabled={isSubmitted || !isValid || isSubmitting}
+                        className="inline-flex w-full shadow-md hover:shadow-sm shadow-gray-400 items-center justify-center rounded-md bg-gradient-to-r from-teal-600 via-blue-600 to-indigo-600 hover:from-teal-500 hover:via-blue-500 hover:to-indigo-500 hover:translate-y-0.5 transform transition-all duration-200
+                                        px-3.5 py-2.5 text-base font-semibold leading-7 text-white disabled:bg-gray-300 disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none">
                         Sign in
                     </button>
                 </div>

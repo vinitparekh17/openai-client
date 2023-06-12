@@ -4,19 +4,27 @@ import { SocketIo } from "../../lib/socket";
 import type { Socket } from "socket.io-client";
 import ChatForm from "./ChatForm";
 import Message from "./Message";
+import type { ChunkObj, MessageList } from "../../types";
 
 export default function ChatContainer() {
   const socket = useRef() as MutableRefObject<Socket>;
+  const [isFinished, setIsFinished] = useState(false);
   const [resChunks, setResChunks] = useState<string[]>([]);
-  // array of arrays of strings for messages
-  const [messages, setMessages] = useState<string[]>([]);
+  const [messages, setMessages] = useState<MessageList>([]);
+
   useEffect(() => {
     socket.current = SocketIo;
     if (socket.current.connected) {
       console.log("connected");
       socket.current.on("response-stream", data => {
         try {
-        console.log(JSON.parse(data));
+          let parsed: ChunkObj = JSON.parse(data);
+          if (parsed.data) {
+            setIsFinished(false)
+            setResChunks(prev => [...prev, parsed!.data.choices[0].delta?.content!]);
+          } else {
+            setIsFinished(true)
+          }
         } catch (e) {
           console.log(`error: ${e}\n str: ${JSON.stringify(data)}\n data: ${data}`);
         }
@@ -28,13 +36,22 @@ export default function ChatContainer() {
     }
   }, [socket]);
 
+
+  useEffect(() => {
+    if(isFinished) {
+    setMessages(prev => [...prev, { username: "bot", fromself: false, content: resChunks.join(""), timestamp: new Date().toLocaleString() }])
+    setIsFinished(false)
+    }
+  }, [isFinished, setMessages, setIsFinished])
+  
   return (
     <div className="flex flex-col h-full items-center justify-between container py-2">
       <div className="container px-3 overflow-y-scroll scrollbar-custom">
-        {resChunks.length > 0 && <Message chunks={resChunks} setResChunks={setResChunks} setMsg={setMessages} />}
-        {messages.length > 0 && messages.map((msg, i) => <Message key={i} message={msg} setResChunks={setResChunks} setMsg={setMessages} />)}
+        {
+          messages.length > 0 && messages.map((message, i) => <Message key={i} message={message} />) || resChunks.length > 0 && <Message chunks={resChunks} isFinished setResChunks={setResChunks} />
+        }
       </div>
-      <ChatForm socket={socket} />
+      <ChatForm socket={socket} setMessages={setMessages} />
     </div>
   );
 }
