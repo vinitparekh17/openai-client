@@ -31,12 +31,13 @@ export default function Login() {
     return (
         <>
             <MyHead />
-            <main className="grid grid-cols-1 lg:grid-cols-2">
+            <main className="bg-gradient-to-tr from-sky-100 to-sky-200
+             grid grid-cols-1 lg:grid-cols-2">
                 <div
                     className="flex items-center justify-center h-screen">
                     <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
                         <h2
-                            className="text-3xl font-bold leading-tight text-black dark:text-white sm:text-4xl">
+                            className="text-3xl font-bold leading-tight text-teal-700 sm:text-4xl">
                             Welcome back
                         </h2>
                         <AuthForm formType='signin' />

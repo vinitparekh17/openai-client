@@ -1,10 +1,18 @@
 import jwtDecode from "jwt-decode";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AuthState, Payload, DecodedToken } from "../types/auth";
+import { BACKEND_URI } from ".././config";
 
 const initialState: AuthState = {
     token: null,
     id: null,
+    error: null,
+    loading: false,
+    user: {
+        name: "",
+        email: "",
+        profile: 0,
+    }
 }
 
 export const AuthSlice = createSlice({
@@ -15,7 +23,7 @@ export const AuthSlice = createSlice({
             let { token } = action.payload;
             state.token = token;
             let decoded: DecodedToken | null = token ? jwtDecode(token) : null;
-            state.id = decoded ? decoded.data._id : null;
+            state.id = decoded ? decoded.data.id : null;
         },
         removeToken(state) {
             state.token = null;
@@ -25,22 +33,28 @@ export const AuthSlice = createSlice({
 
         getData(state) {
             let token = localStorage.getItem("token");
+            state.token = token;
             if (token) {
-                state.token = token;
                 let decoded: DecodedToken | null = jwtDecode(token);
-                state.id = decoded ? decoded.data._id : null;
+                state.id = decoded ? decoded.data.id : null;
+                state.user.name = decoded ? decoded.data.name : "";
+                state.user.email = decoded ? decoded.data.email : "";
+                state.user.profile = decoded ? decoded.data.profile : 0;
             }
         },
 
-        getDataById(state, action: PayloadAction<{ id: string }>) {
+        getUserById(state, action: PayloadAction<{ id: string }>) {
             if (action.payload.id) {
-                fetch(`http://localhost:5000/api/users/${state.id}`)
+                state.loading = true;
+                fetch(`${BACKEND_URI}/api/users/${state.id}`)
                     .then(res => res.json())
                     .then(data => {
-                        console.log(data);
-                        return data;
+                        state.user.name = data.name;
+                        state.user.email = data.email;
+                        state.user.profile = data.profile;
                     })
-                    .catch(err => console.log(err));
+                    .catch(err => state.error = err.message)
+                    .finally(() => state.loading = false);
             }
         }
     }

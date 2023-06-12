@@ -1,17 +1,23 @@
 import { useForm } from "react-hook-form";
-import { MutableRefObject } from "react";
+import { useSelector } from "react-redux";
+import { CurrentAuthState } from "../../slices/authSlice";
+import type { MutableRefObject, Dispatch, SetStateAction } from "react";
 import { handleChat } from "../../utils/chat";
+import { MessageList } from "../../types";
 
-export default function ChatForm({ socket }: { socket: MutableRefObject<any> }) {
+export default function ChatForm({ socket, setMessages }: { socket: MutableRefObject<any>, setMessages: Dispatch<SetStateAction<MessageList>> }) {
   const { register, handleSubmit, reset } = useForm();
+  const { user } = useSelector(CurrentAuthState);
+  
   return (
     <form className="flex items-center justify-between w-full px-4 py-2 rounded-lg"
       onSubmit={handleSubmit(e => {
+        setMessages(prev => [...prev, { username: user?.name, fromself: true, content: e.prompt, timestamp: new Date().toLocaleString() }]);
         handleChat({ prompt: e.prompt, socket })
         reset();
       })}>
       <input
-        className="w-full mr-2 text-gray-800 bg-gray-200 rounded-lg dark:bg-gray-700 dark:text-gray-200 py-2 px-4"
+        className="w-full mr-2 text-gray-800 bg-teal-50 rounded-lg dark:bg-gray-700 dark:text-gray-200 py-2 px-4"
         type="text"
         {...register("prompt", { required: true })}
         placeholder="Type a message..." />

@@ -13,14 +13,26 @@ export type FormValues = {
 
 type Payload = { token: string | null }
 
-type AuthState = {
-    token: string | null,
-    id: string | null,
+interface UserData {
+    name: string;
+    profile: number;
+    email: string;
+}
+
+export interface AuthState {
+    user: UserData;
+    token: string | null;
+    id: string | null;
+    error: string | null;
+    loading: boolean | false;
 }
 
 type DecodedToken = {
     data: {
-        _id: string;
+        id: string;
+        name: string;
+        email: string;
+        profile: number;
         exp: number;
         iat: number;
     }
