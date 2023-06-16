@@ -31,7 +31,7 @@ export default function Login() {
     return (
         <>
             <MyHead />
-            <main className="bg-gradient-to-tr from-sky-100 to-sky-200
+            <main className="bg-slate-100
              grid grid-cols-1 lg:grid-cols-2">
                 <div
                     className="flex items-center justify-center h-screen">

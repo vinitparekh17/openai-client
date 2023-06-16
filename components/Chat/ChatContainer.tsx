@@ -33,7 +33,6 @@ export default function ChatContainer() {
     socket.current.on("connect_error", err => {
       // revert to classic upgrade
       console.log("Socket connection err..."+err);
-      socket.current.io.opts.transports = ["polling", "websocket"];
     });
     socket.current.connect();
     return () => {

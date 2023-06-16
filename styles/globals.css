@@ -84,3 +84,16 @@
     transform: rotateX(240deg) rotateY(45deg) rotateZ(360deg);
   }
 }
+
+.hiddenscroll::-webkit-scrollbar {
+  display: none;
+}
+
+.hiddenscroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hiddenscroll {
+  overflow: -moz-scrollbars-none;
+}
