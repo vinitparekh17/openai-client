@@ -31,7 +31,7 @@ export default function Signup() {
     return (
         <>
             <MyHead />
-            <main className="dark:bg-gray-800 max-h-screen bg-gradient-to-tr from-sky-100 to-sky-200">
+            <main className="dark:bg-gray-800 max-h-screen bg-slate-100">
                 <div className="grid grid-cols-1 lg:grid-cols-2">
                     <div
                         className="flex items-center justify-center h-screen px-4 py-2">
