@@ -6,5 +6,6 @@ export const SocketIo: Socket<ServerToClientEvents, ClientToServerEvents> = io(B
     transports: ['websocket'],
     reconnection: true,
     autoConnect: true,
+    withCredentials: true,
     secure: true,
 });
