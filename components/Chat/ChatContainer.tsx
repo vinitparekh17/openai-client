@@ -35,6 +35,8 @@ export default function ChatContainer() {
       console.log("Socket connection err..."+err);
     });
     socket.current.connect();
+    console.log(socket.current.connected);
+    
     return () => {
       socket.current.disconnect()
     }
