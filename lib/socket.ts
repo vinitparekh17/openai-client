@@ -4,5 +4,7 @@ import type { ServerToClientEvents, ClientToServerEvents } from "../types/socket
 
 export const SocketIo: Socket<ServerToClientEvents, ClientToServerEvents> = io(BACKEND_URI, {
     transports: ['websocket'],
+    reconnection: true,
+    autoConnect: true,
     secure: true,
 });
