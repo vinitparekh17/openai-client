@@ -20,7 +20,7 @@ export default function Layout({ children }: { children: ReactElement }) {
                 dispatch(AuthSlice.actions.addToken({ token: localStorage.getItem('token') as string }))
             }
         }
-    }, [token])
+    }, [token, dispatch])
     return (
         <div className={theme}>
             <div className="flex flex-col h-[100svh] overflow-hidden bg-gray-200 dark:bg-gray-800">

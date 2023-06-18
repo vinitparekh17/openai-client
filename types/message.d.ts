@@ -6,4 +6,13 @@ export interface Message {
     timestamp: string;
 }
 
+export interface OldMessage {
+        _id: string;
+        prompt: string;
+        user: string;
+        answer: string;
+}
+
+export type OldMessageList = OldMessage[];
+
 export type MessageList = Message[];

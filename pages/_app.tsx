@@ -18,6 +18,12 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
       setCurrentTheme(localStorage.getItem('theme') as 'light' | 'dark')
     }
   }, [setCurrentTheme, currentTheme])
+
+  useEffect(() => {
+    let arr = [/iPhone|Android/i.test(navigator.userAgent), window.matchMedia("only screen and (max-width: 760px)").matches, 'ontouchstart' in document.documentElement];
+    arr.filter((item: boolean) => item).length >= 2 ? localStorage.setItem('mobile', 'true') : localStorage.setItem('mobile', 'false');
+  }, [])
+
   return (
     <Provider store={store} >
       <SessionProvider session={session}>
