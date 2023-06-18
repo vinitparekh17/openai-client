@@ -1,18 +1,17 @@
 import { useRef, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useRouter } from "next/router"
 import { getConversation } from "../../utils/chat";
 import type { MutableRefObject } from "react";
-import { SocketIo } from "../../lib/socket";
+import { SocketClient } from "../../lib/socket";
 import type { Socket } from "socket.io-client";
 import ChatForm from "./ChatForm";
 import Message from "./Message";
 import type { ChunkObj, MessageList, OldMessage } from "../../types";
 import { CurrentAuthState } from "../../slices/authSlice";
+import { BACKEND_URI } from "../../config";
 
 export default function ChatContainer() {
   const socket = useRef() as MutableRefObject<Socket>;
-  const router = useRouter();
   const { id } = useSelector(CurrentAuthState);
   const [isFinished, setIsFinished] = useState(false);
   const [resChunks, setResChunks] = useState<string[]>([]);
@@ -20,8 +19,13 @@ export default function ChatContainer() {
 
   useEffect(() => {
     if (!socket.current) {
-      socket.current = SocketIo;
-      socket.current.connect();
+      socket.current = SocketClient(BACKEND_URI, {
+        transports: ["websocket"],
+        secure: true,
+      });
+      socket.current.on("connect", () => {
+        console.log("socket created", socket.current);
+      });
     }
     return () => {
       if (socket.current && socket.current.connected) {
@@ -83,7 +87,7 @@ export default function ChatContainer() {
         .catch(err => console.log(err))
     }
 
-  }, [messages.length, id, setMessages])
+  }, [messages, id, setMessages])
 
   return (
     <div className="flex flex-col h-full items-center justify-between container py-2">
