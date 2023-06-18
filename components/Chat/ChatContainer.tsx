@@ -1,13 +1,17 @@
 import { useRef, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { getConversation } from "../../utils/chat";
 import type { MutableRefObject } from "react";
 import { SocketIo } from "../../lib/socket";
 import type { Socket } from "socket.io-client";
 import ChatForm from "./ChatForm";
 import Message from "./Message";
-import type { ChunkObj, MessageList } from "../../types";
+import type { ChunkObj, MessageList, OldMessage } from "../../types";
+import { CurrentAuthState } from "../../slices/authSlice";
 
 export default function ChatContainer() {
   const socket = useRef() as MutableRefObject<Socket>;
+  const { id } = useSelector(CurrentAuthState);
   const [isFinished, setIsFinished] = useState(false);
   const [resChunks, setResChunks] = useState<string[]>([]);
   const [messages, setMessages] = useState<MessageList>([]);
@@ -31,12 +35,10 @@ export default function ChatContainer() {
       });
     }
     socket.current.on("connect_error", err => {
-      // revert to classic upgrade
       console.log("Socket connection err..."+err);
     });
     socket.current.connect();
     console.log(socket.current.connected);
-    
     return () => {
       socket.current.disconnect()
     }
@@ -51,11 +53,37 @@ export default function ChatContainer() {
         setResChunks([])
       }, 1500)
     }
-  }, [isFinished, setMessages, setIsFinished, setResChunks])
+  }, [isFinished, setMessages, setIsFinished, setResChunks, resChunks])
+
+  useEffect(() => {
+    if(messages.length === 0) {
+      getConversation(id)
+      .then(res => res.json())
+      .then(d => {
+        let { data } = d as { data: OldMessage[] }
+        data.map((d: OldMessage) => {
+          setMessages(prev => [...prev, {
+            username: "Vinit",
+            content: d.prompt,
+            fromself: true,
+            timestamp: new Date().toLocaleString()
+          }])
+          setMessages(prev => [...prev, {
+            username: "Bot",
+            content: d.answer,
+            fromself: false,
+            timestamp: new Date().toLocaleString()
+          }])
+        })
+      })
+      .catch(err => console.log(err))
+    }
+    
+  }, [messages.length, id, setMessages])
 
   return (
     <div className="flex flex-col h-full items-center justify-between container py-2">
-      <div className="container px-3 overflow-y-scroll scrollbar-custom">
+      <div className="container px-3 overflow-y-scroll hiddenscroll">
         {messages.length > 0 && messages.map((message, i) => <Message key={i} message={message} />)}
         {resChunks.length > 0 && <Message chunks={resChunks} isFinished setResChunks={setResChunks} />}
       </div>

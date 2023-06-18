@@ -19,7 +19,6 @@ export default function Navbar({ setOpen, open }: NavbarProps) {
     const { theme } = useSelector(currentTheme)
     const { setTheme } = useNextTheme();
     const { data: session } = useSession()
-    const pfp = session?.user?.image ? session.user.image : `https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80` as string
     const { token, user } = useSelector(CurrentAuthState);
 
     const handleTheme = (theme: Theme | string) => {
@@ -32,7 +31,7 @@ export default function Navbar({ setOpen, open }: NavbarProps) {
       if(user.name === '' || user.name === undefined) {
       dispatch(AuthSlice.actions.getData(token))
     }
-    }, [dispatch, user])
+    }, [dispatch, user, token])
     
     return (
         <nav className="z-20 backdrop-filter backdrop-blur-lg bg-gradient-to-r from-teal-600 via-blue-700 to-slate-700
