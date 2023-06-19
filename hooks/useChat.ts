@@ -92,7 +92,7 @@ export function useChat() {
     if (messageEndRef.current) {
       (messageEndRef.current as any).scrollIntoView({ behavior: 'smooth' });
     }
-  }, [messages, messageEndRef.current])
+  }, [messages, messageEndRef.current, resChunks])
 
   return { resChunks, messages, setMessages, setResChunks, isFinished, socket, messageEndRef };
 }
