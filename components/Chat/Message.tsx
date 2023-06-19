@@ -3,7 +3,6 @@ import { Typewriter } from 'react-simple-typewriter';
 import type { Message as msg } from '../../types';
 
 export default function Message({ chunks, message, setResChunks, isFinished }: { chunks?: string[], message?: msg, setResChunks?: Dispatch<SetStateAction<string[]>>, isFinished?: boolean }) {
-    chunks && chunks.length > 0 && console.log(chunks.join(""));
     return (
         <>
             <div className="h-auto w-full block float-right my-4">
@@ -14,10 +13,7 @@ export default function Message({ chunks, message, setResChunks, isFinished }: {
                             <Typewriter
                                 words={[chunks.join("")]}
                                 loop={1}
-                                onLoopDone={() => {
-                                    isFinished && setResChunks && setResChunks([])
-                                    console.log(chunks && chunks);
-                                }}
+                                onLoopDone={() => isFinished && setResChunks && setResChunks([])}
                                 cursor
                                 cursorStyle='_'
                                 typeSpeed={50}

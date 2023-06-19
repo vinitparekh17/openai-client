@@ -1,14 +1,14 @@
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
+import type { Socket } from "socket.io-client";
 import { CurrentAuthState } from "../../slices/authSlice";
 import type { MutableRefObject, Dispatch, SetStateAction } from "react";
 import { handleChat } from "../../utils/chat";
 import { MessageList } from "../../types";
 
-export default function ChatForm({ socket, setMessages }: { socket: MutableRefObject<any>, setMessages: Dispatch<SetStateAction<MessageList>> }) {
+export default function ChatForm({ socket, setMessages }: { socket: MutableRefObject<Socket>, setMessages: Dispatch<SetStateAction<MessageList>> }) {
   const { register, handleSubmit, reset } = useForm();
   const { user } = useSelector(CurrentAuthState);
-  
   return (
     <form className="flex items-center justify-between w-full px-4 py-2 rounded-lg"
       onSubmit={handleSubmit(e => {
