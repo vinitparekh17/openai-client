@@ -50,9 +50,6 @@ export function useChat() {
     }
     socket.current = SocketClient(BACKEND_URI, {
       transports: ["websocket"],
-    })
-    socket.current.on("connect", () => {
-      console.log("connected");
     });
     return () => {
       if (socket.current.connected) {
