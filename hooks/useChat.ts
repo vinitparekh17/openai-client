@@ -18,30 +18,31 @@ export function useChat() {
   const [messages, setMessages] = useState<MessageList>([]);
 
   useEffect(() => {
-    if (messages.length === 0) {
-      getConversation(id)
-        .then(res => res.json())
-        .then(d => {
-          let { data } = d as { data: OldMessage[] }
-          data.map((d: OldMessage) => {
-            setMessages(prev => [...prev, {
-              username: "Vinit",
-              content: d.prompt,
-              fromself: true,
-              timestamp: new Date().toLocaleString()
-            }])
-            setMessages(prev => [...prev, {
-              username: "Bot",
-              content: d.answer,
-              fromself: false,
-              timestamp: new Date().toLocaleString()
-            }])
+    if (id) {
+      if (messages.length === 0) {
+        getConversation(id)
+          .then(res => res.json())
+          .then(d => {
+            let { data } = d as { data: OldMessage[] }
+            data.map((d: OldMessage) => {
+              setMessages(prev => [...prev, {
+                username: "Vinit",
+                content: d.prompt,
+                fromself: true,
+                timestamp: new Date().toLocaleString()
+              }])
+              setMessages(prev => [...prev, {
+                username: "Bot",
+                content: d.answer,
+                fromself: false,
+                timestamp: new Date().toLocaleString()
+              }])
+            })
           })
-        })
-        .catch(err => console.log(err))
+          .catch(err => console.log(err))
+      }
     }
-
-  }, [messages, setMessages])
+  }, [])
 
   useEffect(() => {
     if (messageEndRef.current) {
@@ -54,8 +55,8 @@ export function useChat() {
       console.log("connected");
     });
     return () => {
-      if(socket.current.connected) {
-      socket.current?.disconnect();
+      if (socket.current.connected) {
+        socket.current?.disconnect();
       }
     };
   }, []);
