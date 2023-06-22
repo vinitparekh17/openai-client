@@ -71,15 +71,17 @@ export default function SettingsLayout() {
   } else {
     return (
       <Protected>
-        <div className="w-11/12 flex justify-center items-center">
+        <div className="mt-6 flex flex-col justify-center items-center">
+        <div className="w-11/12">
           {settings.map((item, index) => (
-            <Link key={index} href={`/settings/${item.name.toLowerCase()}`}>
-              <a className="flex items-center justify-start hover:bg-gray-100 w-full dark:hover:bg-gray-600 dark:text-gray-200 text-gray-700 rounded-lg p-3">
+            <Link legacyBehavior key={index} href={`/settings/${item.name.toLowerCase()}`}>
+              <a className="my-4 flex items-center justify-start hover:bg-gray-100 w-full dark:hover:bg-gray-600 dark:text-gray-200 text-gray-700 rounded-lg p-3">
                 <span className="mr-3">{item.icon}</span>
                 <p className="font-bold">{item.name}</p>
               </a>
             </Link>
           ))}
+        </div>
         </div>
       </Protected>
     )
