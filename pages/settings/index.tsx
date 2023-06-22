@@ -1,5 +1,6 @@
 import Protected from "../../components/Basic/Protected";
 import { Settings } from "../../components/Basic/Settings";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import { BsRobot, BsFillShieldLockFill, BsCircleHalf } from "react-icons/bs";
@@ -70,7 +71,16 @@ export default function SettingsLayout() {
   } else {
     return (
       <Protected>
-        <h1>Mobile Settings</h1>
+        <div className="w-11/12 flex justify-center items-center">
+          {settings.map((item, index) => (
+            <Link key={index} href={`/settings/${item.name.toLowerCase()}`}>
+              <a className="flex items-center justify-start hover:bg-gray-100 w-full dark:hover:bg-gray-600 dark:text-gray-200 text-gray-700 rounded-lg p-3">
+                <span className="mr-3">{item.icon}</span>
+                <p className="font-bold">{item.name}</p>
+              </a>
+            </Link>
+          ))}
+        </div>
       </Protected>
     )
   }
