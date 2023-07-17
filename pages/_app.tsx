@@ -9,9 +9,7 @@ import type { AppProps } from 'next/app';
 import { useEffect, useState } from 'react';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
-  const [currentTheme, setCurrentTheme] = useState<'light' | 'dark' | 'system'>(
-    'system'
-  );
+  const [currentTheme, setCurrentTheme] = useState<Theme>('system');
   const lightTheme = createTheme({ type: 'light' });
   const darkTheme = createTheme({ type: 'dark' });
   useEffect(() => {

@@ -1,4 +1,3 @@
-import type { FormValues } from '../types/auth';
 import { useFetch } from '../hooks/useFetch';
 import { BACKEND_URI } from '../config';
 
@@ -37,7 +36,11 @@ export const authSubmit = async (data: FormValues): Promise<any> => {
     // if (err) {
     //   console.log(err);
     // }
-    // res?.json 
+    // res?.json
+
+    const {} = useFetch(`${BACKEND_URI}/api/user/${formType}`, {
+      method: 'GET',
+    });
   } catch (error) {
     console.log(error);
   }
@@ -71,13 +74,10 @@ export const googleAuth = (accessToken: string): void => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        Accept: 'application/json',
       },
       credentials: 'include',
       body: JSON.stringify({ accessToken }),
-    })
-
-  } catch (error) {
-    
-  }
-}
+    });
+  } catch (error) {}
+};

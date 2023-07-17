@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import type { SidebarItem, SidebarProps } from '../../types/siderbar';
 import MainSpace from './MainSpace';
 import Navbar from './Navbar';
 import { HiUsers, HiHome, HiQuestionMarkCircle, HiCog } from 'react-icons/hi';

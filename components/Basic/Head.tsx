@@ -2,7 +2,6 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Data from '../../data/metas.json';
-import type { MetaDataProps } from '../../types/head';
 
 export default function MyHead() {
   const data = Data as { [key: string]: MetaDataProps };

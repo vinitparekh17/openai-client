@@ -1,6 +1,5 @@
 import jwtDecode from 'jwt-decode';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AuthState, Payload, DecodedToken } from '../types/auth';
 import { BACKEND_URI } from '.././config';
 
 const initialState: AuthState = {

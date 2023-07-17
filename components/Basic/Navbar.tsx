@@ -2,7 +2,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect } from 'react';
 import { Dropdown } from '@nextui-org/react';
-import type { Theme } from '../../types/theme';
 import { useTheme as useNextTheme } from 'next-themes';
 import { useDispatch, useSelector } from 'react-redux';
 import { CurrentAuthState, AuthSlice } from '../../slices/authSlice';
@@ -11,7 +10,6 @@ import { HiMoon, HiSun, HiUserCircle, HiCog, HiLogout } from 'react-icons/hi';
 import { authSignOut } from '../../utils/auth';
 import { signOut } from 'next-auth/react';
 import { currentTheme, ThemeSlice } from '../../slices/themeSlice';
-import { NavbarProps } from '../../types/siderbar';
 import { Playfair } from '../fonts';
 
 export default function Navbar({ setOpen, open }: NavbarProps) {

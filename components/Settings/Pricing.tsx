@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { razorPayment } from '../../utils/payment';
 import { useRazor } from '../../hooks/useRazor';
 import PricingData from '../../data/price.json';
