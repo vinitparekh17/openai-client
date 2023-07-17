@@ -1,4 +1,4 @@
-import Protected from "../components/Basic/Protected";
+import Protected from '../components/Basic/Protected';
 
 export default function About() {
   return (

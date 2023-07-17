@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { SocketClient } from "../lib/socket";
+import { SocketClient } from '../lib/socket';
 import { useSelector } from 'react-redux';
 import { CurrentAuthState } from '../slices/authSlice';
 import { MutableRefObject } from 'react';
@@ -21,35 +21,41 @@ export function useChat() {
     if (id) {
       if (messages.length === 0) {
         getConversation(id)
-          .then(res => res.json())
-          .then(d => {
-            let { data } = d as { data: OldMessage[] }
+          .then((res) => res.json())
+          .then((d) => {
+            let { data } = d as { data: OldMessage[] };
             data.map((d: OldMessage) => {
-              setMessages(prev => [...prev, {
-                username: "Vinit",
-                content: d.prompt,
-                fromself: true,
-                timestamp: new Date().toLocaleString()
-              }])
-              setMessages(prev => [...prev, {
-                username: "Bot",
-                content: d.answer,
-                fromself: false,
-                timestamp: new Date().toLocaleString()
-              }])
-            })
+              setMessages((prev) => [
+                ...prev,
+                {
+                  username: 'Vinit',
+                  content: d.prompt,
+                  fromself: true,
+                  timestamp: new Date().toLocaleString(),
+                },
+              ]);
+              setMessages((prev) => [
+                ...prev,
+                {
+                  username: 'Bot',
+                  content: d.answer,
+                  fromself: false,
+                  timestamp: new Date().toLocaleString(),
+                },
+              ]);
+            });
           })
-          .catch(err => console.log(err))
+          .catch((err) => console.log(err));
       }
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (messageEndRef.current) {
       (messageEndRef.current as any).scrollIntoView({ behavior: 'smooth' });
     }
     socket.current = SocketClient(BACKEND_URI, {
-      transports: ["websocket"],
+      transports: ['websocket'],
     });
     return () => {
       if (socket.current.connected) {
@@ -60,17 +66,22 @@ export function useChat() {
 
   useEffect(() => {
     if (socket.current && socket.current.connected) {
-      socket.current.on("response-stream", data => {
+      socket.current.on('response-stream', (data) => {
         try {
           let parsed: ChunkObj = JSON.parse(data);
           if (parsed.data) {
-            setIsFinished(false)
-            setResChunks(prev => [...prev, parsed!.data.choices[0].delta?.content!]);
+            setIsFinished(false);
+            setResChunks((prev) => [
+              ...prev,
+              parsed!.data.choices[0].delta?.content!,
+            ]);
           } else {
-            setIsFinished(true)
+            setIsFinished(true);
           }
         } catch (e) {
-          console.log(`error: ${e}\n str: ${JSON.stringify(data)}\n data: ${data}`);
+          console.log(
+            `error: ${e}\n str: ${JSON.stringify(data)}\n data: ${data}`
+          );
         }
       });
     }
@@ -79,18 +90,34 @@ export function useChat() {
   useEffect(() => {
     if (isFinished) {
       setTimeout(() => {
-        setMessages(prev => [...prev, { username: "bot", fromself: false, content: resChunks.join(""), timestamp: new Date().toLocaleString() }])
-        setIsFinished(false)
-        setResChunks([])
-      }, 1500)
+        setMessages((prev) => [
+          ...prev,
+          {
+            username: 'bot',
+            fromself: false,
+            content: resChunks.join(''),
+            timestamp: new Date().toLocaleString(),
+          },
+        ]);
+        setIsFinished(false);
+        setResChunks([]);
+      }, 1500);
     }
-  }, [isFinished, setMessages, setIsFinished, setResChunks, resChunks])
+  }, [isFinished, setMessages, setIsFinished, setResChunks, resChunks]);
 
   useEffect(() => {
     if (messageEndRef.current) {
       (messageEndRef.current as any).scrollIntoView({ behavior: 'smooth' });
     }
-  }, [messages, messageEndRef.current, resChunks])
+  }, [messages, messageEndRef.current, resChunks]);
 
-  return { resChunks, messages, setMessages, setResChunks, isFinished, socket, messageEndRef };
+  return {
+    resChunks,
+    messages,
+    setMessages,
+    setResChunks,
+    isFinished,
+    socket,
+    messageEndRef,
+  };
 }

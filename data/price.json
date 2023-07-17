@@ -1,0 +1,41 @@
+[
+  {
+    "plan": "Basic",
+    "description": "The basic plan is for those who want affordable access to the service.",
+    "duration": "/ Month",
+    "price": 99,
+    "features": [
+      "50 API Calls",
+      "1 User Access",
+      "Normal Support",
+      "Default Avatar",
+      "1 Bot"
+    ]
+  },
+  {
+    "plan": "Pro",
+    "price": 249,
+    "description": "The pro plan is for more customization and support.",
+    "duration": "/ 2 Months",
+    "features": [
+      "100 API Calls",
+      "1 User Access",
+      "Priority Support",
+      "Custom Avatar",
+      "2 Bots"
+    ]
+  },
+  {
+    "plan": "Premium",
+    "price": 299,
+    "description": "The premium plan allows more access and previleges to the service.",
+    "duration": "/ 3 Months",
+    "features": [
+      "200 API Calls",
+      "2 User Access",
+      "Higher Priority Support",
+      "Custom Avatar",
+      "3 Custom Bots"
+    ]
+  }
+]

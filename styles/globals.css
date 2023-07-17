@@ -21,7 +21,7 @@
   perspective-origin: 50% 50%;
   perspective: 340px;
   background-size: 10em 10em;
-  background-image: url(/loader.png)
+  background-image: url(/loader.png);
 }
 
 .spinner:after {
