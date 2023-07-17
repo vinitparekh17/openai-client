@@ -3,10 +3,8 @@ import { SocketClient } from '../lib/socket';
 import { useSelector } from 'react-redux';
 import { CurrentAuthState } from '../slices/authSlice';
 import { MutableRefObject } from 'react';
-import type { ChunkObj } from '../types';
 import type { Socket } from 'socket.io-client';
 import { getConversation } from '../utils/chat';
-import type { MessageList, OldMessage } from '../types';
 import { BACKEND_URI } from '../config';
 
 export function useChat() {
