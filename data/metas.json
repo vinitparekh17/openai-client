@@ -1,42 +1,42 @@
 {
-    "/": {
-        "title": "Omnisive | AI Powered Web Application",
-        "description": "Omnisive is an AI powered web application that provides you varities of services."
-    },
-    "/login": {
-        "title": "Login | Omnisive",
-        "description": "Welcome to Omnisive, Login with Google or Email-Password to continue."
-    },
-    "/signup": {
-        "title": "Signup | Omnisive",
-        "description": "Omnisive is the best AI powered web application, create an account to get started."
-    },
-    "/conversations": {
-        "title": "Conversations | Omnisive",
-        "description": "Talk to your own AI powered chatbot, Omnisive."
-    },
-    "/profile": {
-        "title": "Profile | Omnisive",
-        "description": "Manage your profile, change your name, email, password and more."
-    },
-    "/settings": {
-        "title": "Settings | Omnisive",
-        "description": "Manage your settings, change your theme, language and more."
-    },
-    "/about": {
-        "title": "About | Omnisive",
-        "description": "Omnisive is an AI powered web application that provides you varities of services."
-    },
-    "/privacy": {
-        "title": "Privacy | Omnisive",
-        "description": "Know about our privacy policy, how we use your data and more."
-    },
-    "/terms": {
-        "title": "Terms | Omnisive",
-        "description": "Know about our terms and conditions, how we use your data and more."
-    },
-    "/404": {
-        "title": "404 | Omnisive",
-        "description": "Page not found, the page you are looking for does not exist."
-    }
+  "/": {
+    "title": "Omnisive | AI Powered Web Application",
+    "description": "Omnisive is an AI powered web application that provides you varities of services."
+  },
+  "/login": {
+    "title": "Login | Omnisive",
+    "description": "Welcome to Omnisive, Login with Google or Email-Password to continue."
+  },
+  "/signup": {
+    "title": "Signup | Omnisive",
+    "description": "Omnisive is the best AI powered web application, create an account to get started."
+  },
+  "/conversations": {
+    "title": "Conversations | Omnisive",
+    "description": "Talk to your own AI powered chatbot, Omnisive."
+  },
+  "/profile": {
+    "title": "Profile | Omnisive",
+    "description": "Manage your profile, change your name, email, password and more."
+  },
+  "/settings": {
+    "title": "Settings | Omnisive",
+    "description": "Manage your settings, change your theme, language and more."
+  },
+  "/about": {
+    "title": "About | Omnisive",
+    "description": "Omnisive is an AI powered web application that provides you varities of services."
+  },
+  "/privacy": {
+    "title": "Privacy | Omnisive",
+    "description": "Know about our privacy policy, how we use your data and more."
+  },
+  "/terms": {
+    "title": "Terms | Omnisive",
+    "description": "Know about our terms and conditions, how we use your data and more."
+  },
+  "/404": {
+    "title": "404 | Omnisive",
+    "description": "Page not found, the page you are looking for does not exist."
+  }
 }

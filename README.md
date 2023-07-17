@@ -10,11 +10,12 @@
 [About](#about) | [Features](#features) | [Getting Started](#getting-started) | [Usage](#usage) | [License](#license) | [Contact](#contact)
 
 # About
+
 This is the client-side of openai project which is build using NextJS, Typescript and TailwindCSS.
 
 ## Features
 
-- [x] Comming Soon 
+- [x] Comming Soon
 
 ## Getting Started
 
@@ -33,27 +34,28 @@ This is the client-side of openai project which is build using NextJS, Typescrip
 
    ```sh
    git clone https://github.com/vinitparekh17/openai-client.git
-    ```
+   ```
 
 2. Install NPM packages:
 
    ```sh
    npm install
-    ```
+   ```
 
 3. Run the project:
 
-    ```sh
+   ```sh
    npm run dev
-    ```
+   ```
 
 4. Open the project in your browser:
 
    ```sh
    http://localhost:3000
-    ```
+   ```
 
 ## Usage
+
 <!--  -->
 
 ## License
