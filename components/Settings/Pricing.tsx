@@ -6,7 +6,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 export default function Pricing() {
   console.log('Pricing');
-  const { status } = useMemo(() => useRazor(), []);
+  const { status } = useRazor();
   status
     .then((bool) => (!bool ? toast.error('Something went wrong') : null))
     .catch((err) => toast.error(err.message));

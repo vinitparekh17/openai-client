@@ -116,8 +116,8 @@ export default function Profile() {
                 name="tone"
               >
                 <option value="none">Select...</option>
-                {ProfileData.gender.map((g) => (
-                  <option value={g.toLowerCase()}>{g}</option>
+                {ProfileData.gender.map((g, i) => (
+                  <option key={i} value={g.toLowerCase()}>{g}</option>
                 ))}
               </select>
             </div>
@@ -134,8 +134,8 @@ export default function Profile() {
                 name="tone"
               >
                 <option value="none">Select...</option>
-                {ProfileData.botType.map((t) => (
-                  <option value={t.toLowerCase()}>
+                {ProfileData.botType.map((t, i) => (
+                  <option key={i} value={t.toLowerCase()}>
                     {t.charAt(0).toUpperCase() + t.slice(1)}
                   </option>
                 ))}
