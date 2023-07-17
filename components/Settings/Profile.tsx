@@ -117,7 +117,9 @@ export default function Profile() {
               >
                 <option value="none">Select...</option>
                 {ProfileData.gender.map((g, i) => (
-                  <option key={i} value={g.toLowerCase()}>{g}</option>
+                  <option key={i} value={g.toLowerCase()}>
+                    {g}
+                  </option>
                 ))}
               </select>
             </div>

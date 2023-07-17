@@ -28,10 +28,10 @@ export const AuthOptions: NextAuthOptions = {
     async jwt({ token, account }) {
       console.log(token, account);
       if (account?.access_token) {
-        token.accessToken = account.access_token; 
+        token.accessToken = account.access_token;
       }
       console.log(token);
       return token;
     },
-  }
+  },
 };

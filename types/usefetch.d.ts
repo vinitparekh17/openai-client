@@ -1,22 +1,25 @@
 interface body {
-    body: BodyInit | null
+  body: BodyInit | null;
 }
 interface noBody {
-    body?: never
+  body?: never;
 }
 
-type FetchOptions = GET | POST
+type FetchOptions = GET | POST;
 
 interface GET extends noBody {
-    method: 'GET'
+  method: 'GET';
 }
 
 interface POST extends body {
-    method: 'POST'
+  method: 'POST';
 }
 
 interface FetchResponse {
-    err: Error | null
-    res: Response | null
+  err: Error | null;
+  res: Response | null;
 }
-type FetchResponsefn = (url: string, options: FetchOptions) => Promise<FetchResponse>
+type FetchResponsefn = (
+  url: string,
+  options: FetchOptions
+) => Promise<FetchResponse>;
