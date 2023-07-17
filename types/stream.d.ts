@@ -1,4 +1,4 @@
-export interface ChunkObj {
+interface ChunkObj {
   data: {
     choices: [
       {
@@ -10,6 +10,6 @@ export interface ChunkObj {
   };
 }
 
-export interface ChunkFinished {
+interface ChunkFinished {
   done: boolean;
 }

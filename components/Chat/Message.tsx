@@ -1,7 +1,6 @@
 import type { Dispatch, SetStateAction } from 'react';
 import { Typewriter } from 'react-simple-typewriter';
 import Image from 'next/image';
-import type { Message as msg } from '../../types';
 
 export default function Message({
   chunks,
@@ -10,7 +9,7 @@ export default function Message({
   isFinished,
 }: {
   chunks?: string[];
-  message?: msg;
+  message?: Message;
   setResChunks?: Dispatch<SetStateAction<string[]>>;
   isFinished?: boolean;
 }) {

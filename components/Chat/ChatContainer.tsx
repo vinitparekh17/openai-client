@@ -15,7 +15,7 @@ export default function ChatContainer() {
     <div className="flex justify-center py-2 mb-10">
       <div className="flex flex-col container my-2 px-3 overflow-y-scroll hiddenscroll">
         {messages.length > 0 &&
-          messages.map((message, i) => <Message key={i} message={message} />)}
+          messages.map((message: Message, i: number) => <Message key={i} message={message} />)}
         {resChunks.length > 0 && (
           <Message chunks={resChunks} isFinished setResChunks={setResChunks} />
         )}

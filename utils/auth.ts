@@ -1,4 +1,3 @@
-import type { FormValues } from '../types/auth';
 import { useFetch } from '../hooks/useFetch';
 import { BACKEND_URI } from '../config';
 
@@ -38,6 +37,10 @@ export const authSubmit = async (data: FormValues): Promise<any> => {
     //   console.log(err);
     // }
     // res?.json 
+
+    const {} = useFetch(`${BACKEND_URI}/api/user/${formType}`, {
+      method: 'GET'
+    })
   } catch (error) {
     console.log(error);
   }

@@ -4,7 +4,6 @@ import type { Socket } from 'socket.io-client';
 import { CurrentAuthState } from '../../slices/authSlice';
 import type { MutableRefObject, Dispatch, SetStateAction } from 'react';
 import { handleChat } from '../../utils/chat';
-import { MessageList } from '../../types';
 
 export default function ChatForm({
   socket,

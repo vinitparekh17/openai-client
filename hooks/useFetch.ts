@@ -1,19 +1,3 @@
-interface FetchOptions {
-    method: 'GET' | 'POST' | 'PUT' | 'DELETE'
-    headers: {
-        'Content-Type': 'application/json'
-        'Accept': 'application/json'
-    }
-    credentials: 'include'
-    body?: BodyInit
-}
-
-interface FetchResponse {
-    err: Error | null
-    res: Response | null
-}
-type FetchResponsefn = (url: string, options: FetchOptions) => Promise<FetchResponse>
-
 function isValidURL(url: string): boolean {
     try {
         new URL(url)

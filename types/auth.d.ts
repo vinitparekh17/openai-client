@@ -1,8 +1,8 @@
-export interface FormType {
+interface FormType {
   formType: 'signin' | 'signup';
 }
 
-export type FormValues = {
+type FormValues = {
   formType: FormType;
   firstName?: string;
   lastName?: string;
@@ -19,7 +19,7 @@ interface UserData {
   email: string;
 }
 
-export interface AuthState {
+interface AuthState {
   user: UserData;
   token: string | null;
   id: string | null;
