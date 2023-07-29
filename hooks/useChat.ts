@@ -5,7 +5,7 @@ import { CurrentAuthState } from '../slices/authSlice';
 import { MutableRefObject } from 'react';
 import type { Socket } from 'socket.io-client';
 import { getConversation } from '../utils/chat';
-import { BACKEND_URI } from '../config';
+import { NEXT_PUBLIC_BACKEND_URI } from '../config';
 
 export function useChat() {
   const socket = useRef<Socket>() as MutableRefObject<Socket>;
@@ -52,7 +52,7 @@ export function useChat() {
     if (messageEndRef.current) {
       (messageEndRef.current as any).scrollIntoView({ behavior: 'smooth' });
     }
-    socket.current = SocketClient(BACKEND_URI, {
+    socket.current = SocketClient(NEXT_PUBLIC_BACKEND_URI!, {
       transports: ['websocket'],
     });
     return () => {

@@ -1,10 +1,12 @@
+import { useState } from 'react';
 import { razorPayment } from '../../utils/payment';
+import { Modal, Text, Button, Input } from '@nextui-org/react';
 import { useRazor } from '../../hooks/useRazor';
 import PricingData from '../../data/price.json';
 import toast, { Toaster } from 'react-hot-toast';
 
 export default function Pricing() {
-  console.log('Pricing');
+  const [visible, setVisible] = useState(false);
   const { status } = useRazor();
   status
     .then((bool) => (!bool ? toast.error('Something went wrong') : null))
@@ -58,11 +60,58 @@ export default function Pricing() {
                 ))}
               </ul>
               <button
-                onClick={() => razorPayment(index)}
+                onClick={() => setVisible(true)}
                 className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-blue-900"
               >
                 Get started
               </button>
+              <Modal
+                closeButton
+                preventClose
+                aria-labelledby="modal-title"
+                open={visible}
+                onClose={() => setVisible(false)}
+              >
+                <Modal.Header>
+                  <Text id="modal-title" size={18}>
+                    Welcome to
+                    <Text b size={18}>
+                      NextUI
+                    </Text>
+                  </Text>
+                </Modal.Header>
+                <Modal.Body>
+                  <Input
+                    clearable
+                    bordered
+                    fullWidth
+                    color="primary"
+                    size="lg"
+                    placeholder="Email"
+                  />
+                  <Input
+                    clearable
+                    bordered
+                    fullWidth
+                    color="primary"
+                    size="lg"
+                    placeholder="Password"
+                  />
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button
+                    auto
+                    flat
+                    color="error"
+                    onPress={() => setVisible(false)}
+                  >
+                    Close
+                  </Button>
+                  <Button auto color={'default'}>
+                    <Text>Sign Up</Text>
+                  </Button>
+                </Modal.Footer>
+              </Modal>
             </div>
           ))}
         </div>
