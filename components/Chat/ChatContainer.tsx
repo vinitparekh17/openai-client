@@ -11,9 +11,10 @@ export default function ChatContainer() {
     setResChunks,
     messageEndRef,
   } = useChat();
+
   return (
     <div className="flex justify-center py-2 mb-10">
-      <div className="flex flex-col container my-2 px-3 overflow-y-scroll hiddenscroll">
+      <div className="flex flex-col justify-center items-center container my-2 px-3 overflow-y-scroll hiddenscroll">
         {messages.length > 0 &&
           messages.map((message: Message, i: number) => (
             <Message key={i} message={message} />

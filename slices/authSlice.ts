@@ -1,6 +1,6 @@
 import jwtDecode from 'jwt-decode';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { BACKEND_URI } from '.././config';
+import { NEXT_PUBLIC_BACKEND_URI } from '.././config';
 
 const initialState: AuthState = {
   token: null,
@@ -45,7 +45,7 @@ export const AuthSlice = createSlice({
     getUserById(state, action: PayloadAction<{ id: string }>) {
       if (action.payload.id) {
         state.loading = true;
-        fetch(`${BACKEND_URI}/api/users/${state.id}`)
+        fetch(`${NEXT_PUBLIC_BACKEND_URI}/api/users/${state.id}`)
           .then((res) => res.json())
           .then((data) => {
             state.user.name = data.name;

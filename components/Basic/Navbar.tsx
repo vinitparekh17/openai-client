@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect } from 'react';
+import { Switch } from '@nextui-org/react';
 import { Dropdown } from '@nextui-org/react';
 import { useTheme as useNextTheme } from 'next-themes';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,10 +20,16 @@ export default function Navbar({ setOpen, open }: NavbarProps) {
   const { data: session } = useSession();
   const { token, user } = useSelector(CurrentAuthState);
 
-  const handleTheme = (theme: Theme | string) => {
-    localStorage.setItem('theme', theme);
-    setTheme(theme);
-    dispatch(ThemeSlice.actions.changeTheme({ theme }));
+  const handleTheme = (switchState: boolean) => {
+    if (switchState) {
+      localStorage.setItem('theme', 'light');
+      setTheme('light');
+      dispatch(ThemeSlice.actions.changeTheme({ theme: 'light' }));
+    } else {
+      localStorage.setItem('theme', 'dark');
+      setTheme('dark');
+      dispatch(ThemeSlice.actions.changeTheme({ theme: 'dark' }));
+    }
   };
 
   useEffect(() => {
@@ -93,38 +100,14 @@ export default function Navbar({ setOpen, open }: NavbarProps) {
             </div>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            <div className="mx-2">
-              <div className="hidden sm:block relative w-14 h-8">
-                <label
-                  htmlFor="toggle"
-                  className="flex items-center cursor-pointer"
-                >
-                  <div
-                    className={`w-14 h-8 bg-teal-300 dark:bg-teal-600 shadow-md rounded-full`}
-                  ></div>
-                  <div
-                    className={`absolute left-1 top-1 w-6 h-6 bg-white rounded-full transition-transform duration-300 ${
-                      theme === 'light' ? 'translate-x-full' : ''
-                    }`}
-                  >
-                    {theme === 'light' ? (
-                      <HiSun className="text-yellow-500 m-1" />
-                    ) : (
-                      <HiMoon className="text-gray-500 m-1" />
-                    )}
-                  </div>
-                  <input
-                    type="checkbox"
-                    id="toggle"
-                    name="toggle"
-                    className="hidden"
-                    onChange={() =>
-                      handleTheme(theme === 'dark' ? 'light' : 'dark')
-                    }
-                  />
-                </label>
-              </div>
-            </div>
+            <Switch
+              checked={true}
+              size="md"
+              color={'success'}
+              onChange={(e) => handleTheme(e.target.checked)}
+              iconOn={<HiSun />}
+              iconOff={<HiMoon />}
+            />
             <div className="relative ml-3">
               {session || token ? (
                 <Dropdown placement="left-bottom">
