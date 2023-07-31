@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { CurrentAuthState } from '../slices/authSlice';
 import { MutableRefObject } from 'react';
 import type { Socket } from 'socket.io-client';
+import { NEXT_PUBLIC_BACKEND_URI } from '../config';
 import { getConversation } from '../utils/chat';
 
 export function useChat() {
@@ -51,8 +52,12 @@ export function useChat() {
     if (messageEndRef.current) {
       (messageEndRef.current as any).scrollIntoView({ behavior: 'smooth' });
     }
-    socket.current = SocketClient(process.env.NEXT_PUBLIC_BACKEND_URI!, {
+    socket.current = SocketClient(NEXT_PUBLIC_BACKEND_URI!, {
       transports: ['websocket'],
+      secure: true,
+      withCredentials: true,
+      rejectUnauthorized: false,
+      upgrade: false,
     });
     return () => {
       if (socket.current.connected) {
