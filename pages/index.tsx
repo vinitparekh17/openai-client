@@ -106,7 +106,7 @@ const Home: NextPage = () => {
           <div
             className="rounded-xl overflow-hidden p-2 bg-white transform shadow-2xl"
             style={{
-              transform: 'rotateX(40deg) rotateZ(6deg) rotateY(-10deg);',
+              transform: 'rotateX(40deg) rotateZ(6deg) rotateY(-10deg)',
             }}
           >
             <img
