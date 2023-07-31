@@ -55,9 +55,7 @@ export function useChat() {
     socket.current = SocketClient(NEXT_PUBLIC_BACKEND_URI!, {
       transports: ['websocket'],
       secure: true,
-      withCredentials: true,
-      rejectUnauthorized: false,
-      upgrade: false,
+      withCredentials: true
     });
     return () => {
       if (socket.current.connected) {

@@ -101,7 +101,6 @@ export default function Navbar({ setOpen, open }: NavbarProps) {
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             <Switch
-              checked={true}
               size="md"
               color={'success'}
               onChange={(e) => handleTheme(e.target.checked)}

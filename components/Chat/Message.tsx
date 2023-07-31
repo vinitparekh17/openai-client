@@ -24,7 +24,7 @@ export default function Message({
                   className="w-12 h-12 rounded-full mx-auto"
                   width={400}
                   height={400}
-                  src={`/images/bot-${Math.floor(Math.random() * 6) + 1}.webp`}
+                  src={`/images/bot-1.webp`}
                   alt="chat-user"
                 />
                 <span className="absolute w-4 h-4 bg-green-500 rounded-full right-0 bottom-0 border-2 border-green-500"></span>
