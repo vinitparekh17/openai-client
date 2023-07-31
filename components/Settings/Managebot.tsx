@@ -130,5 +130,5 @@ export function Managebot() {
         </div>
       </div>
     </section>
-  )
+  );
 }
