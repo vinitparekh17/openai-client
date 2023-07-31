@@ -1,3 +1,6 @@
-export const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, JWT_SECRET } =
-  process.env;
-export const NEXT_PUBLIC_BACKEND_URI = 'http://localhost:8080';
+export const {
+  GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET,
+  JWT_SECRET,
+  NEXT_PUBLIC_BACKEND_URI,
+} = process.env;

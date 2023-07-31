@@ -1,5 +1,6 @@
 import { MutableRefObject } from 'react';
 import type { Socket } from 'socket.io-client';
+import { NEXT_PUBLIC_BACKEND_URI } from '../config';
 
 interface chatData {
   prompt: string;
@@ -12,7 +13,7 @@ export const handleChat = (data: chatData) => {
 };
 
 export const getConversation = async (uid: string) => {
-  return fetch(`${process.env.NEXT_PUBLIC_BACKEND_URI}/api/chat/${uid}`, {
+  return fetch(`${NEXT_PUBLIC_BACKEND_URI}/api/chat/${uid}`, {
     method: 'GET',
     credentials: 'include',
   });
