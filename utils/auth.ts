@@ -11,7 +11,6 @@ export const authSubmit = async (data: FormValues): Promise<any> => {
         body: JSON.stringify(data),
       }
     );
-    console.log(data);
     if (!err && res) {
       const { token } = await res.json();
       localStorage.setItem('token', token);
@@ -25,7 +24,7 @@ export const authSubmit = async (data: FormValues): Promise<any> => {
   }
 };
 
-export const authSignOut = (): void => {
+export const authSignOut = async () => {
   try {
     fetch(`${NEXT_PUBLIC_BACKEND_URI}/api/user/signout`, {
       method: 'GET',
@@ -35,13 +34,18 @@ export const authSignOut = (): void => {
       },
       credentials: 'include',
     })
-      .then((res) => res.json())
+      .then(res => res.json())
       .then((data) => {
-        if (data.message) {
-          localStorage.removeItem('token');
-          window.location.href = '/login';
-        }
+        console.log(data);
+        // if (data.message) {
+        //   localStorage.removeItem('token');
+        //   window.location.href = '/login';
+        // }
       });
+    // const {err, res} = await useFetch(`${NEXT_PUBLIC_BACKEND_URI}/api/user/signout`, { method: 'GET' });
+    // if(!err && res) {
+    //   console.log(res.json());
+    // } 
   } catch (error) {
     console.log(error);
   }
