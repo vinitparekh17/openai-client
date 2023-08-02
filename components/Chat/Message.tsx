@@ -54,7 +54,9 @@ export default function Message({
                     cursorBlinking={false}
                   />
                 ) : (
-                  <ReaxtMarkdown children={message?.content!} remarkPlugins={[remarkGfm]} />
+                  <ReaxtMarkdown remarkPlugins={[remarkGfm]}>
+                    {message?.content!}
+                  </ReaxtMarkdown>
                 )}
               </span>
             </div>
