@@ -1,4 +1,6 @@
 import type { Dispatch, SetStateAction } from 'react';
+import ReaxtMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import Image from 'next/image';
 import { Typewriter } from 'react-simple-typewriter';
 
@@ -15,7 +17,7 @@ export default function Message({
 }) {
   return (
     <>
-      <div className="h-auto sm:w-3/4 w-full block float-right my-4">
+      <div className="h-auto sm:w-4/5 block float-right my-4">
         <div className={`mb-4 flex ${message?.fromself && 'text-right'}`}>
           {!message?.fromself && (
             <div className="flex-2">
@@ -33,11 +35,10 @@ export default function Message({
           )}
           <div className="flex-1 px-2">
             <div
-              className={`inline-block ${
-                message?.fromself
+              className={`inline-block overflow-x-scroll hiddenscroll ${message?.fromself
                   ? 'bg-blue-600 dark:bg-blue-900 text-white'
-                  : 'bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
-              } rounded-3xl p-2 px-4`}
+                  : 'bg-gray-300 dark:bg-slate-700 text-gray-600 dark:text-gray-400'
+                } rounded-3xl p-2 px-4`}
             >
               <span>
                 {chunks && chunks?.length > 0 ? (
@@ -53,7 +54,9 @@ export default function Message({
                     cursorBlinking={false}
                   />
                 ) : (
-                  message?.content
+                  <ReaxtMarkdown remarkPlugins={[remarkGfm]}>
+                    {message?.content!}
+                  </ReaxtMarkdown>
                 )}
               </span>
             </div>

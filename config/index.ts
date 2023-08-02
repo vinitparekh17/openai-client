@@ -5,4 +5,3 @@ export const {
 } = process.env;
 
 export const NEXT_PUBLIC_BACKEND_URI = 'https://api.omnisive.technetic.co.in';
-// export const NEXT_PUBLIC_BACKEND_URI = 'http://localhost:8080'
