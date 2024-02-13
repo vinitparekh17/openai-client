@@ -58,9 +58,9 @@ export default function Signup() {
           <div className="h-full w-full hidden lg:block">
             <Image
               className="mx-auto w-full h-screen object-cover"
-              height={1080}
-              width={1920}
-              src="https://images.unsplash.com/photo-1630673245362-f69d2b93880e?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1740&amp;q=80"
+              height={980}
+              width={1020}
+              src="https://images.unsplash.com/photo-1529539795054-3c162aab037a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bG9naW58ZW58MHx8MHx8fDA%3D"
               alt="login image"
             />
           </div>

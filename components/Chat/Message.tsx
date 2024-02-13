@@ -35,10 +35,11 @@ export default function Message({
           )}
           <div className="flex-1 px-2">
             <div
-              className={`inline-block overflow-x-scroll hiddenscroll ${message?.fromself
+              className={`inline-block overflow-x-scroll hiddenscroll ${
+                message?.fromself
                   ? 'bg-blue-600 dark:bg-blue-900 text-white'
                   : 'bg-gray-300 dark:bg-slate-700 text-gray-600 dark:text-gray-400'
-                } rounded-3xl p-2 px-4`}
+              } rounded-3xl p-2 px-4`}
             >
               <span>
                 {chunks && chunks?.length > 0 ? (
@@ -54,9 +55,7 @@ export default function Message({
                     cursorBlinking={false}
                   />
                 ) : (
-                  <ReaxtMarkdown remarkPlugins={[remarkGfm]}>
-                    {message?.content!}
-                  </ReaxtMarkdown>
+                    message?.content!
                 )}
               </span>
             </div>

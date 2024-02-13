@@ -1,7 +1,7 @@
 import { Avatar, Grid, Badge } from '@nextui-org/react';
-import ProfileData from '../../data/profile.json';
 
 export default function Profile() {
+
   return (
     <section className="px-6 py-3">
       <h1 className="text-3xl my-6 font-semibold">Profile</h1>
@@ -46,12 +46,13 @@ export default function Profile() {
           </div>
         </div>
         <div className="space-y-2">
-          <div className="mb-3 w-full">
+          <div className='flex'>
+          <div className="mb-3 mr-[5%] w-[45%]">
             <label
               className="text-gray-700 dark:text-gray-200"
               htmlFor="username"
             >
-              Name
+              First Name
             </label>
             <input
               className="w-full my-1 px-4 py-2 text-base text-gray-700 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400 focus:bg-white focus:ring-0 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600"
@@ -60,6 +61,22 @@ export default function Profile() {
               name="username"
               placeholder="User Name"
             />
+          </div>
+          <div className="mb-3 ml-[5%] w-[45%]">
+            <label
+              className="text-gray-700 dark:text-gray-200"
+              htmlFor="firstName"
+            >
+              Last Name
+            </label>
+            <input
+              className="w-full my-1 px-4 py-2 text-base text-gray-700 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400 focus:bg-white focus:ring-0 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600"
+              id="lastName"
+              type="text"
+              name="username"
+              placeholder="Last Name"
+            />
+          </div>
           </div>
           <div className="mb-3 w-full">
             <label
@@ -75,6 +92,11 @@ export default function Profile() {
               name="emailAddress"
               placeholder="Email Address"
             />
+          </div>
+          <div className="mt-3 w-full">
+          <button className='mt-3 w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
+            Save
+          </button>
           </div>
         </div>
       </div>

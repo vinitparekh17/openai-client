@@ -11,6 +11,8 @@ type FormValues = {
   confirmPassword?: string;
 };
 
+type AuthMethod = 'normal' | 'google';
+
 type Payload = { token: string | null };
 
 interface UserData {

@@ -1,19 +1,15 @@
-interface body {
-  body: BodyInit | null;
+interface CommonOptions {
+  headers?: HeadersInit;
 }
-interface noBody {
-  body?: never;
-}
-
-type FetchOptions = GET | POST;
-
-interface GET extends noBody {
-  method: 'GET';
-}
-
-interface POST extends body {
-  method: 'POST';
-}
+type FetchOptions =
+  {
+    method: 'GET';
+    body?: BodyInit;
+  } & CommonOptions
+  | {
+    method: 'POST';
+    body: BodyInit;
+  } & CommonOptions;
 
 interface FetchResponse {
   err: Error | null;

@@ -19,7 +19,7 @@ export function useChat() {
     if (id) {
       if (messages.length === 0) {
         getConversation(id)
-          .then((res) => res.json())
+        .then(res => res?.json())
           .then((d) => {
             let { data } = d as { data: OldMessage[] };
             data.map((d: OldMessage) => {
@@ -50,12 +50,12 @@ export function useChat() {
 
   useEffect(() => {
     if (messageEndRef.current) {
-      (messageEndRef.current as any).scrollIntoView({ behavior: 'smooth' });
+      (messageEndRef.current as HTMLDivElement).scrollIntoView({ behavior: 'smooth' });
     }
     socket.current = SocketClient(NEXT_PUBLIC_BACKEND_URI!, {
       transports: ['websocket'],
       secure: true,
-      withCredentials: true
+      withCredentials: true,
     });
     return () => {
       if (socket.current.connected) {
@@ -67,8 +67,9 @@ export function useChat() {
   useEffect(() => {
     if (socket.current && socket.current.connected) {
       socket.current.on('response-stream', (data) => {
+        console.log(JSON.stringify(data));
         try {
-          let parsed: ChunkObj = JSON.parse(data);
+          let parsed = JSON.parse(JSON.stringify(data));
           if (parsed.data) {
             setIsFinished(false);
             setResChunks((prev) => [

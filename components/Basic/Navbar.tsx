@@ -19,7 +19,6 @@ export default function Navbar({ setOpen, open }: NavbarProps) {
   const { setTheme } = useNextTheme();
   const { data: session } = useSession();
   const { token, user } = useSelector(CurrentAuthState);
-
   const handleTheme = (switchState: boolean) => {
     if (switchState) {
       localStorage.setItem('theme', 'light');
@@ -31,8 +30,8 @@ export default function Navbar({ setOpen, open }: NavbarProps) {
       dispatch(ThemeSlice.actions.changeTheme({ theme: 'dark' }));
     }
   };
-
   useEffect(() => {
+    handleTheme(theme === 'light');
     if (user.name === '' || user.name === undefined) {
       dispatch(AuthSlice.actions.getData(token));
     }
@@ -41,8 +40,7 @@ export default function Navbar({ setOpen, open }: NavbarProps) {
   return (
     <nav
       className="z-20 backdrop-filter backdrop-blur-lg bg-gradient-to-r from-teal-600 via-blue-700 to-slate-700
-         dark:from-slate-700 dark:to-slate-900 absolute w-full mt-0"
-    >
+        dark:from-slate-700 dark:to-slate-900 absolute w-full mt-0">
       <div className="mx-auto w-full px-4">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center">
@@ -105,10 +103,11 @@ export default function Navbar({ setOpen, open }: NavbarProps) {
               color={'success'}
               onChange={(e) => handleTheme(e.target.checked)}
               iconOn={<HiSun />}
+              checked={theme === 'light'}
               iconOff={<HiMoon />}
             />
             <div className="relative ml-3">
-              {session || token ? (
+              {session || token && (
                 <Dropdown placement="left-bottom">
                   <Dropdown.Trigger>
                     <button
@@ -121,17 +120,14 @@ export default function Navbar({ setOpen, open }: NavbarProps) {
                       <span className="sr-only">Open user menu</span>
                       <Image
                         className="h-8 w-8 rounded-full"
-                        src={`/images/m-${user.profile}.webp`}
+                        src={`/images/avatars/m-${user.profile}.webp`}
                         alt="logo"
                         width={300}
                         height={300}
                       />
                     </button>
                   </Dropdown.Trigger>
-                  <Dropdown.Menu
-                    variant="shadow"
-                    css={{ background: 'rgb(17 24 39)' }}
-                  >
+                  <Dropdown.Menu variant="shadow">
                     <Dropdown.Item
                       textValue="Profile"
                       title="Profile"
@@ -164,13 +160,6 @@ export default function Navbar({ setOpen, open }: NavbarProps) {
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
-              ) : (
-                <Link
-                  href={'/login'}
-                  className="bg-teal-500 dark:bg-teal-600 shadow-md text-white px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Login
-                </Link>
               )}
             </div>
           </div>

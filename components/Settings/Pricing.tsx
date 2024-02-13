@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { razorPayment } from '../../utils/payment';
-import { Modal, Text, Button, Input } from '@nextui-org/react';
-import { useRazor } from '../../hooks/useRazor';
+import { SiRazorpay } from 'react-icons/si';
+import { Modal, Text } from '@nextui-org/react';
+import { useRazor } from '../../hooks';
 import PricingData from '../../data/price.json';
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -22,9 +23,9 @@ export default function Pricing() {
           </h2>
         </div>
         <div className="space-y-5 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-5 lg:space-y-0">
-          {PricingData.map((item: PricingItem, index) => (
+          {PricingData.map((item: PricingItem, i) => (
             <div
-              key={index + 1}
+              key={i + 1}
               className="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-gray-100 rounded-lg border border-gray-100 shadow-sm shadow-gray-700 dark:shadow-gray-400 dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white"
             >
               <h3 className="mb-4 text-2xl font-semibold">{item.plan}</h3>
@@ -60,7 +61,7 @@ export default function Pricing() {
                 ))}
               </ul>
               <button
-                onClick={() => setVisible(true)}
+                onClick={() => razorPayment(i)}
                 className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-blue-900"
               >
                 Get started
@@ -75,42 +76,42 @@ export default function Pricing() {
                 <Modal.Header>
                   <Text id="modal-title" size={18}>
                     Welcome to
-                    <Text b size={18}>
-                      NextUI
+                    <Text b className="ml-1" size={18}>
+                      Payment Options
                     </Text>
                   </Text>
                 </Modal.Header>
                 <Modal.Body>
-                  <Input
-                    clearable
-                    bordered
-                    fullWidth
-                    color="primary"
-                    size="lg"
-                    placeholder="Email"
-                  />
-                  <Input
-                    clearable
-                    bordered
-                    fullWidth
-                    color="primary"
-                    size="lg"
-                    placeholder="Password"
-                  />
-                </Modal.Body>
-                <Modal.Footer>
-                  <Button
-                    auto
-                    flat
-                    color="error"
-                    onPress={() => setVisible(false)}
+                  {/* <form onSubmit={e => stripePayment(e, stripe, elements)}>
+                  <PaymentElement />
+                  <button className="flex items-center justify-between w-full p-2 mb-2 text-white bg-blue-600 rounded-lg dark:bg-blue-900"
+                  onClick={() => stripe.createPaymentMethod({
+                    type: 'card',
+                    billing_details: {
+                      name: 'Jenny Rosen',
+                      email: ''
+                    },
+                    card: elements.getElement(PaymentElement) as StripeCardElement,
+                  })}
                   >
-                    Close
-                  </Button>
-                  <Button auto color={'default'}>
-                    <Text>Sign Up</Text>
-                  </Button>
-                </Modal.Footer>
+                    <span className="mr-2">
+                      <FaStripe size={30} />
+                    </span>
+                    <span className="text-md font-semibold">
+                      Credit / Debit Card
+                    </span>
+                  </button>
+                  </form> */}
+                  <button
+                    onClick={() => razorPayment(item)}
+                    className="flex items-center justify-between w-full p-2 mb-2 text-white bg-blue-600 rounded-lg dark:bg-blue-900"
+                  >
+                    <span className="mr-2">
+                      <SiRazorpay size={30} />
+                    </span>
+                    <span className="text-md font-semibold">UPI Payments</span>
+                  </button>
+                </Modal.Body>
               </Modal>
             </div>
           ))}

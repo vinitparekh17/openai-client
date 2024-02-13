@@ -7,7 +7,7 @@ function isValidURL(url: string): boolean {
   }
 }
 
-export const useFetch: FetchResponsefn = async (url, options) => {
+export const useFetch: FetchResponsefn = async (url, options) : Promise<FetchResponse> => {
   try {
     if (!isValidURL(url)) {
       console.log(url);
@@ -15,18 +15,17 @@ export const useFetch: FetchResponsefn = async (url, options) => {
     } else {
       let reqPromise = await fetch(url, {
         method: options.method,
-        body: options.body ? options.body : null,
         headers: {
           'Content-Type': 'application/json',
-          Accept: 'application/json',
+          ...options.headers
         },
+        body: options.body,
         credentials: 'include',
       });
       if (reqPromise.ok) {
         return { err: null, res: reqPromise };
-      } else {
-        return { err: new Error(reqPromise.statusText), res: null };
       }
+      return { err: new Error(reqPromise.statusText), res: null };
     }
   } catch (error: unknown) {
     if (error instanceof Error) {

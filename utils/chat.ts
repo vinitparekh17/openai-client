@@ -1,6 +1,7 @@
 import { MutableRefObject } from 'react';
 import type { Socket } from 'socket.io-client';
 import { NEXT_PUBLIC_BACKEND_URI } from '../config';
+import { useFetch } from '../hooks';
 
 interface chatData {
   prompt: string;
@@ -13,8 +14,8 @@ export const handleChat = (data: chatData) => {
 };
 
 export const getConversation = async (uid: string) => {
-  return fetch(`${NEXT_PUBLIC_BACKEND_URI}/api/chat/${uid}`, {
+  const {err, res}  = await useFetch(`${NEXT_PUBLIC_BACKEND_URI}/chat/${uid}`, {
     method: 'GET',
-    credentials: 'include',
   });
+  return err && !res ? null : res
 };

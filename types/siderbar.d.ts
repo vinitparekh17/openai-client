@@ -13,4 +13,6 @@ interface SidebarItem {
   name: string;
   icon: ReactElement;
   link: string;
+  modes?: ['text', 'voice']
+  subItems?: SidebarItem[];
 }
