@@ -19,7 +19,7 @@ export function useChat() {
     if (id) {
       if (messages.length === 0) {
         getConversation(id)
-        .then(res => res?.json())
+          .then(res => res?.json())
           .then((d) => {
             let { data } = d as { data: OldMessage[] };
             data.map((d: OldMessage) => {
@@ -49,44 +49,34 @@ export function useChat() {
   }, []);
 
   useEffect(() => {
-    if (messageEndRef.current) {
-      (messageEndRef.current as HTMLDivElement).scrollIntoView({ behavior: 'smooth' });
+    try {
+      if (messageEndRef.current) {
+        (messageEndRef.current as HTMLDivElement).scrollIntoView({ behavior: 'smooth' });
+      }
+      socket.current = SocketClient("http://localhost:8080", {
+        transports: ['websocket'],
+        secure: true,
+        withCredentials: true,
+      });
+
+      socket.current.on("response-stream", (serverResponse) => {
+
+        let res = JSON.parse(JSON.stringify(serverResponse));
+        if (res) {
+          setResChunks((prev) => [...prev, res.data]);
+          setIsFinished(true);
+        }
+      });
+    } catch (e) {
+      console.log(`error: ${e}`);
     }
-    socket.current = SocketClient(NEXT_PUBLIC_BACKEND_URI!, {
-      transports: ['websocket'],
-      secure: true,
-      withCredentials: true,
-    });
+
     return () => {
       if (socket.current.connected) {
         socket.current?.disconnect();
       }
     };
   }, []);
-
-  useEffect(() => {
-    if (socket.current && socket.current.connected) {
-      socket.current.on('response-stream', (data) => {
-        console.log(JSON.stringify(data));
-        try {
-          let parsed = JSON.parse(JSON.stringify(data));
-          if (parsed.data) {
-            setIsFinished(false);
-            setResChunks((prev) => [
-              ...prev,
-              parsed!.data.choices[0].delta?.content!,
-            ]);
-          } else {
-            setIsFinished(true);
-          }
-        } catch (e) {
-          console.log(
-            `error: ${e}\n str: ${JSON.stringify(data)}\n data: ${data}`
-          );
-        }
-      });
-    }
-  }, [socket.current, setResChunks, setIsFinished]);
 
   useEffect(() => {
     if (isFinished) {

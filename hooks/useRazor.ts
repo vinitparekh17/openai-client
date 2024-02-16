@@ -1,5 +1,4 @@
 export const useRazor = (): { status: Promise<boolean> } => {
-  console.log('useRazor');
   if (document.getElementById('razorpay-script')) {
     return { status: Promise.resolve(true) };
   } else {

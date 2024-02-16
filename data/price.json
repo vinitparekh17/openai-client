@@ -1,5 +1,6 @@
 [
   {
+    "id": 1,
     "plan": "Basic",
     "description": "The basic plan is for those who want affordable access to the service.",
     "duration": "/ Month",
@@ -13,6 +14,7 @@
     ]
   },
   {
+    "id": 2,
     "plan": "Pro",
     "price": 249,
     "description": "The pro plan is for more customization and support.",
@@ -26,6 +28,7 @@
     ]
   },
   {
+    "id": 3,
     "plan": "Premium",
     "price": 299,
     "description": "The premium plan allows more access and previleges to the service.",

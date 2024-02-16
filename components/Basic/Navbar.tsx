@@ -35,7 +35,7 @@ export default function Navbar({ setOpen, open }: NavbarProps) {
     if (user.name === '' || user.name === undefined) {
       dispatch(AuthSlice.actions.getData(token));
     }
-  }, [dispatch, user, token]);
+  }, [dispatch, user, token, handleTheme, theme]);
 
   return (
     <nav

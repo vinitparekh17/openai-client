@@ -1,21 +1,28 @@
 import { useState } from 'react';
 import { razorPayment } from '../../utils/payment';
-import { SiRazorpay } from 'react-icons/si';
-import { Modal, Text } from '@nextui-org/react';
+import PricingModel from '../Pricing/Model';
 import { useRazor } from '../../hooks';
 import PricingData from '../../data/price.json';
 import toast, { Toaster } from 'react-hot-toast';
+import { PricingItem } from '../../types/pricing';
 
 export default function Pricing() {
+  const [item, setItem] = useState({} as PricingItem);
   const [visible, setVisible] = useState(false);
   const { status } = useRazor();
   status
     .then((bool) => (!bool ? toast.error('Something went wrong') : null))
     .catch((err) => toast.error(err.message));
 
+  const handleModel = (i: PricingItem) => {
+    setVisible(true);
+    setItem(i)
+  }
+  
   return (
     <section className="dark:bg-gray-900 rounded-xl">
       <Toaster />
+      <PricingModel item={item} razorPayment={razorPayment} setVisible={setVisible} visible={visible} />
       <div className="py-3 px-2 mx-auto max-w-screen-xl lg:py-2 lg:px-2">
         <div className="mx-auto max-w-screen-md text-center mb-6 lg:mb-12">
           <h2 className="mb-2 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
@@ -23,7 +30,7 @@ export default function Pricing() {
           </h2>
         </div>
         <div className="space-y-5 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-5 lg:space-y-0">
-          {PricingData.map((item: PricingItem, i) => (
+          {PricingData.map((item: PricingItem, i: number) => (
             <div
               key={i + 1}
               className="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-gray-100 rounded-lg border border-gray-100 shadow-sm shadow-gray-700 dark:shadow-gray-400 dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white"
@@ -61,58 +68,12 @@ export default function Pricing() {
                 ))}
               </ul>
               <button
-                onClick={() => razorPayment(i)}
+                // onClick={() => razorPayment(i)}
+                onClick={() => handleModel(item)}
                 className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-blue-900"
               >
                 Get started
               </button>
-              <Modal
-                closeButton
-                preventClose
-                aria-labelledby="modal-title"
-                open={visible}
-                onClose={() => setVisible(false)}
-              >
-                <Modal.Header>
-                  <Text id="modal-title" size={18}>
-                    Welcome to
-                    <Text b className="ml-1" size={18}>
-                      Payment Options
-                    </Text>
-                  </Text>
-                </Modal.Header>
-                <Modal.Body>
-                  {/* <form onSubmit={e => stripePayment(e, stripe, elements)}>
-                  <PaymentElement />
-                  <button className="flex items-center justify-between w-full p-2 mb-2 text-white bg-blue-600 rounded-lg dark:bg-blue-900"
-                  onClick={() => stripe.createPaymentMethod({
-                    type: 'card',
-                    billing_details: {
-                      name: 'Jenny Rosen',
-                      email: ''
-                    },
-                    card: elements.getElement(PaymentElement) as StripeCardElement,
-                  })}
-                  >
-                    <span className="mr-2">
-                      <FaStripe size={30} />
-                    </span>
-                    <span className="text-md font-semibold">
-                      Credit / Debit Card
-                    </span>
-                  </button>
-                  </form> */}
-                  <button
-                    onClick={() => razorPayment(item)}
-                    className="flex items-center justify-between w-full p-2 mb-2 text-white bg-blue-600 rounded-lg dark:bg-blue-900"
-                  >
-                    <span className="mr-2">
-                      <SiRazorpay size={30} />
-                    </span>
-                    <span className="text-md font-semibold">UPI Payments</span>
-                  </button>
-                </Modal.Body>
-              </Modal>
             </div>
           ))}
         </div>
