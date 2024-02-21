@@ -15,13 +15,13 @@ type AuthMethod = 'normal' | 'google';
 
 type Payload = { token: string | null };
 
-interface UserData {
+type UserData = {
   name: string;
   profile: number;
   email: string;
 }
 
-interface AuthState {
+type AuthState = {
   user: UserData;
   token: string | null;
   id: string | null;

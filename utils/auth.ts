@@ -68,3 +68,12 @@ export const authSignOut = async () => {
     console.log(error);
   }
 };
+
+export const authClientSignOut = () => {
+  const browserToken = localStorage.getItem('token');
+  if (browserToken) {
+    localStorage.removeItem('token');
+  } else {
+    window.location.href = '/login';
+  }
+}

@@ -1,3 +1,5 @@
+import { authClientSignOut } from "../utils/auth";
+
 function isValidURL(url: string): boolean {
   try {
     new URL(url);
@@ -29,6 +31,7 @@ export const useFetch: FetchResponsefn = async (url, options) : Promise<FetchRes
     }
   } catch (error: unknown) {
     if (error instanceof Error) {
+      if(error.message == 'Unauthorized') authClientSignOut()
       return { err: new Error(error.message), res: null };
     }
     return { err: new Error('Unknown Error'), res: null };

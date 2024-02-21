@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { CurrentAuthState } from '../slices/authSlice';
 import { MutableRefObject } from 'react';
 import type { Socket } from 'socket.io-client';
-import { NEXT_PUBLIC_BACKEND_URI } from '../config';
 import { getConversation } from '../utils/chat';
 
 export function useChat() {
@@ -13,13 +12,13 @@ export function useChat() {
   const { id } = useSelector(CurrentAuthState);
   const [isFinished, setIsFinished] = useState(false);
   const [resChunks, setResChunks] = useState<string[]>([]);
-  const [messages, setMessages] = useState<MessageList>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
     if (id) {
       if (messages.length === 0) {
         getConversation(id)
-          .then(res => res?.json())
+          .then(res =>  res?.json())
           .then((d) => {
             let { data } = d as { data: OldMessage[] };
             data.map((d: OldMessage) => {
@@ -43,7 +42,7 @@ export function useChat() {
               ]);
             });
           })
-          .catch((err) => console.log(err));
+          .catch((err) => console.log("Er "+err));
       }
     }
   }, []);

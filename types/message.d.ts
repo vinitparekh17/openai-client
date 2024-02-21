@@ -1,18 +1,13 @@
-// set fromself default to false
-interface Message {
+type Message = {
   username: string;
   fromself: boolean;
   content: string;
   timestamp: string;
 }
 
-interface OldMessage {
+type OldMessage = {
   _id: string;
   prompt: string;
   user: string;
   answer: string;
 }
-
-type OldMessageList = OldMessage[];
-
-type MessageList = Message[];

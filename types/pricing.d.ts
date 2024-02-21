@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 
-interface PricingItem {
+type PricingItem = {
   id: number;
   plan: string;
   description: string;
@@ -9,9 +9,17 @@ interface PricingItem {
   features: string[];
 }
 
-interface PricingModelProps {
+type PricingModelProps = {
   visible: boolean,
   setVisible: Dispatch<SetStateAction<boolean>>,
   item: PricingItem,
   razorPayment: any
+  setStripeModel: Dispatch<SetStateAction<boolean>>
+  setClientSecret: Dispatch<SetStateAction<string>>
+}
+
+type StripeModel = {
+  stripeModel: boolean,
+  setStripeModel: Dispatch<SetStateAction<boolean>>
+  clientSecret: string
 }
