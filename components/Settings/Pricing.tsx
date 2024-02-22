@@ -1,15 +1,12 @@
 import { useState } from 'react';
-import { razorPayment } from '../../utils/payment';
 import PricingModel from '../Pricing/Model';
 import StripeModel from '../Pricing/StripeModel';
 import { useRazor } from '../../hooks';
 import PricingData from '../../data/price.json';
 import toast, { Toaster } from 'react-hot-toast';
-import { PricingItem } from '../../types/pricing';
 
 export default function Pricing() {
   const [item, setItem] = useState({} as PricingItem);
-  const [clientSecret, setClientSecret] = useState('');
   const [stripeModel, setStripeModel] = useState(false);
   const [visible, setVisible] = useState(false);
   const { status } = useRazor();
@@ -25,8 +22,8 @@ export default function Pricing() {
   return (
     <section className="dark:bg-gray-900 rounded-xl">
       <Toaster />
-      <PricingModel item={item} razorPayment={razorPayment} setStripeModel={setStripeModel} setClientSecret={setClientSecret} setVisible={setVisible} visible={visible} />
-      <StripeModel setStripeModel={setStripeModel} stripeModel={stripeModel} clientSecret={clientSecret} />
+      <PricingModel item={item} setStripeModel={setStripeModel} setVisible={setVisible} visible={visible} />
+      <StripeModel setStripeModel={setStripeModel} stripeModel={stripeModel} />
       <div className="py-3 px-2 mx-auto max-w-screen-xl lg:py-2 lg:px-2">
         <div className="mx-auto max-w-screen-md text-center mb-6 lg:mb-12">
           <h2 className="mb-2 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">

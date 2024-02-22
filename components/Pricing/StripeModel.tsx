@@ -1,15 +1,23 @@
 import { Modal } from '@nextui-org/react';
-import { useStrip } from '../../hooks';
+import { useStripe, useElements } from '@stripe/react-stripe-js';
 import { FaStripe } from 'react-icons/fa';
+import { HandleStripPaymentSubmit } from '../../utils/payment';
+import { CurrentStripeState, StripeSlice } from '../../slices/paymentSlice';
 import { currentTheme } from '../../slices/themeSlice';
-import { useSelector } from 'react-redux';
-import { StripeModel } from '../../types/pricing';
+import { useDispatch, useSelector } from 'react-redux';
 
-export default function StripeModel({ stripeModel, setStripeModel, clientSecret }: StripeModel) {
-    
-    const { PaymentElement, Elements, StripPromise, stripe, HandleStripPaymentSubmit } = useStrip();
+export default function StripeModel({ stripeModel, setStripeModel }: StripeModel) {
     const { theme } = useSelector(currentTheme);
-    if(!clientSecret) return null;
+    const dispatch = useDispatch();
+    const stripee = useStripe();
+    if (stripee) {
+        dispatch(StripeSlice.actions.loadStripeConfig({
+            stripe: stripee,
+            elements: useElements()
+        }));
+    }
+    const { PaymentElement, Elements, stripPromise, clientSecret, stripe } = useSelector(CurrentStripeState);
+    if (!clientSecret) return null;
     return (
         <Modal
             closeButton
@@ -22,14 +30,14 @@ export default function StripeModel({ stripeModel, setStripeModel, clientSecret 
                 Complete your purchase
             </Modal.Header>
             <Modal.Body>
-                <Elements stripe={StripPromise} options={{ clientSecret, appearance: { theme: theme === 'dark' ? 'night' : 'stripe' } }}>
+                <Elements stripe={stripPromise} options={{ clientSecret, appearance: { theme: theme === 'dark' ? 'night' : 'stripe' } }}>
                     <form onSubmit={HandleStripPaymentSubmit}>
                         <PaymentElement />
                         <button
                             className="flex items-center w-full p-2 mt-4 mb-2 text-white rounded-lg focus:outline-none bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-800 hover:from-indigo-700 hover:to-indigo-900"
                             disabled={!stripe}
                             type='submit'
-                            >
+                        >
                             <span className="mr-2">
                                 <FaStripe size={30} />
                             </span>

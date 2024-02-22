@@ -1,5 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
-
 type PricingItem = {
   id: number;
   plan: string;
@@ -13,13 +11,10 @@ type PricingModelProps = {
   visible: boolean,
   setVisible: Dispatch<SetStateAction<boolean>>,
   item: PricingItem,
-  razorPayment: any
   setStripeModel: Dispatch<SetStateAction<boolean>>
-  setClientSecret: Dispatch<SetStateAction<string>>
 }
 
 type StripeModel = {
   stripeModel: boolean,
   setStripeModel: Dispatch<SetStateAction<boolean>>
-  clientSecret: string
 }

@@ -1,6 +1,9 @@
-import type { FormEvent, SetStateAction, Dispatch } from 'react';
+import type { SetStateAction, Dispatch, FormEvent } from 'react';
 import { useFetch } from '../hooks';
+import { toast } from 'react-hot-toast';
 import { NEXT_PUBLIC_RAZORPAY_KEY_ID,  NEXT_PUBLIC_BACKEND_URI} from '../config';
+import { useDispatch, useSelector } from 'react-redux';
+import { CurrentStripeState, StripeSlice } from '../slices/paymentSlice';
 
 declare global {
   interface Window {
@@ -31,43 +34,51 @@ export const razorPayment = async (data: number) => {
   }
 };
 
-export const stripePayment = async (event: FormEvent, stripe: any, elements: unknown) => {
-    // We don't want to let default form submission happen here,
-    // which would refresh the page.
+export const createPaymentIntent = (setStripeModel: Dispatch<SetStateAction<boolean>>, amount: number) => {
+
+  const dispatch = useDispatch();
+
+  useFetch(`${NEXT_PUBLIC_BACKEND_URI}/payments/stripe/create`, {
+    method: "POST",
+    body: JSON.stringify({ amount })
+  }).then(data => data.res?.json()).then(response => {
+    dispatch(StripeSlice.actions.setStripeSecret(response.data))
+    console.log(" Data: " + JSON.stringify(response));
+    setStripeModel(true)
+
+  }).catch((err) => {
+    toast.error(err.message);
+  });
+}
+
+
+export const HandleStripPaymentSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  try {
     event.preventDefault();
+    const { stripe, elements, clientSecret } = useSelector(CurrentStripeState)
     if (!stripe || !elements) {
-      // Stripe.js hasn't yet loaded.
-      // Make sure to disable form submission until Stripe.js has loaded.
       return;
     }
 
-    const result = await stripe.confirmPayment({
+    const { error } = await stripe.confirmPayment({
+      clientSecret,
       elements,
       confirmParams: {
-        return_url: "https://example.com/order/123/complete",
-      },
+        return_url: 'http://localhost:3000/settings/billing'
+      }
     });
 
-    if (result.error) {
-      // Show error to your customer (for example, payment details incomplete)
-      console.log(result.error.message);
+    if (error) {
+      console.error(error)
+      error.message && toast.error(error.message);
     } else {
-      // Your customer will be redirected to your `return_url`. For some payment
-      // methods like iDEAL, your customer will be redirected to an intermediate
-      // site first to authorize the payment, then redirected to the `return_url`.
+      toast.success("Payment successfull!")
     }
-  };
 
-  export const getStripeSecret = async (data: any, setVisible: Dispatch<SetStateAction<boolean>>) => {
-    const { err, res } = await useFetch(`${NEXT_PUBLIC_BACKEND_URI}/api/payments/stripe`, {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        Authentication: `Bearer ${localStorage.getItem("token")}`,
-      }
-    })
-    if(!err && res) {
-      const myd = res.json();
-      console.log(myd);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error(error);
+      toast.error(error.message);
     }
   }
+};

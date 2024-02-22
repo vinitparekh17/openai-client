@@ -1,13 +1,12 @@
 import { SiRazorpay } from 'react-icons/si';
 import { FaStripe } from 'react-icons/fa';
 import { CgClose } from 'react-icons/cg';
-import { useStrip } from '../../hooks';
-import { Fragment } from 'react'
-import { PricingModelProps } from '../../types/pricing';
+import { razorPayment } from '../../utils/payment';
+import { createPaymentIntent } from '../../utils/payment';
+import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react'
 
-export default function PricingModel({ visible, setVisible, item, razorPayment, setStripeModel, setClientSecret }: PricingModelProps) {
-    const { createPaymentIntent } = useStrip()
+export default function PricingModel({ visible, setVisible, item, setStripeModel }: PricingModelProps) {
 
     return (
         <Transition.Root show={visible} as={Fragment}>
@@ -45,7 +44,7 @@ export default function PricingModel({ visible, setVisible, item, razorPayment, 
                                             </Dialog.Title>
                                             <button
                                                 className="flex items-center w-full p-2 mt-4 mb-2 text-white rounded-lg focus:outline-none bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-800 hover:from-indigo-700 hover:to-indigo-900"
-                                                onClick={() => createPaymentIntent(setStripeModel, setClientSecret, item.price)}>
+                                                onClick={() => createPaymentIntent(setStripeModel, item.price)}>
                                                 <span className="mr-2">
                                                     <FaStripe size={30} />
                                                 </span>
