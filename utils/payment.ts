@@ -1,9 +1,8 @@
 import type { SetStateAction, Dispatch, FormEvent } from 'react';
 import { useFetch } from '../hooks';
 import { toast } from 'react-hot-toast';
-import { NEXT_PUBLIC_RAZORPAY_KEY_ID,  NEXT_PUBLIC_BACKEND_URI} from '../config';
-import { useDispatch, useSelector } from 'react-redux';
-import { CurrentStripeState, StripeSlice } from '../slices/paymentSlice';
+import { NEXT_PUBLIC_RAZORPAY_KEY_ID, NEXT_PUBLIC_BACKEND_URI } from '../config';
+import { Stripe, StripeElements } from '@stripe/stripe-js';
 
 declare global {
   interface Window {
@@ -34,51 +33,50 @@ export const razorPayment = async (data: number) => {
   }
 };
 
-export const createPaymentIntent = (setStripeModel: Dispatch<SetStateAction<boolean>>, amount: number) => {
-
-  const dispatch = useDispatch();
-
+export const createPaymentIntent = (setStripeModel: Dispatch<SetStateAction<boolean>>, setModel: Dispatch<SetStateAction<boolean>>, amount: number, setClientSecret: Dispatch<SetStateAction<string>>) => {
   useFetch(`${NEXT_PUBLIC_BACKEND_URI}/payments/stripe/create`, {
     method: "POST",
     body: JSON.stringify({ amount })
   }).then(data => data.res?.json()).then(response => {
-    dispatch(StripeSlice.actions.setStripeSecret(response.data))
-    console.log(" Data: " + JSON.stringify(response));
+    setClientSecret(response.data)
+    setModel(false)
     setStripeModel(true)
-
   }).catch((err) => {
     toast.error(err.message);
   });
 }
 
 
-export const HandleStripPaymentSubmit = async (event: FormEvent<HTMLFormElement>) => {
+export const HandleStripPaymentSubmit = async (event: FormEvent<HTMLFormElement>, stripe: Stripe | null, elements: StripeElements | null, clientSecret: string, setStripeModel: Dispatch<SetStateAction<boolean>>) => {
   try {
     event.preventDefault();
-    const { stripe, elements, clientSecret } = useSelector(CurrentStripeState)
     if (!stripe || !elements) {
       return;
     }
 
+    const { error: submitError } = await elements.submit()
+    if (submitError) {
+      toast.error(submitError.message!)
+      return;
+    }
     const { error } = await stripe.confirmPayment({
-      clientSecret,
       elements,
-      confirmParams: {
-        return_url: 'http://localhost:3000/settings/billing'
-      }
-    });
+      clientSecret,
+      redirect: 'if_required'
+    })
 
     if (error) {
-      console.error(error)
+      setStripeModel(false)
       error.message && toast.error(error.message);
     } else {
-      toast.success("Payment successfull!")
+      setStripeModel(false)
+      toast.success("Payment successfull!", { duration: 5000 })
     }
 
   } catch (error: unknown) {
     if (error instanceof Error) {
-      console.error(error);
       toast.error(error.message);
     }
   }
+
 };

@@ -1,11 +1,22 @@
 import { useState } from 'react';
+import { Elements } from '@stripe/react-stripe-js';
 import PricingModel from '../Pricing/Model';
 import StripeModel from '../Pricing/StripeModel';
 import { useRazor } from '../../hooks';
 import PricingData from '../../data/price.json';
 import toast, { Toaster } from 'react-hot-toast';
+import { Stripe, StripeElementsOptions, loadStripe } from '@stripe/stripe-js';
+import { currentTheme } from '../../slices/themeSlice';
+import { useSelector } from 'react-redux';
 
 export default function Pricing() {
+
+
+  const stripPromise: Promise<Stripe | null> = loadStripe("pk_test_51NOQGJSEG5Ae70mx2WtgBR63fsDuvbJBlLwrfjQq1CnZegDA6XR2751CTp3rrd4CUSsRsiyTimBDV4lAsdHXBxSG00ni0dOxHD")
+
+  const { theme } = useSelector(currentTheme);
+
+  const [clientSecret, setClientSecret] = useState('');
   const [item, setItem] = useState({} as PricingItem);
   const [stripeModel, setStripeModel] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -18,12 +29,23 @@ export default function Pricing() {
     setVisible(true);
     setItem(i)
   }
-  
+
+  const option: StripeElementsOptions = {
+    clientSecret,
+    appearance: {
+      theme: theme === 'dark' ? 'night' : 'stripe'
+    }
+  }
+
   return (
     <section className="dark:bg-gray-900 rounded-xl">
       <Toaster />
-      <PricingModel item={item} setStripeModel={setStripeModel} setVisible={setVisible} visible={visible} />
-      <StripeModel setStripeModel={setStripeModel} stripeModel={stripeModel} />
+      <PricingModel item={item} setStripeModel={setStripeModel} setVisible={setVisible} visible={visible} setClientSecret={setClientSecret} />
+      {clientSecret &&
+        <Elements stripe={stripPromise} options={option}>
+        <StripeModel setStripeModel={setStripeModel} stripeModel={stripeModel} clientSecret={clientSecret} />
+      </Elements>
+      }
       <div className="py-3 px-2 mx-auto max-w-screen-xl lg:py-2 lg:px-2">
         <div className="mx-auto max-w-screen-md text-center mb-6 lg:mb-12">
           <h2 className="mb-2 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">

@@ -11,3 +11,8 @@ type OldMessage = {
   user: string;
   answer: string;
 }
+
+type ChatFormProps = {
+  socket: MutableRefObject<Socket>;
+  setMessages: Dispatch<SetStateAction<Message[]>>;
+}

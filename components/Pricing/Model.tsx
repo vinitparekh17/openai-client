@@ -6,7 +6,7 @@ import { createPaymentIntent } from '../../utils/payment';
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react'
 
-export default function PricingModel({ visible, setVisible, item, setStripeModel }: PricingModelProps) {
+export default function PricingModel({ visible, setVisible, item, setStripeModel, setClientSecret }: PricingModelProps) {
 
     return (
         <Transition.Root show={visible} as={Fragment}>
@@ -44,7 +44,7 @@ export default function PricingModel({ visible, setVisible, item, setStripeModel
                                             </Dialog.Title>
                                             <button
                                                 className="flex items-center w-full p-2 mt-4 mb-2 text-white rounded-lg focus:outline-none bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-800 hover:from-indigo-700 hover:to-indigo-900"
-                                                onClick={() => createPaymentIntent(setStripeModel, item.price)}>
+                                                onClick={() => createPaymentIntent(setStripeModel, setVisible, item.price, setClientSecret)}>
                                                 <span className="mr-2">
                                                     <FaStripe size={30} />
                                                 </span>

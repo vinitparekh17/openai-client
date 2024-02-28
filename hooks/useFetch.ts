@@ -27,11 +27,12 @@ export const useFetch: FetchResponsefn = async (url, options) : Promise<FetchRes
       if (reqPromise.ok) {
         return { err: null, res: reqPromise };
       }
+      if(reqPromise.statusText == 'Unauthorized') authClientSignOut()
+      
       return { err: new Error(reqPromise.statusText), res: null };
     }
   } catch (error: unknown) {
     if (error instanceof Error) {
-      if(error.message == 'Unauthorized') authClientSignOut()
       return { err: new Error(error.message), res: null };
     }
     return { err: new Error('Unknown Error'), res: null };

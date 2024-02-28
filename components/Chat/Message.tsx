@@ -1,6 +1,4 @@
 import type { Dispatch, SetStateAction } from 'react';
-import ReaxtMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
 import Image from 'next/image';
 import { Typewriter } from 'react-simple-typewriter';
 
