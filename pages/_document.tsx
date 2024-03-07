@@ -16,8 +16,8 @@ class MyDocument extends Document {
       <Html lang="en">
         <Head>
           {CssBaseline.flush()}
-          <Script id='google-analytics' async src='https://www.googletagmanager.com/gtag/js?id=G-W2W6B0RW9N"' strategy='lazyOnload' />
-          <Script>
+          <Script id='google-analytics-script' async src='https://www.googletagmanager.com/gtag/js?id=G-W2W6B0RW9N"' strategy='lazyOnload' />
+          <Script id='google-analytics'>
             {`window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
