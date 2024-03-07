@@ -1,7 +1,6 @@
 import '../styles/globals.css';
 import { ThemeProvider as NextThemeProvider } from 'next-themes';
 import { NextUIProvider, createTheme } from '@nextui-org/react';
-import { NEXT_PUBLIC_STRIPE_ID } from '../config';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import Layout from '../components/Basic/Layout';
