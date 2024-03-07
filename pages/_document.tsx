@@ -16,7 +16,15 @@ class MyDocument extends Document {
       <Html lang="en">
         <Head>
           {CssBaseline.flush()}
-          <Script id='analytics' strategy='lazyOnload'>
+          <Script id='google-analytics' async src='https://www.googletagmanager.com/gtag/js?id=G-W2W6B0RW9N"' strategy='lazyOnload' />
+          <Script>
+            {`window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-W2W6B0RW9N');`}
+          </Script>
+          <Script id='microsoft-analytics' strategy='lazyOnload'>
             {`(function (c, l, a, r, i, t, y) {
               c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
               t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
