@@ -56,7 +56,7 @@ export default function PricingModel({ visible, setVisible, item, setStripeModel
                                             <button
                                                 className="flex items-center w-full
                                                 p-2 mb-2 text-white rounded-lg focus:outline-none bg-gradient-to-r from-blue-500 via-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900"
-                                                onClick={() => razorPayment(item.id)}>
+                                                onClick={() => razorPayment(item.price)}>
                                                 <span className="mr-2 text-2xl">
                                                     <SiRazorpay size={30} />
                                                 </span>

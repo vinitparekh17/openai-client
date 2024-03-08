@@ -11,11 +11,12 @@ declare global {
 }
 
 export const razorPayment = async (data: number) => {
+  console.log(data)
   const { err, res } = await useFetch(
     `${NEXT_PUBLIC_BACKEND_URI}/payments/razorpay`,
     {
       method: 'POST',
-      body: JSON.stringify({ plan: data }),
+      body: JSON.stringify({ amount: data }),
     }
   );
   if (!err && res) {
