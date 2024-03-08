@@ -1,5 +1,4 @@
 import React from 'react';
-import { GoogleAnalytics } from '@next/third-parties/google';
 import Script from 'next/script';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { CssBaseline } from '@nextui-org/react';
@@ -17,8 +16,16 @@ class MyDocument extends Document {
       <Html lang="en">
         <Head>
           {CssBaseline.flush()}
-          
-          <GoogleAnalytics gaId='G-W2W6B0RW9N' />
+
+          {/* <!-- Google tag (gtag.js) --> */}
+          <Script strategy='afterInteractive' src="https://www.googletagmanager.com/gtag/js?id=G-W2W6B0RW9N"></Script>
+          <Script id='gtag-init'>
+            {`window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-W2W6B0RW9N');`}
+          </Script>
 
           <Script id='microsoft-analytics' strategy='lazyOnload'>
             {`(function (c, l, a, r, i, t, y) {
