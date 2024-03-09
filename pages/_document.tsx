@@ -17,7 +17,6 @@ class MyDocument extends Document {
         <Head>
           {CssBaseline.flush()}
 
-          {/* <!-- Google tag (gtag.js) --> */}
 
           <Script id='microsoft-analytics' strategy='lazyOnload'>
             {`(function (c, l, a, r, i, t, y) {
@@ -26,14 +25,15 @@ class MyDocument extends Document {
               y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
             })(window, document, "clarity", "script", "ld0dzr6et8");`}
           </Script>
-            <Script strategy='afterInteractive' src="https://www.googletagmanager.com/gtag/js?id=G-W2W6B0RW9N"/>
-            <Script id='gtag-init'>
-              {`window.dataLayer = window.dataLayer || [];
+
+            {/* <!-- Google tag (gtag.js) --> */}
+          <Script strategy='afterInteractive' src="https://www.googletagmanager.com/gtag/js?id=G-M415BJR1CZ" />
+          <Script id='gtag-init'
+            dangerouslySetInnerHTML={{
+              __html: `window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-  
-              gtag('config', 'G-W2W6B0RW9N');`}
-            </Script>
+              gtag('config', 'G-M415BJR1CZ');`}} />
         </Head>
         <body>
           <Main />
