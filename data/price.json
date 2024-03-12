@@ -18,7 +18,7 @@
     "plan": "Pro",
     "price": 249,
     "description": "The pro plan is for more customization and support.",
-    "duration": "/ 2 Months",
+    "duration": "/ Month",
     "features": [
       "100 API Calls",
       "1 User Access",
@@ -32,7 +32,7 @@
     "plan": "Premium",
     "price": 299,
     "description": "The premium plan allows more access and previleges to the service.",
-    "duration": "/ 3 Months",
+    "duration": "/ Month",
     "features": [
       "200 API Calls",
       "2 User Access",

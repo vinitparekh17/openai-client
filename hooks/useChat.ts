@@ -52,7 +52,7 @@ export function useChat() {
       if (messageEndRef.current) {
         (messageEndRef.current as HTMLDivElement).scrollIntoView({ behavior: 'smooth' });
       }
-      socket.current = SocketClient("http://localhost:8080", {
+      socket.current = SocketClient("https://api.omnisive.technetic.co.in", {
         transports: ['websocket'],
         secure: true,
         withCredentials: true,

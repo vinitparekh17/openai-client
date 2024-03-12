@@ -1,4 +1,8 @@
+import React from 'react';
 import type { Dispatch, SetStateAction } from 'react';
+import { unified } from 'unified';
+import remarkParse from 'remark-parse';
+import remarkReact from 'remark-react';
 import Image from 'next/image';
 import { Typewriter } from 'react-simple-typewriter';
 
@@ -33,14 +37,14 @@ export default function Message({
           )}
           <div className="flex-1 px-2">
             <div
-              className={`inline-block overflow-x-scroll hiddenscroll ${
-                message?.fromself
-                  ? 'bg-blue-600 dark:bg-blue-900 text-white'
-                  : 'bg-gray-300 dark:bg-slate-700 text-gray-600 dark:text-gray-400'
-              } rounded-3xl p-2 px-4`}
+              className={`inline-block overflow-x-scroll hiddenscroll ${message?.fromself
+                ? 'bg-blue-600 dark:bg-blue-900 text-white'
+                : 'bg-gray-300 dark:bg-slate-700 text-gray-600 dark:text-gray-400'
+                } rounded-3xl p-2 px-4`}
             >
-              <span>
+              <div>
                 {chunks && chunks?.length > 0 ? (
+                  
                   <Typewriter
                     words={[chunks.join('')]}
                     loop={1}
@@ -53,9 +57,12 @@ export default function Message({
                     cursorBlinking={false}
                   />
                 ) : (
-                    message?.content!
+                  unified()
+                    .use(remarkParse)
+                    .use(remarkReact as any, React)
+                    .processSync(message?.content).result as any
                 )}
-              </span>
+              </div>
             </div>
             <div className="pl-4">
               <small className="text-gray-500">15 April</small>

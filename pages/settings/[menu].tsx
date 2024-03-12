@@ -2,7 +2,7 @@ import Protected from '../../components/Basic/Protected';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import Seetings from '../../components/Settings';
+import Settings from '../../components/Settings';
 import { CgProfile } from 'react-icons/cg';
 import { BsRobot, BsFillShieldLockFill, BsCircleHalf } from 'react-icons/bs';
 import {
@@ -26,14 +26,14 @@ export default function SettingsLayout() {
       name: 'Privacy',
       icon: <BsFillShieldLockFill className="text-xl sm:text-2xl" />,
     },
-    {
-      name: 'Theme',
-      icon: <BsCircleHalf className="text-xl sm:text-2xl" />,
-    },
-    {
-      name: 'Manage Bots',
-      icon: <BsRobot className="text-xl sm:text-2xl" />,
-    },
+    // {
+    //   name: 'Theme',
+    //   icon: <BsCircleHalf className="text-xl sm:text-2xl" />,
+    // },
+    // {
+    //   name: 'Manage Bots',
+    //   icon: <BsRobot className="text-xl sm:text-2xl" />,
+    // },
     {
       name: 'Billing',
       icon: <FaMoneyBillWave className="text-xl sm:text-2xl" />,
@@ -90,7 +90,7 @@ export default function SettingsLayout() {
             })}
           </div>
           <div className="flex-1 h-[90svh-1.5rem] bg-white dark:bg-gray-900 rounded-xl overflow-y-scroll hiddenscroll p-3 m-2">
-            <Seetings />
+            <Settings />
           </div>
         </div>
       </Protected>
@@ -117,7 +117,7 @@ export default function SettingsLayout() {
           ) : menu == 'billing' ? (
             <Pricing />
           ) : (
-            <Seetings />
+            <Settings />
           )}
         </div>
       </Protected>
