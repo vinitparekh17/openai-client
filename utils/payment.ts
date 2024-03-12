@@ -1,7 +1,10 @@
 import type { SetStateAction, Dispatch, FormEvent } from 'react';
 import { useFetch } from '../hooks';
 import { toast } from 'react-hot-toast';
-import { NEXT_PUBLIC_RAZORPAY_KEY_ID, NEXT_PUBLIC_BACKEND_URI } from '../config';
+import {
+  NEXT_PUBLIC_RAZORPAY_KEY_ID,
+  NEXT_PUBLIC_BACKEND_URI,
+} from '../config';
 import { Stripe, StripeElements } from '@stripe/stripe-js';
 
 declare global {
@@ -11,7 +14,7 @@ declare global {
 }
 
 export const razorPayment = async (data: number) => {
-  console.log(data)
+  console.log(data);
   const { err, res } = await useFetch(
     `${NEXT_PUBLIC_BACKEND_URI}/payments/razorpay`,
     {
@@ -34,50 +37,61 @@ export const razorPayment = async (data: number) => {
   }
 };
 
-export const createPaymentIntent = (setStripeModel: Dispatch<SetStateAction<boolean>>, setModel: Dispatch<SetStateAction<boolean>>, amount: number, setClientSecret: Dispatch<SetStateAction<string>>) => {
+export const createPaymentIntent = (
+  setStripeModel: Dispatch<SetStateAction<boolean>>,
+  setModel: Dispatch<SetStateAction<boolean>>,
+  amount: number,
+  setClientSecret: Dispatch<SetStateAction<string>>
+) => {
   useFetch(`${NEXT_PUBLIC_BACKEND_URI}/payments/stripe/create`, {
-    method: "POST",
-    body: JSON.stringify({ amount })
-  }).then(data => data.res?.json()).then(response => {
-    setClientSecret(response.data)
-    setModel(false)
-    setStripeModel(true)
-  }).catch((err) => {
-    toast.error(err.message);
-  });
-}
+    method: 'POST',
+    body: JSON.stringify({ amount }),
+  })
+    .then((data) => data.res?.json())
+    .then((response) => {
+      setClientSecret(response.data);
+      setModel(false);
+      setStripeModel(true);
+    })
+    .catch((err) => {
+      toast.error(err.message);
+    });
+};
 
-
-export const HandleStripPaymentSubmit = async (event: FormEvent<HTMLFormElement>, stripe: Stripe | null, elements: StripeElements | null, clientSecret: string, setStripeModel: Dispatch<SetStateAction<boolean>>) => {
+export const HandleStripPaymentSubmit = async (
+  event: FormEvent<HTMLFormElement>,
+  stripe: Stripe | null,
+  elements: StripeElements | null,
+  clientSecret: string,
+  setStripeModel: Dispatch<SetStateAction<boolean>>
+) => {
   try {
     event.preventDefault();
     if (!stripe || !elements) {
       return;
     }
 
-    const { error: submitError } = await elements.submit()
+    const { error: submitError } = await elements.submit();
     if (submitError) {
-      toast.error(submitError.message!)
+      toast.error(submitError.message!);
       return;
     }
     const { error } = await stripe.confirmPayment({
       elements,
       clientSecret,
-      redirect: 'if_required'
-    })
+      redirect: 'if_required',
+    });
 
     if (error) {
-      setStripeModel(false)
+      setStripeModel(false);
       error.message && toast.error(error.message);
     } else {
-      setStripeModel(false)
-      toast.success("Payment successfull!", { duration: 5000 })
+      setStripeModel(false);
+      toast.success('Payment successfull!', { duration: 5000 });
     }
-
   } catch (error: unknown) {
     if (error instanceof Error) {
       toast.error(error.message);
     }
   }
-
 };

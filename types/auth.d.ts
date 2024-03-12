@@ -19,7 +19,7 @@ type UserData = {
   name: string;
   profile: number;
   email: string;
-}
+};
 
 type AuthState = {
   user: UserData;
@@ -27,7 +27,7 @@ type AuthState = {
   id: string | null;
   error: string | null;
   loading: boolean | false;
-}
+};
 
 type DecodedToken = {
   data: {

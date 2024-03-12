@@ -20,9 +20,9 @@ export default function Sidebar({ open, setOpen, children }: SidebarProps) {
           name: 'Bot Conversations',
           link: '/conversations/bots',
           icon: <FaRobot className="w-6 h-6 mr-2" />,
-          modes: ["text", "voice"]
-        }
-      ]
+          modes: ['text', 'voice'],
+        },
+      ],
     },
     {
       name: 'About Us',
@@ -44,8 +44,9 @@ export default function Sidebar({ open, setOpen, children }: SidebarProps) {
       </MainSpace>
       <aside className="flex h-full">
         <div
-          className={`mt-16 fixed left-0 h-full px-2 z-10 ${open ? '-translate-x-0' : '-translate-x-full'
-            } transition-transform transform duration-200 ease-in-out w-64 bg-gradient-to-b from-teal-600 to-blue-700 dark:from-slate-700 dark:to-slate-900`}
+          className={`mt-16 fixed left-0 h-full px-2 z-10 ${
+            open ? '-translate-x-0' : '-translate-x-full'
+          } transition-transform transform duration-200 ease-in-out w-64 bg-gradient-to-b from-teal-600 to-blue-700 dark:from-slate-700 dark:to-slate-900`}
         >
           {/* <div className="mt-5 w-full flex flex-col items-start space-y-5">
             {sideItems.map((item: SidebarItem, i: number) => (
@@ -67,14 +68,17 @@ export default function Sidebar({ open, setOpen, children }: SidebarProps) {
 
           <ul className="mt-6">
             {sideItems.map((item: SidebarItem, i: number) => (
-              <li key={i} className="py-2 text-white w-full px-2 focus:outline-nones transition-colors duration-200 rounded-lg dark:text-gray-400 dark:hover:bg-gray-800 hover:text-teal-700 hover:bg-teal-100">
-              <Link href={item.link} legacyBehavior>
-              <a className="flex items-center px-4">
-                {item.icon}
-                {item.name}
-              </a>
-              </Link>
-            </li>
+              <li
+                key={i}
+                className="py-2 text-white w-full px-2 focus:outline-nones transition-colors duration-200 rounded-lg dark:text-gray-400 dark:hover:bg-gray-800 hover:text-teal-700 hover:bg-teal-100"
+              >
+                <Link href={item.link} legacyBehavior>
+                  <a className="flex items-center px-4">
+                    {item.icon}
+                    {item.name}
+                  </a>
+                </Link>
+              </li>
             ))}
           </ul>
         </div>

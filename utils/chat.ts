@@ -14,8 +14,11 @@ export const handleChat = (data: chatData) => {
 };
 
 export const getConversation = async (uid: string) => {
-  const {err, res}  = await useFetch(`${NEXT_PUBLIC_BACKEND_URI}/chat/${uid}`, {
-    method: 'GET',
-  });
-  return err && !res ? null : res
+  const { err, res } = await useFetch(
+    `${NEXT_PUBLIC_BACKEND_URI}/chat/${uid}`,
+    {
+      method: 'GET',
+    }
+  );
+  return err && !res ? null : res;
 };

@@ -11,7 +11,9 @@ import type { AppProps } from 'next/app';
 import { useEffect, useState } from 'react';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
-  const stripePromise = loadStripe('pk_test_51NOQGJSEG5Ae70mx2WtgBR63fsDuvbJBlLwrfjQq1CnZegDA6XR2751CTp3rrd4CUSsRsiyTimBDV4lAsdHXBxSG00ni0dOxHD  ');
+  const stripePromise = loadStripe(
+    'pk_test_51NOQGJSEG5Ae70mx2WtgBR63fsDuvbJBlLwrfjQq1CnZegDA6XR2751CTp3rrd4CUSsRsiyTimBDV4lAsdHXBxSG00ni0dOxHD  '
+  );
   const [currentTheme, setCurrentTheme] = useState<Theme>('system');
   const lightTheme = createTheme({ type: 'light' });
   const darkTheme = createTheme({ type: 'dark' });

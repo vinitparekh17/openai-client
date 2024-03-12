@@ -12,7 +12,7 @@ export const authSubmit = async (
         const { err, res } = await useFetch(
           `${NEXT_PUBLIC_BACKEND_URI}/user/${formType}?type=${method}`,
           {
-            method: "POST",
+            method: 'POST',
             body: JSON.stringify(data),
           }
         );
@@ -27,36 +27,38 @@ export const authSubmit = async (
         console.log(error);
       }
       break;
-      case 'google':
-        try {
-        const { formType } = data as  FormType;
-          const { err, res } = await useFetch(
-            `${NEXT_PUBLIC_BACKEND_URI}/api/user/${formType}?type=${method}`, {
-              method: "POST",
-              body: JSON.stringify(data),
-            }
-          );
-          if (!err && res) {
-            const { token } = await res.json();
-            localStorage.setItem('token', token);
-            if (localStorage.getItem('token')) {
-              window.location.href = '/conversations';
-            }
+    case 'google':
+      try {
+        const { formType } = data as FormType;
+        const { err, res } = await useFetch(
+          `${NEXT_PUBLIC_BACKEND_URI}/api/user/${formType}?type=${method}`,
+          {
+            method: 'POST',
+            body: JSON.stringify(data),
           }
-        } catch (error) {
-          console.log(error);
+        );
+        if (!err && res) {
+          const { token } = await res.json();
+          localStorage.setItem('token', token);
+          if (localStorage.getItem('token')) {
+            window.location.href = '/conversations';
+          }
         }
-      default:
-        console.log('Invalid method');
+      } catch (error) {
+        console.log(error);
+      }
+    default:
+      console.log('Invalid method');
       break;
-        
   }
 };
 
 export const authSignOut = async () => {
   try {
     const { err, res } = await useFetch(
-      `${NEXT_PUBLIC_BACKEND_URI}/user/signout`, { method: 'GET' });
+      `${NEXT_PUBLIC_BACKEND_URI}/user/signout`,
+      { method: 'GET' }
+    );
     if (!err && res) {
       let { success } = await res.json();
       if (success) {
@@ -76,4 +78,4 @@ export const authClientSignOut = () => {
   } else {
     window.location.href = '/login';
   }
-}
+};

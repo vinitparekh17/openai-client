@@ -33,13 +33,13 @@ export const AuthOptions: NextAuthOptions = {
       }
       if (token?.accessToken) {
         if (i === 0) {
-          authSubmit("google", {
-             token,
-             name: token.name, 
-             email: token.email, 
-             profile: token.picture, 
-             expire: account?.expires_at
-            });
+          authSubmit('google', {
+            token,
+            name: token.name,
+            email: token.email,
+            profile: token.picture,
+            expire: account?.expires_at,
+          });
           i = 1;
         }
       }

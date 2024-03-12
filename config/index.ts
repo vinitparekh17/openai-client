@@ -6,5 +6,6 @@ export const {
   NEXT_PUBLIC_STRIPE_ID,
 } = process.env;
 
-export const NEXT_PUBLIC_BACKEND_URI = 'https://api.omnisive.technetic.co.in/api';
+export const NEXT_PUBLIC_BACKEND_URI =
+  'https://api.omnisive.technetic.co.in/api';
 // export const NEXT_PUBLIC_BACKEND_URI = 'http://35.244.1.212/api';

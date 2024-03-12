@@ -17,8 +17,7 @@ class MyDocument extends Document {
         <Head>
           {CssBaseline.flush()}
 
-
-          <Script id='microsoft-analytics' strategy='lazyOnload'>
+          <Script id="microsoft-analytics" strategy="lazyOnload">
             {`(function (c, l, a, r, i, t, y) {
               c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
               t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
@@ -26,14 +25,20 @@ class MyDocument extends Document {
             })(window, document, "clarity", "script", "ld0dzr6et8");`}
           </Script>
 
-            {/* <!-- Google tag (gtag.js) --> */}
-          <Script strategy='afterInteractive' src="https://www.googletagmanager.com/gtag/js?id=G-M415BJR1CZ" />
-          <Script id='gtag-init'
+          {/* <!-- Google tag (gtag.js) --> */}
+          <Script
+            strategy="afterInteractive"
+            src="https://www.googletagmanager.com/gtag/js?id=G-M415BJR1CZ"
+          />
+          <Script
+            id="gtag-init"
             dangerouslySetInnerHTML={{
               __html: `window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-M415BJR1CZ');`}} />
+              gtag('config', 'G-M415BJR1CZ');`,
+            }}
+          />
         </Head>
         <body>
           <Main />

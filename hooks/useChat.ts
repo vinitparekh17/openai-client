@@ -18,7 +18,7 @@ export function useChat() {
     if (id) {
       if (messages.length === 0) {
         getConversation(id)
-          .then(res =>  res?.json())
+          .then((res) => res?.json())
           .then((d) => {
             let { data } = d as { data: OldMessage[] };
             data.map((d: OldMessage) => {
@@ -42,7 +42,7 @@ export function useChat() {
               ]);
             });
           })
-          .catch((err) => console.log("Er "+err));
+          .catch((err) => console.log('Er ' + err));
       }
     }
   }, []);
@@ -50,16 +50,17 @@ export function useChat() {
   useEffect(() => {
     try {
       if (messageEndRef.current) {
-        (messageEndRef.current as HTMLDivElement).scrollIntoView({ behavior: 'smooth' });
+        (messageEndRef.current as HTMLDivElement).scrollIntoView({
+          behavior: 'smooth',
+        });
       }
-      socket.current = SocketClient("https://api.omnisive.technetic.co.in", {
+      socket.current = SocketClient('https://api.omnisive.technetic.co.in', {
         transports: ['websocket'],
         secure: true,
         withCredentials: true,
       });
 
-      socket.current.on("response-stream", (serverResponse) => {
-
+      socket.current.on('response-stream', (serverResponse) => {
         let res = JSON.parse(JSON.stringify(serverResponse));
         if (res) {
           setResChunks((prev) => [...prev, res.data]);

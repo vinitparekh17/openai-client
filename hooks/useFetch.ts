@@ -1,4 +1,4 @@
-import { authClientSignOut } from "../utils/auth";
+import { authClientSignOut } from '../utils/auth';
 
 function isValidURL(url: string): boolean {
   try {
@@ -9,7 +9,10 @@ function isValidURL(url: string): boolean {
   }
 }
 
-export const useFetch: FetchResponsefn = async (url, options) : Promise<FetchResponse> => {
+export const useFetch: FetchResponsefn = async (
+  url,
+  options
+): Promise<FetchResponse> => {
   try {
     if (!isValidURL(url)) {
       console.log(url);
@@ -19,7 +22,7 @@ export const useFetch: FetchResponsefn = async (url, options) : Promise<FetchRes
         method: options.method,
         headers: {
           'Content-Type': 'application/json',
-          ...options.headers
+          ...options.headers,
         },
         body: options.body,
         credentials: 'include',
@@ -27,8 +30,8 @@ export const useFetch: FetchResponsefn = async (url, options) : Promise<FetchRes
       if (reqPromise.ok) {
         return { err: null, res: reqPromise };
       }
-      if(reqPromise.statusText == 'Unauthorized') authClientSignOut()
-      
+      if (reqPromise.statusText == 'Unauthorized') authClientSignOut();
+
       return { err: new Error(reqPromise.statusText), res: null };
     }
   } catch (error: unknown) {

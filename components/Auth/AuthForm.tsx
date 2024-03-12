@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { authSubmit } from '../../utils/auth';
 import Link from 'next/link';
 
-export default function AuthForm({ formType }: FormType ) {
+export default function AuthForm({ formType }: FormType) {
   const rules = {
     password: {
       required: 'Password is required',
@@ -24,7 +24,10 @@ export default function AuthForm({ formType }: FormType ) {
     watch,
   } = useForm<FormValues>();
   return (
-    <form className="mt-8" onSubmit={handleSubmit(data => authSubmit('normal', data))}>
+    <form
+      className="mt-8"
+      onSubmit={handleSubmit((data) => authSubmit('normal', data))}
+    >
       <input
         type="hidden"
         {...register('formType', { required: true })}
@@ -152,7 +155,7 @@ export default function AuthForm({ formType }: FormType ) {
           <button
             type="submit"
             disabled={isSubmitting}
-            className='block w-full bg-indigo-600 mt-4 py-2 rounded-2xl text-white font-semibold mb-2 dark:bg-indigo-500 dark:hover:bg-indigo-600 dark:focus:bg-indigo-600 dark:active:bg-indigo-600'
+            className="block w-full bg-indigo-600 mt-4 py-2 rounded-2xl text-white font-semibold mb-2 dark:bg-indigo-500 dark:hover:bg-indigo-600 dark:focus:bg-indigo-600 dark:active:bg-indigo-600"
           >
             Sign in
           </button>
@@ -160,9 +163,10 @@ export default function AuthForm({ formType }: FormType ) {
       </div>
     </form>
   );
-};
+}
 
-{/* <form className="bg-white">
+{
+  /* <form className="bg-white">
 			<h1 className="text-gray-800 font-bold text-2xl mb-1">Hello Again!</h1>
 			<p className="text-sm font-normal text-gray-600 mb-7">Welcome Back</p>
 			<div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
@@ -200,4 +204,5 @@ export default function AuthForm({ formType }: FormType ) {
       </div>
 							<button type="submit" className="block w-full bg-indigo-600 mt-4 py-2 rounded-2xl text-white font-semibold mb-2">Login</button>
 							<span className="text-sm ml-2 hover:text-blue-500 cursor-pointer">Forgot Password ?</span>
-		</form> */}
+		</form> */
+}

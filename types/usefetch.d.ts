@@ -2,14 +2,14 @@ interface CommonOptions {
   headers?: HeadersInit;
 }
 type FetchOptions =
-  {
-    method: 'GET';
-    body?: BodyInit;
-  } & CommonOptions
-  | {
-    method: 'POST';
-    body: BodyInit;
-  } & CommonOptions;
+  | ({
+      method: 'GET';
+      body?: BodyInit;
+    } & CommonOptions)
+  | ({
+      method: 'POST';
+      body: BodyInit;
+    } & CommonOptions);
 
 interface FetchResponse {
   err: Error | null;

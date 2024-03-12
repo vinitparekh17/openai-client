@@ -11,7 +11,8 @@ export default function Navbar({ setOpen, open }: NavbarProps) {
   return (
     <nav
       className="z-20 backdrop-filter backdrop-blur-lg bg-gradient-to-r from-teal-600 via-blue-700 to-slate-700
-        dark:from-slate-700 dark:to-slate-900 absolute w-full mt-0">
+        dark:from-slate-700 dark:to-slate-900 absolute w-full mt-0"
+    >
       <div className="mx-auto w-full px-4">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center">
@@ -68,9 +69,7 @@ export default function Navbar({ setOpen, open }: NavbarProps) {
               </h1>
             </div>
           </div>
-          <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            
-          </div>
+          <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"></div>
           <NavProfile session={session} token={token} user={user} />
         </div>
       </div>
