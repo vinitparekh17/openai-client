@@ -1,12 +1,6 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { CurrentAuthState, AuthSlice } from '../../slices/authSlice';
-import { useSession } from 'next-auth/react';
 import { Playfair } from '../fonts';
-import NavProfile from './NavProfile';
 
 export default function Navbar({ setOpen, open }: NavbarProps) {
-  const { data: session } = useSession();
-  const { token, user } = useSelector(CurrentAuthState);
 
   return (
     <nav
@@ -69,8 +63,8 @@ export default function Navbar({ setOpen, open }: NavbarProps) {
               </h1>
             </div>
           </div>
-          <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"></div>
-          <NavProfile session={session} token={token} user={user} />
+          {/* <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"></div> */}
+          {/* <NavProfile session={session} token={token} user={user} /> */}
         </div>
       </div>
     </nav>

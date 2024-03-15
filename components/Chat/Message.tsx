@@ -19,7 +19,7 @@ export default function Message({
 }) {
   return (
     <>
-      <div className="h-auto sm:w-4/5 block float-right my-4">
+      <div className="h-auto lg:w-11/12 w-5/6 block float-right my-4">
         <div className={`mb-4 flex ${message?.fromself && 'text-right'}`}>
           {!message?.fromself && (
             <div className="flex-2">
@@ -35,15 +35,14 @@ export default function Message({
               </div>
             </div>
           )}
-          <div className="flex-1 px-2">
+          <div className="flex-1 px-2 overflow-x-scroll hiddenscroll">
             <div
-              className={`inline-block overflow-x-scroll hiddenscroll ${
+              className={`inline-block ${
                 message?.fromself
                   ? 'bg-blue-600 dark:bg-blue-900 text-white'
                   : 'bg-gray-300 dark:bg-slate-700 text-gray-600 dark:text-gray-400'
               } rounded-3xl p-2 px-4`}
             >
-              <div>
                 {chunks && chunks?.length > 0 ? (
                   <Typewriter
                     words={[chunks.join('')]}
@@ -62,10 +61,6 @@ export default function Message({
                     .use(remarkReact as any, React)
                     .processSync(message?.content).result as any)
                 )}
-              </div>
-            </div>
-            <div className="pl-4">
-              <small className="text-gray-500">15 April</small>
             </div>
           </div>
         </div>

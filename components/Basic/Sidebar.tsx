@@ -1,8 +1,13 @@
 import Link from 'next/link';
 import MainSpace from './MainSpace';
 import Navbar from './Navbar';
+import { useSelector } from 'react-redux';
+import { CurrentAuthState } from '../../slices/authSlice';
+import { useSession } from 'next-auth/react';
+import { RiKey2Fill } from "react-icons/ri";
 import { HiUsers, HiHome, HiQuestionMarkCircle, HiCog } from 'react-icons/hi';
 import { FaRobot } from 'react-icons/fa';
+import NavProfile from './NavProfile';
 
 export default function Sidebar({ open, setOpen, children }: SidebarProps) {
   const sideItems: SidebarItem[] = [
@@ -30,11 +35,20 @@ export default function Sidebar({ open, setOpen, children }: SidebarProps) {
       link: '/about',
     },
     {
+      name: 'Features',
+      icon: <RiKey2Fill className="w-6 h-6 mr-2" />,
+      link: '/features',  
+    },
+    {
       name: 'Settings',
       icon: <HiCog className="w-6 h-6 mr-2" />,
       link: '/settings/profile',
     },
   ];
+
+
+  const { data: session } = useSession();
+  const { token, user } = useSelector(CurrentAuthState);
 
   return (
     <div className="h-[100svh]">
@@ -44,29 +58,11 @@ export default function Sidebar({ open, setOpen, children }: SidebarProps) {
       </MainSpace>
       <aside className="flex h-full">
         <div
-          className={`mt-16 fixed left-0 h-full px-2 z-10 ${
-            open ? '-translate-x-0' : '-translate-x-full'
-          } transition-transform transform duration-200 ease-in-out w-64 bg-gradient-to-b from-teal-600 to-blue-700 dark:from-slate-700 dark:to-slate-900`}
+          className={`mt-16 flex flex-col flex-1 fixed left-0 h-full px-2 z-10 ${open ? '-translate-x-0' : '-translate-x-full'
+            } transition-transform transform duration-200 ease-in-out w-64 bg-gradient-to-b from-teal-600 to-blue-700 dark:from-slate-700 dark:to-slate-900`}
         >
-          {/* <div className="mt-5 w-full flex flex-col items-start space-y-5">
-            {sideItems.map((item: SidebarItem, i: number) => (
-              <Link
-                key={i}
-                href={item.link}
-                legacyBehavior
-                className="text-white w-full px-2 focus:outline-nones transition-colors duration-200 rounded-lg dark:text-gray-400 dark:hover:bg-gray-800 hover:text-teal-500 hover:bg-teal-100"
-              >
-                <a className="w-full flex items-center rounded-md px-4 py-2 duration-300 cursor-pointer hover:bg-teal-500 dark:hover:bg-slate-600 text-white">
-                  {item.icon}
-                  <span className="sm:text-md text-sm ml-4 text-gray-200 font-bold">
-                    {item.name}
-                  </span>
-                </a>
-              </Link>
-            ))}
-          </div> */}
 
-          <ul className="mt-6">
+          <ul className="mt-6 mb-auto">
             {sideItems.map((item: SidebarItem, i: number) => (
               <li
                 key={i}
@@ -81,6 +77,9 @@ export default function Sidebar({ open, setOpen, children }: SidebarProps) {
               </li>
             ))}
           </ul>
+          <div className="absolute bottom-20">
+          <NavProfile session={session} user={user} token={token} />
+          </div>
         </div>
       </aside>
     </div>

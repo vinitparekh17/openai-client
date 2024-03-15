@@ -24,9 +24,6 @@ const Home: NextPage = () => {
                 Empower yourself with Omnisive
               </h1>
               <p className="text-lg mt-4 text-slate-600 dark:text-slate-400 max-w-xl">
-                {/* Astroship is a starter template for startups, marketing websites & landing
-            pages.<wbr /> Built with Astro.build, TailwindCSS & Alpine.js. You can quickly
-            create any website with this starter. */}
                 Omnisive is the most advanced AI chatbot that can help you with
                 your daily tasks and answer your questions. <wbr /> It is a
                 pre-trained general purpose chat system that can understand and
