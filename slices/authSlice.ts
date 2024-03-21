@@ -10,6 +10,7 @@ const initialState: AuthState = {
   error: null,
   loading: false,
   user: {
+    id: '',
     name: '',
     email: '',
     profile: 0,
@@ -29,6 +30,7 @@ export const AuthSlice = createSlice({
       state.token = null;
       state.id = null;
       state.user = {
+        id: '',
         name: '',
         email: '',
         profile: 0,

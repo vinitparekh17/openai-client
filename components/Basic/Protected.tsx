@@ -1,5 +1,5 @@
 import { useSession } from 'next-auth/react';
-import { ReactElement, Suspense, useEffect, useState } from 'react';
+import { ReactElement, Suspense, use, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AuthSlice, CurrentAuthState } from '../../slices/authSlice';
 import AccessDenied from './AccessDenied';
@@ -15,29 +15,27 @@ export default function Protected({ children }: { children: ReactElement }) {
   const [open, setOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (!user.id) {
-      useFetch(`${process.env.NEXT_PUBLIC_BACKEND_URI}/user/profile`, {
-        method: 'GET',
-      }).then(({ err, res }) => {
-        if (!err && res) {
-          dispatch(AuthSlice.actions.updateProfile({
-            id: res.data._id,
-            name: res.data.name,
-            email: res.data.email,
-            profile: res.data.profile,
-          }));
-        } else if( err && err.message == 'Unauthorized') {
-          dispatch(AuthSlice.actions.SignOut());
-        }
-      }).catch((error) => {
-        if(error.message !== 'Unauthorized') {
-          toast.error('An error occurred while processing your request');
-        }
-      });
-    }
-
-  }, [dispatch, user.id]);
+    useEffect(() => {
+      if(!user.id) {
+        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URI}/user/profile`, {
+          method: 'GET',
+          credentials: 'include',
+        })
+          .then((res) => res.json())
+          .then(({ data }) => {
+              dispatch(AuthSlice.actions.updateProfile({
+                id: data._id,
+                email: data.email,
+                name: data.name,
+                profile: data.profile
+              }));
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      }
+    }, [user.id, dispatch])
+  
 
   if (session || user.id) {
     return (
