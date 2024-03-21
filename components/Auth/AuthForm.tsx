@@ -1,8 +1,11 @@
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import { authSubmit } from '../../utils/auth';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 export default function AuthForm({ formType }: FormType) {
+
   const rules = {
     password: {
       required: 'Password is required',
@@ -17,16 +20,21 @@ export default function AuthForm({ formType }: FormType) {
         value === watch('password') ? undefined : 'Passwords do not match',
     },
   };
+
+  const dispatch = useDispatch();
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
     watch,
-  } = useForm<FormValues>();
+  } = useForm<AuthFormValues>();
+
   return (
     <form
       className="mt-8"
-      onSubmit={handleSubmit((data) => authSubmit('normal', data))}
+      onSubmit={handleSubmit(data => authSubmit(data, dispatch, router))}
     >
       <input
         type="hidden"
@@ -45,13 +53,13 @@ export default function AuthForm({ formType }: FormType) {
               </label>
               <div className="mt-2.5">
                 <input
-                  className="flex h-10 w-full text-gray-700 bg-white dark:bg-slate-600 rounded-md shadow-lg bg-transparent py-2 px-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
+                  className={`flex h-10 w-full text-gray-700 bg-white dark:bg-slate-600 rounded-md shadow-lg bg-transparent py-2 px-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900 border-solid border-2 ${errors.firstName ? 'border-red-500' : 'border-gray-300'}`}
                   type="text"
                   {...register('firstName', { required: true })}
                   placeholder="First Name"
                 />
                 {errors.firstName && (
-                  <span className="text-red-500">This field is required</span>
+                  <div className="text-red-500 my-2">This field is required</div>
                 )}
               </div>
             </div>
@@ -64,13 +72,13 @@ export default function AuthForm({ formType }: FormType) {
               </label>
               <div className="mt-2.5">
                 <input
-                  className="flex h-10 w-full text-gray-700 bg-white dark:bg-slate-600 rounded-md shadow-lg bg-transparent py-2 px-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
+                  className={`flex h-10 w-full text-gray-700 bg-white dark:bg-slate-600 rounded-md shadow-lg bg-transparent py-2 px-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900 border-solid border-2 ${errors.lastName ? 'border-red-500' : 'border-gray-300'}`}
                   type="text"
                   {...register('lastName', { required: true })}
                   placeholder="Last Name"
                 />
                 {errors.lastName && (
-                  <span className="text-red-500">This field is required</span>
+                  <div className="text-red-500 my-2">This field is required</div>
                 )}
               </div>
             </div>
@@ -85,13 +93,13 @@ export default function AuthForm({ formType }: FormType) {
           </label>
           <div className="mt-2.5">
             <input
-              className="flex h-10 w-full text-gray-700 bg-white dark:bg-slate-600 rounded-md shadow-lg bg-transparent py-2 px-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
+              className={`flex h-10 w-full text-gray-700 bg-white dark:bg-slate-600 rounded-md shadow-lg bg-transparent py-2 px-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900 border-solid border-2 ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
               type="email"
               {...register('email', { required: true })}
               placeholder="Email"
             />
             {errors.email && (
-              <span className="text-red-500">Email is required field</span>
+              <div className="text-red-500 my-2">Email is required field</div>
             )}
           </div>
         </div>
@@ -104,17 +112,17 @@ export default function AuthForm({ formType }: FormType) {
           </label>
           <div className="mt-2.5">
             <input
-              className="flex h-10 w-full text-gray-700 bg-white dark:bg-slate-600 rounded-md shadow-lg bg-transparent py-2 px-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
+              className={`flex h-10 w-full text-gray-700 bg-white dark:bg-slate-600 rounded-md shadow-lg bg-transparent py-2 px-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900 border-solid border-2 ${errors.password ? 'border-red-500' : 'border-gray-300'}`}
               type="password"
               {...register('password', rules.password)}
               placeholder="Password"
             />
             {errors.password && (
-              <span className="text-red-500">{errors.password.message}</span>
+              <div className="text-red-500 my-2">{errors.password.message}</div>
             )}
             {formType === 'signin' && (
               <Link
-                href="/"
+                href="/forgot_password"
                 className="text-sm m-1 font-medium text-indigo-600 hover:text-indigo-700 hover:underline focus:text-indigo-700"
               >
                 Forgot password?
@@ -132,22 +140,16 @@ export default function AuthForm({ formType }: FormType) {
             </label>
             <div className="mt-2.5">
               <input
-                className="flex h-10 w-full text-gray-700 bg-white dark:bg-slate-600 rounded-md shadow-lg bg-transparent py-2 px-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
+                className={`flex h-10 w-full text-gray-700 bg-white dark:bg-slate-600 rounded-md shadow-lg bg-transparent py-2 px-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900 border-solid border-2 ${errors.confirmPassword ? 'border-red-500' : 'border-gray-300'}`}
                 type="password"
                 {...register('confirmPassword', rules.confirmPassword)}
                 placeholder="Confirm Password"
               />
               {errors.confirmPassword && (
-                <span className="text-red-500">
+                <div className="text-red-500 my-2">
                   {errors.confirmPassword.message}
-                </span>
+                </div>
               )}
-              <Link
-                href="/"
-                className="text-sm m-1 font-medium text-indigo-600 hover:text-indigo-700 hover:underline focus:text-indigo-700"
-              >
-                Forgot password?
-              </Link>
             </div>
           </div>
         )}
@@ -157,7 +159,7 @@ export default function AuthForm({ formType }: FormType) {
             disabled={isSubmitting}
             className="block w-full bg-indigo-600 mt-4 py-2 rounded-2xl text-white font-semibold mb-2 dark:bg-indigo-500 dark:hover:bg-indigo-600 dark:focus:bg-indigo-600 dark:active:bg-indigo-600"
           >
-            Sign in
+            {formType === 'signup' ? 'Sign Up' : 'Sign In'}
           </button>
         </div>
       </div>

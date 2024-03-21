@@ -1,6 +1,8 @@
 import jwtDecode from 'jwt-decode';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { NEXT_PUBLIC_BACKEND_URI } from '.././config';
+import { useFetch } from '../hooks';
+import toast from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
 
 const initialState: AuthState = {
   token: null,
@@ -18,44 +20,20 @@ export const AuthSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    addToken(state: AuthState, action: PayloadAction<Payload>) {
-      let { token } = action.payload;
-      state.token = token;
-      let decoded: DecodedToken | null = token ? jwtDecode(token) : null;
-      state.id = decoded ? decoded.data.id : null;
+
+    updateProfile(state: AuthState, action: PayloadAction<UserData>) {
+      state.user = action.payload;
     },
-    removeToken(state) {
+
+    SignOut(state) {
       state.token = null;
       state.id = null;
-      localStorage.removeItem('token');
-    },
-
-    getData(state) {
-      let token = localStorage.getItem('token');
-      state.token = token;
-      if (token) {
-        let decoded: DecodedToken | null = jwtDecode(token);
-        state.id = decoded ? decoded.data.id : null;
-        state.user.name = decoded ? decoded.data.name : '';
-        state.user.email = decoded ? decoded.data.email : '';
-        state.user.profile = decoded ? decoded.data.profile : 0;
-      }
-    },
-
-    getUserById(state, action: PayloadAction<{ id: string }>) {
-      if (action.payload.id) {
-        state.loading = true;
-        fetch(`${NEXT_PUBLIC_BACKEND_URI}/api/users/${state.id}`)
-          .then((res) => res.json())
-          .then((data) => {
-            state.user.name = data.name;
-            state.user.email = data.email;
-            state.user.profile = data.profile;
-          })
-          .catch((err) => (state.error = err.message))
-          .finally(() => (state.loading = false));
-      }
-    },
+      state.user = {
+        name: '',
+        email: '',
+        profile: 0,
+      };
+    }
   },
 });
 

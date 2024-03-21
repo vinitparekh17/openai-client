@@ -4,15 +4,13 @@ import PricingModel from '../Pricing/Model';
 import StripeModel from '../Pricing/StripeModel';
 import { useRazor } from '../../hooks';
 import PricingData from '../../data/price.json';
-import toast, { Toaster } from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 import { Stripe, StripeElementsOptions, loadStripe } from '@stripe/stripe-js';
 import { currentTheme } from '../../slices/themeSlice';
 import { useSelector } from 'react-redux';
 
 export default function Pricing() {
-  const stripPromise: Promise<Stripe | null> = loadStripe(
-    'pk_test_51NOQGJSEG5Ae70mx2WtgBR63fsDuvbJBlLwrfjQq1CnZegDA6XR2751CTp3rrd4CUSsRsiyTimBDV4lAsdHXBxSG00ni0dOxHD'
-  );
+  const stripPromise: Promise<Stripe | null> = loadStripe(process.env.NEXT_PUBLIC_STRIPE_ID!);
 
   const { theme } = useSelector(currentTheme);
 
@@ -39,7 +37,6 @@ export default function Pricing() {
 
   return (
     <section className="dark:bg-gray-900 rounded-xl">
-      <Toaster />
       <PricingModel
         item={item}
         setStripeModel={setStripeModel}

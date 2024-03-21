@@ -1,5 +1,4 @@
 type Message = {
-  username: string;
   fromself: boolean;
   content: string;
   timestamp: string;
@@ -8,11 +7,16 @@ type Message = {
 type OldMessage = {
   _id: string;
   prompt: string;
-  user: string;
   answer: string;
+  date: string;
 };
 
 type ChatFormProps = {
   socket: MutableRefObject<Socket>;
   setMessages: Dispatch<SetStateAction<Message[]>>;
 };
+
+type TranscriptFormat = {
+  user: UserData;
+  messages: OldMessage[];
+}

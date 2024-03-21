@@ -1,21 +1,20 @@
-import { authClientSignOut } from '../utils/auth';
+import toast from 'react-hot-toast';
 
 function isValidURL(url: string): boolean {
   try {
     new URL(url);
     return true;
-  } catch (error) {
-    return false;
+  } catch (error: unknown) {
+    throw error instanceof Error && error
   }
 }
 
 export const useFetch: FetchResponsefn = async (
   url,
   options
-): Promise<FetchResponse> => {
+): Promise<any> => {
   try {
     if (!isValidURL(url)) {
-      console.log(url);
       throw new Error('Invalid URL');
     } else {
       let reqPromise = await fetch(url, {
@@ -27,17 +26,17 @@ export const useFetch: FetchResponsefn = async (
         body: options.body,
         credentials: 'include',
       });
+      let response = await reqPromise.json();
       if (reqPromise.ok) {
-        return { err: null, res: reqPromise };
+        return { err: null, res: response };
+      } else {
+        return { err: new Error(reqPromise.statusText), res: response }
       }
-      if (reqPromise.statusText == 'Unauthorized') authClientSignOut();
-
-      return { err: new Error(reqPromise.statusText), res: null };
     }
   } catch (error: unknown) {
     if (error instanceof Error) {
-      return { err: new Error(error.message), res: null };
+      console.error(error.message);
+      toast.error('An error occurred while processing your request'); 
     }
-    return { err: new Error('Unknown Error'), res: null };
   }
 };

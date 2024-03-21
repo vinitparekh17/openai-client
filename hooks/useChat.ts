@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import moment from 'moment';
 import { SocketClient } from '../lib/socket';
 import { useSelector } from 'react-redux';
 import { CurrentAuthState } from '../slices/authSlice';
@@ -9,40 +10,39 @@ import { getConversation } from '../utils/chat';
 export function useChat() {
   const socket = useRef<Socket>() as MutableRefObject<Socket>;
   const messageEndRef = useRef<HTMLDivElement>(null);
-  const { id } = useSelector(CurrentAuthState);
+  const { user } = useSelector(CurrentAuthState) as { user: UserData }
   const [isFinished, setIsFinished] = useState(false);
   const [resChunks, setResChunks] = useState<string[]>([]);
   const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
-    if (id) {
+    if (user.id) {
       if (messages.length === 0) {
-        getConversation(id)
-          .then((res) => res?.json())
-          .then((d) => {
-            let { data } = d as { data: OldMessage[] };
+        getConversation(user.id)
+          .then(({ data }: { data: OldMessage[] }) => {
+
             data.map((d: OldMessage) => {
               setMessages((prev) => [
                 ...prev,
                 {
-                  username: 'Vinit',
                   content: d.prompt,
                   fromself: true,
-                  timestamp: new Date().toLocaleString(),
+                  timestamp: moment(d.date).fromNow()
                 },
               ]);
+
               setMessages((prev) => [
                 ...prev,
                 {
-                  username: 'Bot',
                   content: d.answer,
                   fromself: false,
-                  timestamp: new Date().toLocaleString(),
+                  timestamp: moment(d.date).fromNow()
                 },
               ]);
+
             });
           })
-          .catch((err) => console.log('Er ' + err));
+          .catch((err) => console.error('Er ' + err));
       }
     }
   }, []);
@@ -54,17 +54,44 @@ export function useChat() {
           behavior: 'smooth',
         });
       }
-      socket.current = SocketClient('https://api.omnisive.technetic.co.in', {
+      socket.current = SocketClient(process.env.NEXT_PUBLIC_SOCKET_URI!, {
         transports: ['websocket'],
         secure: true,
         withCredentials: true,
+        retries: 3
       });
 
-      socket.current.on('response-stream', (serverResponse) => {
-        let res = JSON.parse(JSON.stringify(serverResponse));
-        if (res) {
-          setResChunks((prev) => [...prev, res.data]);
+      socket.current.on('response-stream', ({ type, answer, prompt, audioStream }: { type: string, answer: string, prompt: string, audioStream: Uint8Array }) => {
+        if (type === 'TEXT') {
+          setResChunks((prev) => [...prev, answer]);
           setIsFinished(true);
+        } else if (type === 'AUDIO') {
+
+          const arrayBuffer = new Uint8Array(audioStream).buffer;
+
+          const blob = new Blob([arrayBuffer], { type: 'audio/mpeg' });
+          const url = URL.createObjectURL(blob);
+
+          const audio = new Audio(url);
+          audio.play();
+
+          audio.onended = () => {
+            setTimeout(() => {
+              URL.revokeObjectURL(url);
+            } , 1000);
+          }
+
+          setMessages((prev: Message[]) => [...prev, {
+            fromself: true,
+            content: prompt,
+            timestamp: moment().fromNow()
+          }]);
+
+          setMessages((prev: Message[]) => [...prev, {
+            fromself: false,
+            content: answer,
+            timestamp: moment().fromNow()
+          }]);
         }
       });
     } catch (e) {
@@ -78,16 +105,16 @@ export function useChat() {
     };
   }, []);
 
+
   useEffect(() => {
     if (isFinished) {
       setTimeout(() => {
         setMessages((prev) => [
           ...prev,
           {
-            username: 'bot',
             fromself: false,
             content: resChunks.join(''),
-            timestamp: new Date().toLocaleString(),
+            timestamp: moment().fromNow(),
           },
         ]);
         setIsFinished(false);

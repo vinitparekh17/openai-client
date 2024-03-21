@@ -1,10 +1,6 @@
 import type { SetStateAction, Dispatch, FormEvent } from 'react';
 import { useFetch } from '../hooks';
 import { toast } from 'react-hot-toast';
-import {
-  NEXT_PUBLIC_RAZORPAY_KEY_ID,
-  NEXT_PUBLIC_BACKEND_URI,
-} from '../config';
 import { Stripe, StripeElements } from '@stripe/stripe-js';
 
 declare global {
@@ -14,18 +10,17 @@ declare global {
 }
 
 export const razorPayment = async (data: number) => {
-  console.log(data);
   const { err, res } = await useFetch(
-    `${NEXT_PUBLIC_BACKEND_URI}/payments/razorpay`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URI}/payments/razorpay`,
     {
       method: 'POST',
       body: JSON.stringify({ amount: data }),
     }
   );
   if (!err && res) {
-    const { data } = await res.json();
+    const { data } = res;
     new window.Razorpay({
-      key: NEXT_PUBLIC_RAZORPAY_KEY_ID,
+      key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
       order_id: data.id,
       currency: data.currency,
       amount: data.amount,
@@ -34,6 +29,8 @@ export const razorPayment = async (data: number) => {
         console.log(response);
       },
     }).open(data);
+  } else {
+    toast.error(res.message)
   }
 };
 
@@ -43,13 +40,17 @@ export const createPaymentIntent = (
   amount: number,
   setClientSecret: Dispatch<SetStateAction<string>>
 ) => {
-  useFetch(`${NEXT_PUBLIC_BACKEND_URI}/payments/stripe/create`, {
+
+  useFetch(`${process.env.NEXT_PUBLIC_BACKEND_URI}/payments/stripe/create`, {
     method: 'POST',
     body: JSON.stringify({ amount }),
   })
-    .then((data) => data.res?.json())
     .then((response) => {
-      setClientSecret(response.data);
+      if (response.err) {
+        toast.error(response.res.message)
+      } else {
+        setClientSecret(response.res.data);
+      }
       setModel(false);
       setStripeModel(true);
     })

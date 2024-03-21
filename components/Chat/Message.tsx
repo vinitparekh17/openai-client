@@ -23,7 +23,7 @@ export default function Message({
         <div className={`mb-4 flex ${message?.fromself && 'text-right'}`}>
           {!message?.fromself && (
             <div className="flex-2">
-              <div className="w-12 h-12 relative">
+              <div className="w-12 h-12 relative sm:block hidden">
                 <Image
                   className="w-12 h-12 rounded-full mx-auto"
                   width={400}
@@ -37,31 +37,35 @@ export default function Message({
           )}
           <div className="flex-1 px-2 overflow-x-scroll hiddenscroll">
             <div
-              className={`inline-block ${
-                message?.fromself
+              className={`inline-block max-w-fit ${message?.fromself
                   ? 'bg-blue-600 dark:bg-blue-900 text-white'
                   : 'bg-gray-300 dark:bg-slate-700 text-gray-600 dark:text-gray-400'
-              } rounded-3xl p-2 px-4`}
+                } rounded-3xl py-3 px-4 text-left`}
             >
-                {chunks && chunks?.length > 0 ? (
-                  <Typewriter
-                    words={[chunks.join('')]}
-                    loop={1}
-                    onLoopDone={() =>
-                      isFinished && setResChunks && setResChunks([])
-                    }
-                    cursor
-                    cursorStyle="_"
-                    typeSpeed={50}
-                    cursorBlinking={false}
-                  />
-                ) : (
+              {!message?.fromself && <p className="text-xs font-semibold text-gray-500 sm:hidden">Assistent</p>}
+              {chunks && chunks?.length > 0 ? (
+                <Typewriter
+                  words={[chunks.join('')]}
+                  loop={1}
+                  onLoopDone={() =>
+                    isFinished && setResChunks && setResChunks([])
+                  }
+                  cursor
+                  cursorStyle="_"
+                  typeSpeed={50}
+                  cursorBlinking={false}
+                />
+              ) : (
+                !message?.fromself ?
                   (unified()
                     .use(remarkParse)
                     .use(remarkReact as any, React)
-                    .processSync(message?.content).result as any)
-                )}
+                    .processSync(message?.content).result as any) : message?.content
+              )}
             </div>
+            <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+              {message?.timestamp}
+              </div>
           </div>
         </div>
       </div>

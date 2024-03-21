@@ -1,7 +1,7 @@
 import { MutableRefObject } from 'react';
 import type { Socket } from 'socket.io-client';
-import { NEXT_PUBLIC_BACKEND_URI } from '../config';
 import { useFetch } from '../hooks';
+import { toast } from 'react-hot-toast';
 
 interface chatData {
   prompt: string;
@@ -14,11 +14,17 @@ export const handleChat = (data: chatData) => {
 };
 
 export const getConversation = async (uid: string) => {
+  // const NEXT_PUBLIC_BACKEND_URI = process.env.NEXT_PUBLIC_BACKEND_URI
   const { err, res } = await useFetch(
-    `${NEXT_PUBLIC_BACKEND_URI}/chat/${uid}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URI}/chat/${uid}`,
     {
       method: 'GET',
     }
   );
-  return err && !res ? null : res;
+  if(err && !res) {
+     toast.error(res.message);
+     return null;
+    } else {
+      return res;
+    }
 };

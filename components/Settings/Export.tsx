@@ -1,7 +1,39 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { FaDownload } from 'react-icons/fa';
+import { getConversation } from '../../utils/chat';
+import { useSelector } from 'react-redux';
+import { CurrentAuthState } from '../../slices/authSlice';
+import { GenerateTransript } from '../../lib/handlebar';
+import { htmlToPDF } from '../../lib/jspdf';
+import toast from 'react-hot-toast';
 
 const ExportDataPage = () => {
+  const pdfElement = useRef<HTMLDivElement>()
+
+  const { user } = useSelector(CurrentAuthState) as { user: UserData }
+  
+
+  const handleExport = () => {
+
+    
+    getConversation(user.id)
+    .then(({ data }: { data: OldMessage[] }) => {
+      if(!pdfElement.current) return;
+
+      pdfElement.current.innerHTML = GenerateTransript({
+        user,
+        messages: data
+      })
+      
+      htmlToPDF(pdfElement.current as HTMLDivElement)
+
+    })
+      .catch(err => {
+        console.error(err)
+        toast.error("Unable to generate transcript...")
+      })
+  }
+
   return (
     <div className="min-h-full flex items-center justify-center px-4 py-12">
       <div
@@ -35,10 +67,14 @@ const ExportDataPage = () => {
           <button
             className="bg-indigo-500 dark:bg-indigo-700 hover:dark:bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-3 px-6 rounded focus:outline-none focus:shadow-outline transition duration-300 flex items-center"
             type="button"
+            onClick={handleExport}
           >
             <FaDownload className="mr-2" />
             Export
           </button>
+          <div className='hidden'>
+          <div className='w-screen h-screen' ref={pdfElement as React.RefObject<HTMLDivElement>}> </div>
+          </div>
         </div>
       </div>
     </div>

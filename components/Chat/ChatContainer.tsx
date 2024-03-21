@@ -24,7 +24,7 @@ export default function ChatContainer() {
         )}
         <div className="flex-1" ref={messageEndRef}></div>
       </div>
-      <ChatForm socket={socket} setMessages={setMessages} />
+      <ChatForm socket={socket} setMessages={setMessages}/>
     </div>
   );
 }

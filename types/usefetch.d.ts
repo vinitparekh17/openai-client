@@ -13,7 +13,7 @@ type FetchOptions =
 
 interface FetchResponse {
   err: Error | null;
-  res: Response | null;
+  res: Any | null;
 }
 type FetchResponsefn = (
   url: string,

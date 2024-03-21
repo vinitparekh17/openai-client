@@ -10,24 +10,21 @@ import AuthButtons from '../components/Auth/AuthButtons';
 import AuthForm from '../components/Auth/AuthForm';
 import Or from '../components/Basic/OrDivider';
 import MyHead from '../components/Basic/Head';
+import Loadeing from '../components/Basic/Loading';
 
 export default function Signup() {
-  const { token } = useSelector(CurrentAuthState);
+  const { user } = useSelector(CurrentAuthState);
   const dispatch = useDispatch();
-  useEffect(() => {
-    if (!token && localStorage.getItem('token')) {
-      dispatch(
-        AuthSlice.actions.addToken({
-          token: localStorage.getItem('token')!,
-        })
-      );
-    }
-  }, [token, dispatch]);
+  // useEffect(() => {
+  //   if (user) {
+  //     dispatch(AuthSlice.actions.SignOut());
+  //   }
+  // }, [user, dispatch]);
   const { status } = useSession();
   const router = useRouter();
-  if (status === 'authenticated' || token) {
+  if (status === 'authenticated' || user.name) {
     router.push('/conversations');
-    return <p>Redirecting...</p>;
+    return <Loadeing />;
   }
   return (
     <>
@@ -41,7 +38,7 @@ export default function Signup() {
               </h2>
               <AuthForm formType="signup" />
               <Or />
-              <AuthButtons />
+              {/* <AuthButtons /> */}
               <div className="flex justify-center">
                 <p className="text-base mt-5 text-gray-600 dark:text-gray-300">
                   Already have an account?

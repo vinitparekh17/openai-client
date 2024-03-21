@@ -10,10 +10,10 @@ import { MdOutlineSettingsSuggest } from 'react-icons/md';
 import { Dropdown, Switch } from '@nextui-org/react';
 import { authSignOut } from '../../utils/auth';
 import { signOut } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 export default function NavProfile({
   session,
-  token,
   user,
 }: {
   session: any;
@@ -23,6 +23,7 @@ export default function NavProfile({
   const dispatch = useDispatch();
   const { theme } = useSelector(currentTheme);
   const { setTheme } = useNextTheme();
+
   const handleTheme = useCallback(
     (switchState: boolean) => {
       if (switchState) {
@@ -38,11 +39,10 @@ export default function NavProfile({
     [setTheme, dispatch]
   );
 
+  const router = useRouter();
+
   useEffect(() => {
     handleTheme(theme === 'light');
-    if (user.name === '' || user.name === undefined) {
-      dispatch(AuthSlice.actions.getData());
-    }
   }, [dispatch, user, handleTheme, theme]);
 
   return (
@@ -52,7 +52,7 @@ export default function NavProfile({
         <HiOutlineSparkles /> <span className='ml-2'>Upgrage Premium</span>
       </Link>
       {session ||
-        (token && (
+        (user && (
           <div className='flex items-center'>
             <Dropdown placement="right-bottom" closeOnSelect={false}>
               <Dropdown.Trigger>
@@ -66,7 +66,7 @@ export default function NavProfile({
                   <span className="sr-only">Open user menu</span>
                   <Image
                     className="h-8 w-8 rounded-full"
-                    src={`/images/avatars/m-${user.profile}.webp`}
+                    src={`/images/users/user-${user.profile}.webp`}
                     alt="logo"
                     width={300}
                     height={300}
@@ -102,7 +102,7 @@ export default function NavProfile({
                   color="error"
                   icon={<HiLogout className="mr-2" />}
                 >
-                  <button onClick={() => (session ? signOut() : authSignOut())}>
+                  <button onClick={() => (session ? signOut() : authSignOut(dispatch, router))}>
                     Sign out
                   </button>
                 </Dropdown.Item>

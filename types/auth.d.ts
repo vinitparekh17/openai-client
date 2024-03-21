@@ -2,7 +2,7 @@ interface FormType {
   formType: 'signin' | 'signup';
 }
 
-type FormValues = {
+type AuthFormValues = {
   formType: FormType;
   firstName?: string;
   lastName?: string;
@@ -15,7 +15,16 @@ type AuthMethod = 'normal' | 'google';
 
 type Payload = { token: string | null };
 
+type EditFormValues = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  profile: number
+}
+
 type UserData = {
+  id: string;
   name: string;
   profile: number;
   email: string;
@@ -38,4 +47,11 @@ type DecodedToken = {
     exp: number;
     iat: number;
   };
+};
+
+type GoogleAuth = {
+  name: string;
+  email: string;
+  profile: string;
+  token: string;
 };

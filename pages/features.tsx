@@ -39,7 +39,6 @@ const FeaturesPage = () => {
     return (
 
         <Protected>
-            <div className="bg-gray-100">
                 <div className="container mx-auto px-4 py-16">
                     <h2 className="text-5xl text-center font-bold mb-4 bg-gradient-to-tr from-indigo-500 via-blue-500 to-pink-600 text-transparent bg-clip-text
                         ">Key Features</h2>
@@ -47,10 +46,10 @@ const FeaturesPage = () => {
                         <div className="w-full md:w-1/2 px-4 mb-8 md:mb-0">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 {features.map((feature, index) => (
-                                    <div className="bg-white rounded-lg shadow-lg p-6" key={index}>
+                                    <div className="bg-slate-300 dark:bg-slate-700 rounded-lg shadow-lg p-6" key={index}>
                                         {feature.icon}
                                         <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
-                                        <p className="text-gray-700">{feature.description}</p>
+                                        <p className="text-gray-400">{feature.description}</p>
                                     </div>
                                 ))}
                             </div>
@@ -60,7 +59,6 @@ const FeaturesPage = () => {
                         </div>
                     </div>
                 </div>
-            </div>
         </Protected>
     );
 };

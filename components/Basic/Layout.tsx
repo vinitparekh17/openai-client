@@ -2,12 +2,14 @@
 import { ReactElement, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { AuthSlice, CurrentAuthState } from '../../slices/authSlice';
+import { Toaster } from 'react-hot-toast';
 import { currentTheme, ThemeSlice } from '../../slices/themeSlice';
 export default function Layout({ children }: { children: ReactElement }) {
+
   const { theme } = useSelector(currentTheme);
-  const { token } = useSelector(CurrentAuthState);
+
   const dispatch = useDispatch();
+  
   useEffect(() => {
     if (localStorage.getItem('theme')) {
       dispatch(
@@ -18,19 +20,9 @@ export default function Layout({ children }: { children: ReactElement }) {
     }
   }, [theme, dispatch]);
 
-  useEffect(() => {
-    if (!token) {
-      if (localStorage.getItem('token')) {
-        dispatch(
-          AuthSlice.actions.addToken({
-            token: localStorage.getItem('token') as string,
-          })
-        );
-      }
-    }
-  }, [token, dispatch]);
   return (
     <div className={theme}>
+      <Toaster position='top-right' />
       <div className="flex flex-col h-[100svh] overflow-hidden bg-gray-200 dark:bg-gray-800">
         <div className="flex flex-col flex-1">{children}</div>
       </div>

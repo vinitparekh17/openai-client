@@ -49,7 +49,7 @@ export default function About() {
     <Protected>
       <div className="">
         {/* Header Section */}
-        <div className="mt-3 mx-3 rounded-3xl shadow-xl py-20 bg-gradient-to-r from-[#0B4F6C] via-[#0b8db1] to-[#BBDEFB]">
+        <div className="mt-3 mx-3 rounded-3xl shadow-xl py-20 bg-gradient-to-r from-[#0B4F6C] via-[#0b8db1] to-[#BBDEFB] dark:from-[#0b3a6c] dark:via-[#096e8a] dark:to-[#89abc8]">
           <div className="container mx-auto px-4 text-center">
             <h1 className="text-4xl font-bold text-white mb-4">
               About Omnisive
@@ -97,7 +97,7 @@ export default function About() {
         </div>
 
         {/* Services Section */}
-        <div className="py-16 mb-3 mx-3 rounded-3xl shadow-xl bg-gradient-to-r from-[#0B4F6C] via-[#0b8db1] to-[#BBDEFB]">
+        <div className="py-16 mb-3 mx-3 rounded-3xl shadow-xl bg-gradient-to-r from-[#0B4F6C] via-[#0b8db1] to-[#BBDEFB] dark:from-[#0b3a6c] dark:via-[#096e8a] dark:to-[#89abc8]">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold text-white mb-8">
               Our Offerings

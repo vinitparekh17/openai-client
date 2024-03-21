@@ -1,81 +1,124 @@
+import { toast } from 'react-hot-toast';
 import { useFetch } from '../hooks';
-import { NEXT_PUBLIC_BACKEND_URI } from '../config';
+import { AuthSlice } from '../slices/authSlice';
+import { AnyAction, Dispatch } from '@reduxjs/toolkit';
+import { NextRouter } from 'next/router';
 
 export const authSubmit = async (
-  method: AuthMethod,
-  data: FormValues | any
+  data: AuthFormValues | any,
+  dispatch: Dispatch<AnyAction>,
+  router: NextRouter
 ): Promise<any> => {
-  switch (method) {
-    case 'normal':
+
       try {
         const { formType } = data as FormType;
+
         const { err, res } = await useFetch(
-          `${NEXT_PUBLIC_BACKEND_URI}/user/${formType}?type=${method}`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URI}/user/${formType}`,
           {
             method: 'POST',
             body: JSON.stringify(data),
           }
         );
+
         if (!err && res) {
-          const { token } = await res.json();
-          localStorage.setItem('token', token);
-          if (localStorage.getItem('token')) {
-            window.location.href = '/conversations';
-          }
+
+          dispatch(AuthSlice.actions.updateProfile({
+            id: res.data._id,
+            name: res.data.name,
+            email: res.data.email,
+            profile: res.data.profile
+          }));
+
+          router.push('/conversations');
+
+        } else {
+          toast.error(res.message);
         }
-      } catch (error) {
-        console.log(error);
+        
+      } catch (error: unknown) {
+        error instanceof Error && console.error(error.message);
+        toast.error('An error occurred while processing your request');
       }
-      break;
-    case 'google':
-      try {
-        const { formType } = data as FormType;
-        const { err, res } = await useFetch(
-          `${NEXT_PUBLIC_BACKEND_URI}/api/user/${formType}?type=${method}`,
-          {
-            method: 'POST',
-            body: JSON.stringify(data),
-          }
-        );
-        if (!err && res) {
-          const { token } = await res.json();
-          localStorage.setItem('token', token);
-          if (localStorage.getItem('token')) {
-            window.location.href = '/conversations';
-          }
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    default:
-      console.log('Invalid method');
-      break;
-  }
+
 };
 
-export const authSignOut = async () => {
+export const authSignOut = async (dispatch: Dispatch<AnyAction>, router: NextRouter) => {
+  const NEXT_PUBLIC_BACKEND_URI = process.env.NEXT_PUBLIC_BACKEND_URI
   try {
     const { err, res } = await useFetch(
       `${NEXT_PUBLIC_BACKEND_URI}/user/signout`,
       { method: 'GET' }
     );
     if (!err && res) {
-      let { success } = await res.json();
-      if (success) {
-        localStorage.removeItem('token');
-        window.location.href = '/login';
+      if (res.success) {
+        router.push('/login');
+        dispatch(AuthSlice.actions.SignOut());
       }
     }
-  } catch (error) {
-    console.log(error);
+  } catch (error: unknown) {
+    error instanceof Error && console.error(error.message);
+    toast.error('An error occurred while signing out');
   }
 };
 
-export const authClientSignOut = () => {
-  const browserToken = localStorage.getItem('token');
-  if (browserToken) {
-    localStorage.removeItem('token');
-  } else {
-    window.location.href = '/login';
+export const handleEditProfile = async (data: EditFormValues, dispatch: Dispatch<AnyAction>) => {
+  try {
+    const { err, res } = await useFetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URI}/user/update/${data.id}`,
+      {
+        method: 'POST',
+        body: JSON.stringify(data),
+      }
+    );
+    if (!err && res) {
+      toast.success("Profile updated successfully");
+      dispatch(AuthSlice.actions.updateProfile({
+        id: res.data._id,
+        name: res.data.name,
+        email: res.data.email,
+        profile: res.data.profile,
+      }))
+    } else {
+      toast.error(res.message);
+    }
+  } catch (error: unknown) {
+    error instanceof Error && console.error(error.message);
+    toast.error('An error occurred while processing your request');
   }
-};
+}
+
+export const handleForgotPassword = async (email: string) => {
+  try {
+    const { err, res } = await useFetch(`${process.env.NEXT_PUBLIC_BACKEND_URI}/user/forgotpassword`, {
+      method: 'POST',
+      body: JSON.stringify({ email }),
+    });
+    if (!err && res) {
+      toast.success(res.data);
+    } else {
+      toast.error(res.message);
+    }
+  } catch (error) {
+    error instanceof Error && console.error(error.message);
+    toast.error('An error occurred while processing your request');
+  }
+}
+
+export const handleResetPassword = async (router: NextRouter, password: string, token: string) => {
+  try {
+    const { err, res } = await useFetch(`${process.env.NEXT_PUBLIC_BACKEND_URI}/user/resetpassword/${token}`, {
+      method: 'POST',
+      body: JSON.stringify({ password }),
+    });
+    if (!err && res) {
+      toast.success(res.data);
+      router.push('/login');
+    } else {
+      toast.error(res.message);
+    }
+  } catch (error) {
+    error instanceof Error && console.error(error.message);
+    toast.error('An error occurred while processing your request');
+  }
+}
