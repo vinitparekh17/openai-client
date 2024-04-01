@@ -10,6 +10,7 @@ interface chatData {
 
 export const handleChat = (data: chatData) => {
   let { prompt, socket } = data;
+  console.log(prompt, socket.current)
   socket.current.emit('request-stream', prompt);
 };
 

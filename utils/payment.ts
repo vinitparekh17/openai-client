@@ -9,30 +9,42 @@ declare global {
   }
 }
 
-export const razorPayment = async (data: number) => {
+export const razorPayment = async (amount: number, user: UserData) => {
   const { err, res } = await useFetch(
     `${process.env.NEXT_PUBLIC_BACKEND_URI}/payments/razorpay`,
     {
       method: 'POST',
-      body: JSON.stringify({ amount: data }),
+      body: JSON.stringify({ amount }),
     }
   );
   if (!err && res) {
     const { data } = res;
     new window.Razorpay({
       key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+      name: 'Omnisive',
+      description: 'Enjoy the service with Omnisive',
       order_id: data.id,
       currency: data.currency,
       amount: data.amount,
-      description: 'Thanks for your purchase',
-      handler: function (response: any) {
-        console.log(response);
+      prefill: {
+        name: user.name,
+        email: user.email,
+      },
+      handler: function () {
+        sendPaymentEmail(user, amount);
       },
     }).open(data);
   } else {
     toast.error(res.message)
   }
 };
+
+export const sendPaymentEmail = (user: UserData, amount: number) => {
+  useFetch(`${process.env.NEXT_PUBLIC_BACKEND_URI}/payments/razorpay/email`, {
+    method: 'POST',
+    body: JSON.stringify({ user, amount }),
+  })
+}
 
 export const createPaymentIntent = (
   setStripeModel: Dispatch<SetStateAction<boolean>>,

@@ -8,11 +8,15 @@ import Loadeing from './Loading';
 import Sidebar from './Sidebar';
 import { useFetch } from '../../hooks';
 import toast from 'react-hot-toast';
+import { useRouter } from 'next/router';
 
 export default function Protected({ children }: { children: ReactElement }) {
   const { user } = useSelector(CurrentAuthState);
   const { data: session } = useSession();
+
   const [open, setOpen] = useState<boolean>(false);
+
+  const router = useRouter();
   const dispatch = useDispatch();
 
     useEffect(() => {
@@ -21,17 +25,23 @@ export default function Protected({ children }: { children: ReactElement }) {
           method: 'GET',
           credentials: 'include',
         })
-          .then((res) => res.json())
-          .then(({ data }) => {
+          .then((res) => {
+            if(res.status === 401) {
+              // router.push('/login');
+              return;
+            }
+            res.json()
+            .then(({ data }) => {
               dispatch(AuthSlice.actions.updateProfile({
                 id: data._id,
                 email: data.email,
                 name: data.name,
                 profile: data.profile
               }));
+            })
           })
           .catch((err) => {
-            console.error(err);
+            console.error("Error: "+err);
           });
       }
     }, [user.id, dispatch])

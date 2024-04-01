@@ -4,17 +4,47 @@ import Or from '../components/Basic/OrDivider';
 import Link from 'next/link';
 import Image from 'next/image';
 import AuthForm from '../components/Auth/AuthForm';
-import AuthButtons from '../components/Auth/AuthButtons';
-import { useSelector } from 'react-redux';
-import { CurrentAuthState } from '../slices/authSlice';
+// import AuthButtons from '../components/Auth/AuthButtons';
+import { useDispatch, useSelector } from 'react-redux';
+import { AuthSlice, CurrentAuthState } from '../slices/authSlice';
 import MyHead from '../components/Basic/Head';
+import { useEffect } from 'react';
 
 export default function Login() {
-  const { user } = useSelector(CurrentAuthState);
 
+  const { user } = useSelector(CurrentAuthState) as { user: UserData }
   const { status } = useSession();
+
+  const dispatch = useDispatch();
   const router = useRouter();
-  if (status === 'authenticated' || user.email) {
+
+  useEffect(() => {
+    if(!user.id) {
+      fetch(`${process.env.NEXT_PUBLIC_BACKEND_URI}/user/profile`, {
+        method: 'GET',
+        credentials: 'include',
+      })
+        .then((res) => {
+          if(res.status === 401) {
+            return;
+          }
+          res.json()
+          .then(({ data }) => {
+            dispatch(AuthSlice.actions.updateProfile({
+              id: data._id,
+              email: data.email,
+              name: data.name,
+              profile: data.profile
+            }));
+          })
+        })
+        .catch((err) => {
+          console.error("Error: "+err);
+        });
+    }
+  }, [user.id, dispatch])
+  
+  if (status === 'authenticated' || user.id) {
     router.push('/conversations');
     return (
       <div className="flex justify-center items-center h-screen">
@@ -22,6 +52,7 @@ export default function Login() {
       </div>
     );
   }
+
   return (
     <>
       <MyHead />

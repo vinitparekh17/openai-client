@@ -103,7 +103,7 @@ export function useChat() {
         socket.current?.disconnect();
       }
     };
-  }, []);
+  }, [socket.current]);
 
 
   useEffect(() => {

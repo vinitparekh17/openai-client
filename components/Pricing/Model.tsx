@@ -5,6 +5,8 @@ import { razorPayment } from '../../utils/payment';
 import { createPaymentIntent } from '../../utils/payment';
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
+import { useSelector } from 'react-redux';
+import { CurrentAuthState } from '../../slices/authSlice';
 
 export default function PricingModel({
   visible,
@@ -13,6 +15,9 @@ export default function PricingModel({
   setStripeModel,
   setClientSecret,
 }: PricingModelProps) {
+
+  const { user } = useSelector(CurrentAuthState) as { user: UserData };
+
   return (
     <Transition.Root show={visible} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setVisible}>
@@ -77,7 +82,7 @@ export default function PricingModel({
                       <button
                         className="flex items-center w-full
                                                 p-2 mb-2 text-white rounded-lg focus:outline-none bg-gradient-to-r from-blue-500 via-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900"
-                        onClick={() => razorPayment(item.price)}
+                        onClick={() => razorPayment(item.price, user)}
                       >
                         <span className="mr-2 text-2xl">
                           <SiRazorpay size={30} />

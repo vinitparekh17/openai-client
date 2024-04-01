@@ -6,23 +6,18 @@ import { CurrentAuthState } from '../slices/authSlice';
 import { AuthSlice } from '../slices/authSlice';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import AuthButtons from '../components/Auth/AuthButtons';
+// import AuthButtons from '../components/Auth/AuthButtons';
 import AuthForm from '../components/Auth/AuthForm';
 import Or from '../components/Basic/OrDivider';
 import MyHead from '../components/Basic/Head';
 import Loadeing from '../components/Basic/Loading';
 
 export default function Signup() {
-  const { user } = useSelector(CurrentAuthState);
-  const dispatch = useDispatch();
-  // useEffect(() => {
-  //   if (user) {
-  //     dispatch(AuthSlice.actions.SignOut());
-  //   }
-  // }, [user, dispatch]);
+  const { user } = useSelector(CurrentAuthState) as { user: UserData };
+
   const { status } = useSession();
   const router = useRouter();
-  if (status === 'authenticated' || user.name) {
+  if (status === 'authenticated' || user.id) {
     router.push('/conversations');
     return <Loadeing />;
   }
