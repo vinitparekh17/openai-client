@@ -76,7 +76,9 @@ export const HandleStripPaymentSubmit = async (
   stripe: Stripe | null,
   elements: StripeElements | null,
   clientSecret: string,
-  setStripeModel: Dispatch<SetStateAction<boolean>>
+  setStripeModel: Dispatch<SetStateAction<boolean>>,
+  user: UserData,
+  amount: number
 ) => {
   try {
     event.preventDefault();
@@ -100,6 +102,7 @@ export const HandleStripPaymentSubmit = async (
       error.message && toast.error(error.message);
     } else {
       setStripeModel(false);
+      sendPaymentEmail(user, amount)
       toast.success('Payment successfull!', { duration: 5000 });
     }
   } catch (error: unknown) {

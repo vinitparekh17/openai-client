@@ -1,14 +1,11 @@
 import { useSession } from 'next-auth/react';
-import { ReactElement, Suspense, use, useEffect, useState } from 'react';
+import { ReactElement, Suspense, useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AuthSlice, CurrentAuthState } from '../../slices/authSlice';
 import AccessDenied from './AccessDenied';
 import MyHead from './Head';
 import Loadeing from './Loading';
 import Sidebar from './Sidebar';
-import { useFetch } from '../../hooks';
-import toast from 'react-hot-toast';
-import { useRouter } from 'next/router';
 
 export default function Protected({ children }: { children: ReactElement }) {
   const { user } = useSelector(CurrentAuthState);
@@ -16,36 +13,38 @@ export default function Protected({ children }: { children: ReactElement }) {
 
   const [open, setOpen] = useState<boolean>(false);
 
-  const router = useRouter();
   const dispatch = useDispatch();
 
-    useEffect(() => {
-      if(!user.id) {
-        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URI}/user/profile`, {
-          method: 'GET',
-          credentials: 'include',
-        })
-          .then((res) => {
-            if(res.status === 401) {
-              // router.push('/login');
-              return;
-            }
-            res.json()
-            .then(({ data }) => {
-              dispatch(AuthSlice.actions.updateProfile({
-                id: data._id,
-                email: data.email,
-                name: data.name,
-                profile: data.profile
-              }));
-            })
+  const fetchProfile = useCallback(() => {
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URI}/user/profile`, {
+      method: 'GET',
+      credentials: 'include',
+    })
+      .then((res) => {
+        if (res.status === 401) {
+          return;
+        }
+        res.json()
+          .then(({ data }) => {
+            dispatch(AuthSlice.actions.updateProfile({
+              id: data._id,
+              email: data.email,
+              name: data.name,
+              profile: data.profile
+            }));
           })
-          .catch((err) => {
-            console.error("Error: "+err);
-          });
-      }
-    }, [user.id, dispatch])
-  
+      })
+      .catch((err) => {
+        console.error("Error: " + err);
+      });
+  }, [])
+
+  useEffect(() => {
+    if (!user.id) {
+      fetchProfile()
+    }
+  }, [user.id, dispatch])
+
 
   if (session || user.id) {
     return (
@@ -57,6 +56,8 @@ export default function Protected({ children }: { children: ReactElement }) {
       </Suspense>
     );
   } else {
-    return <AccessDenied />;
+    return <Suspense fallback={<Loadeing />}>
+      <AccessDenied />;
+    </Suspense>
   }
 }

@@ -12,11 +12,18 @@ import {
   FaTrash,
 } from 'react-icons/fa';
 import Pricing from '../../components/Settings/Pricing';
+import DeleteDialog from '../../components/Basic/DeleteDialog';
 
 export default function SettingsLayout() {
+
+  const [deleteDialog, setDeleteDialog] = useState<boolean>(false);
+
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
+
   const router = useRouter();
+
   const { menu } = router.query;
+
   const settings = [
     {
       name: 'Profile',
@@ -26,14 +33,6 @@ export default function SettingsLayout() {
       name: 'Privacy',
       icon: <BsFillShieldLockFill className="text-xl sm:text-2xl" />,
     },
-    // {
-    //   name: 'Theme',
-    //   icon: <BsCircleHalf className="text-xl sm:text-2xl" />,
-    // },
-    // {
-    //   name: 'Manage Bots',
-    //   icon: <BsRobot className="text-xl sm:text-2xl" />,
-    // },
     {
       name: 'Billing',
       icon: <FaMoneyBillWave className="text-xl sm:text-2xl" />,
@@ -62,18 +61,19 @@ export default function SettingsLayout() {
     return (
       <Protected>
         <div className="h-[90svh] flex mt-2 overflow-y-hidden">
+          <DeleteDialog deleteDialog={deleteDialog} setDeleteDialog={setDeleteDialog} />
           <div className="dark:bg-gray-900 bg-gray-50 h-[90svh-1.5rem] p-3 m-2 rounded-xl">
             {settings.map((item, index) => {
               if (item.name == 'Delete Account') {
                 return (
-                  <Link
-                    key={index}
-                    href={`/settings/${item.name.toLowerCase()}`}
+                  <button
+                  key={index}
+                    onClick={() => setDeleteDialog(true)}
                     className={`items-center flex justify-start hover:bg-red-500 w-full dark:hover:bg-red-800 dark:hover:text-gray-200 dark:text-red-600 text-red-700 hover:text-white rounded-lg p-3`}
                   >
                     <span className="mr-3">{item.icon}</span>
                     <p className="font-bold">{item.name}</p>
-                  </Link>
+                  </button>
                 );
               } else {
                 return (

@@ -8,7 +8,7 @@ import AuthForm from '../components/Auth/AuthForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { AuthSlice, CurrentAuthState } from '../slices/authSlice';
 import MyHead from '../components/Basic/Head';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
 export default function Login() {
 
@@ -18,17 +18,16 @@ export default function Login() {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  useEffect(() => {
-    if(!user.id) {
-      fetch(`${process.env.NEXT_PUBLIC_BACKEND_URI}/user/profile`, {
-        method: 'GET',
-        credentials: 'include',
-      })
-        .then((res) => {
-          if(res.status === 401) {
-            return;
-          }
-          res.json()
+  const fetchProfile = useCallback(() => {
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URI}/user/profile`, {
+      method: 'GET',
+      credentials: 'include',
+    })
+      .then((res) => {
+        if (!res.ok) {
+          return;
+        }
+        res.json()
           .then(({ data }) => {
             dispatch(AuthSlice.actions.updateProfile({
               id: data._id,
@@ -37,13 +36,18 @@ export default function Login() {
               profile: data.profile
             }));
           })
-        })
-        .catch((err) => {
-          console.error("Error: "+err);
-        });
+      })
+      .catch((err) => {
+        console.error("Error: " + err);
+      });
+  }, [])
+
+  useEffect(() => {
+    if (!user.id) {
+      fetchProfile()
     }
   }, [user.id, dispatch])
-  
+
   if (status === 'authenticated' || user.id) {
     router.push('/conversations');
     return (

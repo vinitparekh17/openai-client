@@ -19,4 +19,5 @@ type StripeModel = {
   stripeModel: boolean;
   setStripeModel: Dispatch<SetStateAction<boolean>>;
   clientSecret: string;
+  item: PricingItem;
 };

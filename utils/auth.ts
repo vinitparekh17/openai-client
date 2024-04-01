@@ -122,3 +122,15 @@ export const handleResetPassword = async (router: NextRouter, password: string, 
     toast.error('An error occurred while processing your request');
   }
 }
+
+export const deleteAccount = async (id: string, router: NextRouter, dispatch: Dispatch<AnyAction>) => {
+  const { err, res } = await useFetch(`${process.env.NEXT_PUBLIC_BACKEND_URI}/user/delete/${id}`, {
+    method: 'GET',
+  });
+
+  if(!err && res) {
+    toast.success('Your Account has been deleted!')
+    dispatch(AuthSlice.actions.SignOut)
+    router.push('/')
+  }
+}

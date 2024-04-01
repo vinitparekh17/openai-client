@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import moment from 'moment';
 import { SocketClient } from '../lib/socket';
 import { useSelector } from 'react-redux';
@@ -15,35 +15,38 @@ export function useChat() {
   const [resChunks, setResChunks] = useState<string[]>([]);
   const [messages, setMessages] = useState<Message[]>([]);
 
+  const fetchChatHistory = useCallback(() => {
+
+    getConversation(user.id)
+    .then(({ data }: { data: OldMessage[] }) => {
+
+      data.map((d: OldMessage) => {
+        setMessages((prev) => [
+          ...prev,
+          {
+            content: d.prompt,
+            fromself: true,
+            timestamp: moment(d.date).fromNow()
+          },
+        ]);
+
+        setMessages((prev) => [
+          ...prev,
+          {
+            content: d.answer,
+            fromself: false,
+            timestamp: moment(d.date).fromNow()
+          },
+        ]);
+
+      });
+    })
+    .catch((err) => console.error('Er ' + err));
+  }, [])
+  
   useEffect(() => {
-    if (user.id) {
-      if (messages.length === 0) {
-        getConversation(user.id)
-          .then(({ data }: { data: OldMessage[] }) => {
-
-            data.map((d: OldMessage) => {
-              setMessages((prev) => [
-                ...prev,
-                {
-                  content: d.prompt,
-                  fromself: true,
-                  timestamp: moment(d.date).fromNow()
-                },
-              ]);
-
-              setMessages((prev) => [
-                ...prev,
-                {
-                  content: d.answer,
-                  fromself: false,
-                  timestamp: moment(d.date).fromNow()
-                },
-              ]);
-
-            });
-          })
-          .catch((err) => console.error('Er ' + err));
-      }
+    if (user.id && messages.length === 0) {
+      fetchChatHistory()
     }
   }, []);
 

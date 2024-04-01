@@ -6,14 +6,19 @@ import {
   PaymentElement,
 } from '@stripe/react-stripe-js';
 import { FaStripe } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
+import { CurrentAuthState } from '../../slices/authSlice';
 
 export default function StripeModel({
   stripeModel,
   setStripeModel,
   clientSecret,
+  item
 }: StripeModel) {
   const stripe = useStripe();
   const elements = useElements();
+
+  const { user } = useSelector(CurrentAuthState) as { user: UserData };
 
   if (!clientSecret) return null;
   return (
@@ -34,7 +39,9 @@ export default function StripeModel({
               stripe,
               elements,
               clientSecret,
-              setStripeModel
+              setStripeModel,
+              user,
+              item.price
             )
           }
         >

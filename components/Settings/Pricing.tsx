@@ -50,6 +50,7 @@ export default function Pricing() {
             setStripeModel={setStripeModel}
             stripeModel={stripeModel}
             clientSecret={clientSecret}
+            item={item}
           />
         </Elements>
       )}
