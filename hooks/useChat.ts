@@ -43,7 +43,7 @@ export function useChat() {
     })
     .catch((err) => console.error('Er ' + err));
   }, [])
-  
+
   useEffect(() => {
     if (user.id && messages.length === 0) {
       fetchChatHistory()
@@ -76,6 +76,7 @@ export function useChat() {
           const url = URL.createObjectURL(blob);
 
           const audio = new Audio(url);
+          audio.volume = 0.8
           audio.play();
 
           audio.onended = () => {
