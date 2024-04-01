@@ -9,6 +9,7 @@ export const useVoice = (socket: MutableRefObject<Socket>, setMessages: Dispatch
     const [voiceMode, setVoiceMode] = useState(false);
     
     const handleVoice = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+        e.preventDefault();
         if (e.type === 'mousedown') {
             startRecording();
         } else {
