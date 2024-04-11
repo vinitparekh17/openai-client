@@ -11,26 +11,28 @@ const ExportDataPage = () => {
   const pdfElement = useRef<HTMLDivElement>()
 
   const { user } = useSelector(CurrentAuthState) as { user: UserData }
-  
+
 
   const handleExport = () => {
 
-    
+
     getConversation(user.id)
-    .then(({ data }: { data: OldMessage[] }) => {
-      if(!pdfElement.current) return;
-
-      pdfElement.current.innerHTML = GenerateTransript({
-        user,
-        messages: data
+      .then(({ data }: { data: OldMessage[] }) => {
+        if (!pdfElement.current) return;
+        if (!data.length) return toast.error("No data to export...")
+        pdfElement.current.innerHTML = GenerateTransript({
+          user,
+          messages: data
+        })
       })
-      
-      htmlToPDF(pdfElement.current as HTMLDivElement)
-
-    })
       .catch(err => {
         console.error(err)
         toast.error("Unable to generate transcript...")
+      })
+      .finally(() => {
+          if (!pdfElement.current || !pdfElement.current.innerHTML) return toast.error("Unable to generate transcript...")
+          htmlToPDF(pdfElement.current.innerHTML)
+          pdfElement.current.innerHTML = ''
       })
   }
 
@@ -73,7 +75,7 @@ const ExportDataPage = () => {
             Export
           </button>
           <div className='hidden'>
-          <div className='w-screen h-screen' ref={pdfElement as React.RefObject<HTMLDivElement>}> </div>
+            <div className='w-screen h-screen' ref={pdfElement as React.RefObject<HTMLDivElement>}> </div>
           </div>
         </div>
       </div>

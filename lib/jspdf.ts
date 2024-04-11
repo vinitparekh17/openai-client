@@ -1,8 +1,10 @@
 import jsPDF from 'jspdf';
+import toast from 'react-hot-toast';
 
 const jspdf = new jsPDF()
 
-export const htmlToPDF = (html: HTMLDivElement) => {
+export const htmlToPDF = (html: string) => {
+
     jspdf.html(html, {
         x: 10,
         y: 10,
@@ -15,7 +17,11 @@ export const htmlToPDF = (html: HTMLDivElement) => {
             width: 1000,
         },
         width: 100,
-    });
-
-    jspdf.save('transcript.pdf');
+    }).then(() => {
+        jspdf.save('transcript.pdf')
+        toast.success("Transcript generated successfully...")
+    }).catch(err => {
+        console.error(err)
+        toast.error("Unable to generate transcript...")
+    })
 }
